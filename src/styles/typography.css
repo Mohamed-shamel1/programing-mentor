@@ -1,0 +1,113 @@
+/**
+ * ====================================================================
+ * The Mentor — المُرشد الذكي
+ * Typography System (Arabic RTL First & Technical Code)
+ * ====================================================================
+ */
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
+  font-family: var(--font-heading);
+  color: var(--color-navy-950);
+  line-height: var(--line-height-snug);
+  margin-top: 0;
+  letter-spacing: -0.01em;
+  font-weight: var(--font-weight-bold);
+}
+
+h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-black);
+}
+
+h2 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+h4 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--space-3);
+}
+
+small,
+.text-sm {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.text-xs {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+}
+
+code,
+kbd,
+samp,
+pre,
+.font-mono {
+  font-family: var(--font-code);
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+code {
+  font-size: 0.9em;
+  padding: 0.15em 0.4em;
+  background-color: var(--color-navy-50);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-xs);
+  color: var(--color-cobalt-700);
+}
+
+pre code {
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: inherit;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-accent {
+  color: var(--text-accent);
+}
+
+.text-mentor {
+  color: var(--text-mentor);
+}

@@ -1,0 +1,221 @@
+/**
+ * ====================================================================
+ * The Mentor — المُرشد الذكي
+ * Print Architecture (A4 Portrait, RTL, Deterministic 1-to-1 Page Match)
+ * ====================================================================
+ */
+
+@media print {
+  /* 1. Global Print Reset & Color Adjustment */
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-sizing: border-box !important;
+  }
+
+  html,
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10pt !important;
+    line-height: 1.38 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* 2. Standard A4 Portrait Page Setup: 210mm x 297mm */
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm 8mm 10mm;
+  }
+
+  /* 3. Hide all screen-only UI elements */
+  .no-print,
+  .web-toolbar,
+  .screen-only {
+    display: none !important;
+  }
+
+  .app-root,
+  .app-main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    background: transparent !important;
+  }
+
+  /* 4. Page Shell Wrapper: Reset all outer screen paddings & enforce clean page breaks */
+  .page-shell-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border: none !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+
+  .page-shell-wrapper:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
+  /* 5. A4 Page Shell: Exactly ONE Printed Sheet per DOM Page (297mm - 16mm = 281mm) */
+  .page-shell {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 281mm !important;
+    max-height: 281mm !important;
+    min-height: 281mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    overflow: hidden !important; /* Strict guarantee: Content never spills onto accidental blank pages */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+
+  .page-shell:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
+  /* 6. Page Content: Fills available sheet budget cleanly */
+  .page-content {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* 7. Header and Footer Integration */
+  .page-header {
+    border-bottom: 1.5pt solid #0f172a !important;
+    padding-bottom: 1.5mm !important;
+    margin-bottom: 2mm !important;
+    flex-shrink: 0 !important;
+  }
+
+  .page-footer {
+    border-top: 1pt solid #cbd5e1 !important;
+    padding-top: 1.5mm !important;
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* 8. Page-Break Avoidance for Content Blocks */
+  .card,
+  .callout-box,
+  .educational-block,
+  .visual-container,
+  .activity-box,
+  .comparison-grid,
+  .revision-summary,
+  .diagram-frame,
+  .chapter-section,
+  .progress-unit-box,
+  .mastery-stage-card,
+  .honor-contract-card,
+  table,
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* 9. Compact Typography & Spacing for Pristine Single-Sheet Fit */
+  .fm-hero-banner {
+    padding: 3mm 4mm !important;
+    margin-bottom: 2mm !important;
+  }
+
+  .chapter-section {
+    padding: 2mm 3mm !important;
+  }
+
+  .micro-lesson-card {
+    padding: 1.5mm 2.5mm !important;
+    min-height: 12mm !important;
+  }
+
+  .progress-unit-box {
+    margin-bottom: 2mm !important;
+  }
+
+  .progress-row {
+    padding: 1.2mm 2.5mm !important;
+  }
+
+  .mastery-flow-grid {
+    gap: 2mm !important;
+    margin-bottom: 2.5mm !important;
+  }
+
+  .mastery-stage-card {
+    padding: 2mm 2.5mm !important;
+    min-height: 28mm !important;
+  }
+
+  .honor-contract-card {
+    padding: 2.5mm 3.5mm !important;
+    margin-bottom: 2.5mm !important;
+  }
+
+  .tech-standards-grid {
+    gap: 2mm !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    width: 100% !important;
+  }
+
+  .tech-standard-card {
+    padding: 1.5mm 2.5mm !important;
+    min-width: 0 !important;
+  }
+
+  /* 10. Grayscale / Toner-Safe Adaptations */
+  .card,
+  .chapter-section,
+  .progress-unit-box,
+  .mastery-stage-card,
+  .honor-contract-card,
+  .tech-standard-card {
+    border: 1pt solid #cbd5e1 !important;
+    box-shadow: none !important;
+  }
+
+  .callout-box {
+    border-inline-start-width: 3pt !important;
+    background: #f8fafc !important;
+  }
+
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+}

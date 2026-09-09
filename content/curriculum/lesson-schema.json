@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Grade11LessonSchema",
+  "description": "Standardized schema for Grade 11 Programming & AI lesson specifications (The Mentor)",
+  "type": "object",
+  "required": [
+    "id",
+    "term",
+    "chapterNumber",
+    "lessonNumber",
+    "titleAr",
+    "unitTitleAr",
+    "pages"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique lesson identifier (e.g. t1-ch1-l01)"
+    },
+    "term": {
+      "type": "integer",
+      "enum": [1, 2],
+      "description": "Academic Term (1 or 2)"
+    },
+    "chapterNumber": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "lessonNumber": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "titleAr": {
+      "type": "string",
+      "description": "Arabic lesson title as approved by Ministry syllabus"
+    },
+    "titleEn": {
+      "type": "string",
+      "description": "English translation of lesson title"
+    },
+    "unitTitleAr": {
+      "type": "string",
+      "description": "Unit or chapter heading in Arabic"
+    },
+    "estimatedDurationMinutes": {
+      "type": "integer",
+      "default": 45
+    },
+    "learningObjectives": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of explicit Bloom-taxonomy learning objectives"
+    },
+    "pages": {
+      "type": "array",
+      "description": "Ordered sequence of pedagogical pages composing the lesson booklet",
+      "items": {
+        "type": "object",
+        "required": ["pageNumber", "type", "content"],
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "MISSION_HOOK",
+              "CONCEPT_VISUAL",
+              "COMPARISON",
+              "ACTIVITY_DECISION",
+              "REVISION"
+            ]
+          },
+          "badgeText": {
+            "type": "string"
+          },
+          "content": {
+            "type": "object",
+            "description": "Typed payload matching the specified page type component"
+          }
+        }
+      }
+    }
+  }
+}

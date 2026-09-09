@@ -1,0 +1,72 @@
+/**
+ * ====================================================================
+ * The Mentor — المُرشد الذكي
+ * Base Styles, Reset & RTL Normalization
+ * ====================================================================
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  direction: rtl;
+  text-align: right;
+  background-color: var(--surface-page);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--surface-page);
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: var(--space-4);
+  padding-inline-start: var(--space-6);
+}
+
+li {
+  margin-bottom: var(--space-2);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+}
+
+th,
+td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-subtle);
+}
+
+th {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-navy-950);
+  background-color: var(--color-navy-50);
+}
+
+hr {
+  border: none;
+  border-top: var(--border-subtle);
+  margin: var(--space-6) 0;
+}
