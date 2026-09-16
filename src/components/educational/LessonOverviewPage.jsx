@@ -1,10 +1,9 @@
 import React from 'react';
-import Card from '../ui/Card.jsx';
-import CalloutBox from '../ui/CalloutBox.jsx';
 import Badge from '../ui/Badge.jsx';
 import Icon from '../ui/Icon.jsx';
 import MentorAvatar from '../ui/MentorAvatar.jsx';
 import LessonJourneyMap from '../visuals/LessonJourneyMap.jsx';
+import { useLanguage } from '../../i18n/LanguageContext.js';
 
 /**
  * LessonOverviewPage (Page 00)
@@ -13,11 +12,11 @@ import LessonJourneyMap from '../visuals/LessonJourneyMap.jsx';
  * Engineered for exact single-sheet A4 print containment.
  */
 export default function LessonOverviewPage({
-  badge = 'خريطة التعلم وبوصلة الاستكشاف',
+  badge,
   lessonCode = '1-1',
-  title = 'تطور تكنولوجيا المعلومات والتحول الاجتماعي',
-  unitTitle = 'الوحدة الأولى: أساسيات الحوسبة والذكاء الاصطناعي',
-  grandQuestion = 'كيف تُغيّر التقنية المجتمع — ولمن تجلب الفائدة ولمن لا تجلبها؟',
+  title,
+  unitTitle,
+  grandQuestion,
   coreIdea,
   coreConcepts = [],
   missionContext,
@@ -26,23 +25,31 @@ export default function LessonOverviewPage({
   finalChallengeTeaser,
   cognitiveKey,
 }) {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
+  const defaultBadge = isEn ? 'Learning Journey Map & Compass' : 'خريطة التعلم وبوصلة الاستكشاف';
+  const defaultTitle = isEn ? 'Evolution of Information Technology & Social Transformation' : 'تطور تكنولوجيا المعلومات والتحول الاجتماعي';
+  const defaultUnitTitle = isEn ? 'Unit 1: Computing & AI Fundamentals' : 'الوحدة الأولى: أساسيات الحوسبة والذكاء الاصطناعي';
+  const defaultGrandQuestion = isEn ? 'How does technology reshape society — and who benefits and who gets excluded?' : 'كيف تُغيّر التقنية المجتمع — ولمن تجلب الفائدة ولمن لا تجلبها؟';
+
   return (
     <div className="educational-page lesson-overview-page">
       {/* 1. Mission Hero Banner */}
       <section className="overview-hero-section">
         <div className="overview-hero-top">
           <div className="overview-hero-badges">
-            <Badge variant="navy">{unitTitle}</Badge>
+            <Badge variant="navy">{unitTitle || defaultUnitTitle}</Badge>
             <span className="overview-code-badge">
               <Icon name="code_blocks" size={12} color="var(--color-teal-600)" />
-              <span>الدرس {lessonCode}</span>
+              <span>{isEn ? `Lesson ${lessonCode}` : `الدرس ${lessonCode}`}</span>
             </span>
-            <Badge variant="cobalt">{badge}</Badge>
+            <Badge variant="cobalt">{badge || defaultBadge}</Badge>
           </div>
         </div>
 
         <h1 className="overview-lesson-title font-heading">
-          {title}
+          {title || defaultTitle}
         </h1>
 
         <div className="overview-grand-question-card">
@@ -50,8 +57,10 @@ export default function LessonOverviewPage({
             <Icon name="psychology" size={20} color="var(--color-cobalt-600)" />
           </div>
           <div className="grand-question-body">
-            <span className="grand-question-label">السؤال الجوهري للدرس:</span>
-            <p className="grand-question-text">{grandQuestion}</p>
+            <span className="grand-question-label">
+              {isEn ? 'Essential Lesson Question:' : 'السؤال الجوهري للدرس:'}
+            </span>
+            <p className="grand-question-text">{grandQuestion || defaultGrandQuestion}</p>
           </div>
         </div>
 
@@ -59,7 +68,7 @@ export default function LessonOverviewPage({
           <div className="overview-core-idea">
             <span className="core-idea-badge">
               <Icon name="lightbulb" size={13} color="var(--color-amber-600)" />
-              <span>الفكرة الأساسية للمنهج:</span>
+              <span>{isEn ? 'Curriculum Core Idea:' : 'الفكرة الأساسية للمنهج:'}</span>
             </span>
             <p className="core-idea-text">{coreIdea}</p>
           </div>
@@ -72,15 +81,17 @@ export default function LessonOverviewPage({
         )}
       </section>
 
-      {/* 2. Official Core Concepts (10 Key Terms from Syllabus) */}
+      {/* 2. Official Core Concepts */}
       {coreConcepts.length > 0 && (
-        <section className="overview-core-concepts-section" role="region" aria-label="المفاهيم الأساسية">
+        <section className="overview-core-concepts-section" role="region" aria-label={isEn ? 'Core Concepts' : 'المفاهيم الأساسية'}>
           <div className="concepts-header">
             <div className="concepts-title">
               <Icon name="fact_check" size={15} color="var(--color-cobalt-600)" />
-              <span>المفاهيم الأساسية للدرس (المعتمدة رسميًا):</span>
+              <span>{isEn ? 'Official Core Concepts:' : 'المفاهيم الأساسية للدرس (المعتمدة رسميًا):'}</span>
             </div>
-            <span className="concepts-count-badge">10 مفاهيم محورية</span>
+            <span className="concepts-count-badge">
+              {isEn ? `${coreConcepts.length} Core Concepts` : `${coreConcepts.length} مفاهيم محورية`}
+            </span>
           </div>
 
           <div className="concepts-chips-grid">
@@ -94,17 +105,17 @@ export default function LessonOverviewPage({
         </section>
       )}
 
-      {/* 3. The 7-Stage Causal Learning Journey */}
+      {/* 3. The Causal Learning Journey */}
       <section className="overview-journey-section">
         <LessonJourneyMap stages={journeyStages} />
       </section>
 
-      {/* 3. What You Will Discover (3 High-Contrast Insight Pillars) */}
+      {/* 4. What You Will Discover */}
       {discoveryThemes.length > 0 && (
         <section className="overview-discovery-section">
           <div className="section-mini-heading">
             <Icon name="explore" size={15} color="var(--color-cobalt-600)" />
-            <span>ما ستكتشفه في هذا الدرس (3 محطات حاسمة):</span>
+            <span>{isEn ? 'What You Will Discover (3 Core Stations):' : 'ما ستكتشفه في هذا الدرس (3 محطات حاسمة):'}</span>
           </div>
 
           <div className="overview-discovery-grid">
@@ -131,13 +142,15 @@ export default function LessonOverviewPage({
         </section>
       )}
 
-      {/* 4. Final Challenge Teaser (Warm Amber Callout) */}
+      {/* 5. Final Challenge Teaser */}
       {finalChallengeTeaser && (
         <section className="overview-challenge-section">
           <div className="challenge-teaser-card">
             <div className="challenge-teaser-side">
               <MentorAvatar size={34} />
-              <span className="challenge-role-badge">{finalChallengeTeaser.roleBadge || 'مهمتك الختامية'}</span>
+              <span className="challenge-role-badge">
+                {finalChallengeTeaser.roleBadge || (isEn ? 'Final Mission' : 'مهمتك الختامية')}
+              </span>
             </div>
             <div className="challenge-teaser-content">
               <div className="challenge-teaser-title font-heading">
@@ -149,7 +162,7 @@ export default function LessonOverviewPage({
               <div className="challenge-teaser-footer">
                 <span className="challenge-badge-warning">
                   <Icon name="balance" size={14} color="var(--color-amber-700)" />
-                  <span>المطلوب منك: {finalChallengeTeaser.requirement}</span>
+                  <span>{isEn ? `Requirement: ${finalChallengeTeaser.requirement}` : `المطلوب منك: ${finalChallengeTeaser.requirement}`}</span>
                 </span>
               </div>
             </div>
@@ -157,12 +170,12 @@ export default function LessonOverviewPage({
         </section>
       )}
 
-      {/* 5. Cognitive Key (Bottom Activation Prompt) */}
+      {/* 6. Cognitive Key */}
       {cognitiveKey && (
         <footer className="overview-cognitive-key">
           <div className="cognitive-key-tag">
             <Icon name="key" size={14} color="var(--color-teal-600)" />
-            <span>المفتاح المعرفي:</span>
+            <span>{isEn ? 'Cognitive Key:' : 'المفتاح المعرفي:'}</span>
           </div>
           <p className="cognitive-key-text">
             {cognitiveKey.question}

@@ -1,0 +1,106 @@
+/**
+ * ====================================================================
+ * The Mentor — المُرشد الذكي
+ * Educational Components Styling
+ * (Clean Textbook / Workbook / Teacher Guide Aesthetic)
+ * ====================================================================
+ */
+
+/* --------------------------------------------------------------------
+ * 1. A4 Page Shell Container (Web Simulation & Document Shell)
+ * -------------------------------------------------------------------- */
+.page-shell-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-6) var(--space-4);
+  background-color: var(--surface-page);
+}
+
+.page-shell {
+  width: 100%;
+  max-width: var(--a4-preview-width);
+  min-height: var(--a4-preview-min-height);
+  background-color: var(--surface-sheet);
+  border: var(--border-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sheet);
+  padding: var(--a4-margin-top) var(--a4-margin-inline) var(--a4-margin-bottom);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.page-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* --------------------------------------------------------------------
+ * 2. Header & Footer (Integrated DOM-Based Structure)
+ * -------------------------------------------------------------------- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--color-navy-800);
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.page-header-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.page-header-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-navy-900);
+}
+
+.page-header-subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.page-header-badge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-1) var(--space-3);
+  background-color: var(--color-navy-50);
+  border: 1px solid var(--color-navy-100);
+  border-radius: var(--radius-xs);
+  color: var(--color-navy-800);
+}
+
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-neutral-200);
+  padding-top: var(--space-2);
+  margin-top: auto;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.page-footer-mentor {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-navy-800);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.page-footer-page-num {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-navy-800);
+}
+
+

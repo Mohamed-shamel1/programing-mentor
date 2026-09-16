@@ -6,11 +6,28 @@ import GlobalRoadmapPage from '../components/educational/frontmatter/GlobalRoadm
 import ProgressTrackerPage from '../components/educational/frontmatter/ProgressTrackerPage.jsx';
 import MasteryPedagogyPage from '../components/educational/frontmatter/MasteryPedagogyPage.jsx';
 import LessonRenderer from '../renderer/LessonRenderer.jsx';
+import LessonMasterCheatSheet from '../components/educational/LessonMasterCheatSheet.jsx';
 import { lesson01Data } from '../data/lesson01Data.js';
+import { lesson01DataEn } from '../data/lesson01DataEn.js';
+import { lesson01CheatSheetData } from '../data/lesson01CheatSheetData.js';
+import { lesson01CheatSheetDataEn } from '../data/lesson01CheatSheetDataEn.js';
+import { globalRoadmapData, progressTrackerData, masteryPedagogyData } from '../data/frontMatterData.js';
+import { globalRoadmapDataEn, progressTrackerDataEn, masteryPedagogyDataEn } from '../data/frontMatterDataEn.js';
 import Icon from '../components/ui/Icon.jsx';
+import LanguageSwitcher from '../components/ui/LanguageSwitcher.jsx';
+import { useLanguage } from '../i18n/LanguageContext.js';
+import { LanguageProvider } from '../i18n/LanguageProvider.jsx';
 
-export default function App() {
-  const [currentView, setCurrentView] = useState(VIEWS.LESSON_1_1_PAGE6);
+function AppContent() {
+  const [currentView, setCurrentView] = useState(VIEWS.CURRICULUM_COVER);
+  const { language, t } = useLanguage();
+
+  // Active curriculum data resolved by current language
+  const activeLesson01 = language === 'en' ? lesson01DataEn : lesson01Data;
+  const activeRoadmap = language === 'en' ? globalRoadmapDataEn : globalRoadmapData;
+  const activeTracker = language === 'en' ? progressTrackerDataEn : progressTrackerData;
+  const activePedagogy = language === 'en' ? masteryPedagogyDataEn : masteryPedagogyData;
+  const activeCheatSheet = language === 'en' ? lesson01CheatSheetDataEn : lesson01CheatSheetData;
 
   // Active section resolution based on current view
   const activeSection =
@@ -18,41 +35,21 @@ export default function App() {
       sec.pages.some((p) => p.id === currentView)
     ) || NAVIGATION_SECTIONS[1];
 
-  const page0Lesson = {
-    ...lesson01Data,
-    pages: lesson01Data.pages.filter((p) => p.id === 'page-00'),
-  };
+  const activeSectionTitle =
+    language === 'en' && activeSection.titleEn ? activeSection.titleEn : activeSection.title;
 
-  const page1Lesson = {
-    ...lesson01Data,
-    pages: lesson01Data.pages.filter((p) => p.id === 'page-01'),
+  // Dynamic mapping of lesson views to page IDs
+  const lessonPageIdMap = {
+    [VIEWS.LESSON_1_1_PAGE0]: 'page-00',
+    [VIEWS.LESSON_1_1_PAGE1]: 'page-01',
+    [VIEWS.LESSON_1_1_PAGE2]: 'page-02',
+    [VIEWS.LESSON_1_1_PAGE3]: 'page-03',
+    [VIEWS.LESSON_1_1_PAGE4]: 'page-04',
+    [VIEWS.LESSON_1_1_PAGE5]: 'page-05',
+    [VIEWS.LESSON_1_1_PAGE6]: 'page-06',
+    [VIEWS.LESSON_1_1_PAGE7]: 'page-07',
+    [VIEWS.LESSON_1_1_PAGE8]: 'page-08',
   };
-
-  const page2Lesson = {
-    ...lesson01Data,
-    pages: lesson01Data.pages.filter((p) => p.id === 'page-02'),
-  };
-
-  const page3Lesson = {
-    ...lesson01Data,
-    pages: lesson01Data.pages.filter((p) => p.id === 'page-03'),
-  };
-
-  const page4Lesson = {
-    ...lesson01Data,
-    pages: lesson01Data.pages.filter((p) => p.id === 'page-04'),
-  };
-
-  const page5Lesson = {
-    ...lesson01Data,
-    pages: lesson01Data.pages.filter((p) => p.id === 'page-05'),
-  };
-
-  const page6Lesson = {
-    ...lesson01Data,
-    pages: lesson01Data.pages.filter((p) => p.id === 'page-06'),
-  };
-
 
   const renderActiveView = () => {
     switch (currentView) {
@@ -63,11 +60,11 @@ export default function App() {
       case VIEWS.CURRICULUM_COVER:
         return <CurriculumCoverPage />;
       case VIEWS.ROADMAP_PAGE1:
-        return <GlobalRoadmapPage />;
+        return <GlobalRoadmapPage data={activeRoadmap} />;
       case VIEWS.TRACKER_PAGE2:
-        return <ProgressTrackerPage />;
+        return <ProgressTrackerPage data={activeTracker} />;
       case VIEWS.PEDAGOGY_PAGE3:
-        return <MasteryPedagogyPage />;
+        return <MasteryPedagogyPage data={activePedagogy} />;
       case VIEWS.BOOKLET_TRILOGY:
         return (
           <div className="booklet-trilogy-container">
@@ -95,7 +92,7 @@ export default function App() {
                     display: 'inline-block',
                   }}
                 />
-                <strong>معاينة كتيب افتتاحية المنهج الكامل (الغلاف + 3 صفحات):</strong> كل صفحة تطبع في ورقة A4 منفصلة.
+                <strong>{t('trilogyPreviewNote')}</strong>
               </div>
 
               <button
@@ -118,60 +115,17 @@ export default function App() {
                 }}
               >
                 <Icon name="print" size={16} color="#ffffff" />
-                <span>طباعة الكتيب (A4)</span>
+                <span>{t('printBookletAction')}</span>
               </button>
             </div>
 
             <CurriculumCoverPage />
-            <GlobalRoadmapPage />
-            <ProgressTrackerPage />
-            <MasteryPedagogyPage />
+            <GlobalRoadmapPage data={activeRoadmap} />
+            <ProgressTrackerPage data={activeTracker} />
+            <MasteryPedagogyPage data={activePedagogy} />
           </div>
         );
 
-      // Lesson 1-1 Pages
-      case VIEWS.LESSON_1_1_PAGE0:
-        return (
-          <div className="lesson-page-preview">
-            <LessonRenderer lesson={page0Lesson} />
-          </div>
-        );
-      case VIEWS.LESSON_1_1_PAGE1:
-        return (
-          <div className="lesson-page-preview">
-            <LessonRenderer lesson={page1Lesson} />
-          </div>
-        );
-      case VIEWS.LESSON_1_1_PAGE2:
-        return (
-          <div className="lesson-page-preview">
-            <LessonRenderer lesson={page2Lesson} />
-          </div>
-        );
-      case VIEWS.LESSON_1_1_PAGE3:
-        return (
-          <div className="lesson-page-preview">
-            <LessonRenderer lesson={page3Lesson} />
-          </div>
-        );
-      case VIEWS.LESSON_1_1_PAGE4:
-        return (
-          <div className="lesson-page-preview">
-            <LessonRenderer lesson={page4Lesson} />
-          </div>
-        );
-      case VIEWS.LESSON_1_1_PAGE5:
-        return (
-          <div className="lesson-page-preview">
-            <LessonRenderer lesson={page5Lesson} />
-          </div>
-        );
-      case VIEWS.LESSON_1_1_PAGE6:
-        return (
-          <div className="lesson-page-preview">
-            <LessonRenderer lesson={page6Lesson} />
-          </div>
-        );
       case VIEWS.LESSON_1_1_BOOKLET:
         return (
           <div className="booklet-lesson-container">
@@ -199,7 +153,7 @@ export default function App() {
                     display: 'inline-block',
                   }}
                 />
-                <strong>معاينة كتيب الدرس 1-1 المطبوع (3 صفحات متتالية):</strong> كل صفحة تُطبع في ورقة A4 منفصلة تماماً.
+                <strong>{t('lessonBookletPreviewNote')}</strong>
               </div>
 
               <button
@@ -222,16 +176,88 @@ export default function App() {
                 }}
               >
                 <Icon name="print" size={16} color="#ffffff" />
-                <span>طباعة الكتيب (A4)</span>
+                <span>{t('printBookletAction')}</span>
               </button>
             </div>
 
-            <LessonRenderer lesson={lesson01Data} />
+            <LessonRenderer lesson={activeLesson01} />
           </div>
         );
 
-      default:
+      case VIEWS.LESSON_1_1_CHEAT_SHEET:
+        return (
+          <div className="cheat-sheet-view-container">
+            <div
+              className="screen-only"
+              style={{
+                maxWidth: '1440px',
+                margin: '0 auto var(--space-4)',
+                padding: 'var(--space-3) var(--space-4)',
+                backgroundColor: 'var(--color-navy-50)',
+                border: '1px solid var(--color-navy-100)',
+                borderRadius: 'var(--radius-sm)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--font-size-xs)', color: 'var(--color-navy-900)' }}>
+                <span
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--color-amber-500)',
+                    display: 'inline-block',
+                  }}
+                />
+                <strong>{t('cheatSheetPreviewNote')}</strong>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => window.print()}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: 'var(--color-cobalt-600)',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: 'var(--radius-sm)',
+                  padding: '6px 14px',
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: 'var(--font-size-xs)',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  boxShadow: 'var(--shadow-sm)',
+                }}
+              >
+                <Icon name="print" size={16} color="#ffffff" />
+                <span>{t('cheatSheetPrintAction')}</span>
+              </button>
+            </div>
+
+            <LessonMasterCheatSheet data={activeCheatSheet} />
+          </div>
+        );
+
+      default: {
+        // Dynamic Single Lesson Page Resolution
+        const targetPageId = lessonPageIdMap[currentView];
+        if (targetPageId) {
+          const singlePageLesson = {
+            ...activeLesson01,
+            pages: activeLesson01.pages.filter((p) => p.id === targetPageId),
+          };
+          return (
+            <div className="lesson-page-preview">
+              <LessonRenderer lesson={singlePageLesson} />
+            </div>
+          );
+        }
         return <CurriculumCoverPage />;
+      }
     }
   };
 
@@ -253,8 +279,15 @@ export default function App() {
           zIndex: 100,
         }}
       >
-        {/* Brand & Level Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {/* Brand & Level Badge (Clickable to Home) */}
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => setCurrentView(VIEWS.HOME)}
+          onKeyDown={(e) => e.key === 'Enter' && setCurrentView(VIEWS.HOME)}
+          title={t('returnHomeTooltip')}
+          style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
+        >
           <div
             style={{
               width: '28px',
@@ -280,7 +313,7 @@ export default function App() {
                 lineHeight: 1.1,
               }}
             >
-              The Mentor — المُرشد الذكي
+              {t('platformName')}
             </span>
             <span
               style={{
@@ -289,7 +322,7 @@ export default function App() {
                 display: 'block',
               }}
             >
-              البرمجة والذكاء الاصطناعي — الصف الأول الثانوي 2026/2027
+              {t('platformSubtitle')}
             </span>
           </div>
         </div>
@@ -307,6 +340,9 @@ export default function App() {
         >
           {NAVIGATION_SECTIONS.map((section) => {
             const isSectionActive = activeSection.id === section.id;
+            const sectionTitle =
+              language === 'en' && section.titleEn ? section.titleEn : section.title;
+
             return (
               <button
                 key={section.id}
@@ -334,18 +370,20 @@ export default function App() {
                   size={15}
                   color={isSectionActive ? '#ffffff' : 'var(--color-neutral-400)'}
                 />
-                <span>{section.title}</span>
+                <span>{sectionTitle}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Quick Action: Direct Print Shortcut */}
-        <div>
+        {/* Quick Action: Language Switcher & Direct Print Shortcut */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <LanguageSwitcher />
+
           <button
             type="button"
             onClick={() => window.print()}
-            title="طباعة الصفحة أو الكتيب المعروض حالياً بنظام A4"
+            title={t('printTooltip')}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -361,7 +399,7 @@ export default function App() {
             }}
           >
             <Icon name="print" size={14} color="var(--color-teal-400)" />
-            <span>طباعة (A4)</span>
+            <span>{t('printA4')}</span>
           </button>
         </div>
       </header>
@@ -393,14 +431,20 @@ export default function App() {
             gap: '4px',
             paddingInlineEnd: '8px',
             borderInlineEnd: '1px solid var(--color-navy-700)',
+            whiteSpace: 'nowrap',
           }}
         >
-          <span>صفحات {activeSection.title}:</span>
+          <span>{t('pagesOfSection')} {activeSectionTitle}:</span>
         </div>
 
         <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
           {activeSection.pages.map((page) => {
             const isPageActive = currentView === page.id;
+            const pageLabel =
+              language === 'en' && page.labelEn ? page.labelEn : page.label;
+            const pageBadge =
+              language === 'en' && page.badgeEn ? page.badgeEn : page.badge;
+
             return (
               <button
                 key={page.id}
@@ -431,10 +475,11 @@ export default function App() {
                     ? 'var(--color-amber-300)'
                     : 'var(--color-neutral-300)',
                   fontWeight: isPageActive ? 'bold' : 'normal',
+                  whiteSpace: 'nowrap',
                   transition: 'all 0.12s ease',
                 }}
               >
-                {page.badge && (
+                {pageBadge && (
                   <span
                     style={{
                       fontFamily: 'var(--font-code)',
@@ -444,10 +489,10 @@ export default function App() {
                       borderRadius: '2px',
                     }}
                   >
-                    {page.badge}
+                    {pageBadge}
                   </span>
                 )}
-                <span>{page.label}</span>
+                <span>{pageLabel}</span>
                 {page.isPrint && <Icon name="print" size={13} color="currentColor" />}
               </button>
             );
@@ -463,3 +508,10 @@ export default function App() {
   );
 }
 
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
+  );
+}

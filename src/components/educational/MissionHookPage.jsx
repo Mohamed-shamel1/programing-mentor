@@ -2,6 +2,7 @@ import React from 'react';
 import Card from '../ui/Card.jsx';
 import CalloutBox from '../ui/CalloutBox.jsx';
 import Badge from '../ui/Badge.jsx';
+import { useLanguage } from '../../i18n/LanguageContext.js';
 
 /**
  * MissionHookPage
@@ -10,15 +11,21 @@ import Badge from '../ui/Badge.jsx';
  * All educational content is received via props; no hardcoded facts.
  */
 export default function MissionHookPage({
-  badge = 'مهمة الدرس',
+  badge,
   title,
   contextScenario,
   learningObjectives = [],
   mentorChallenge,
 }) {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
+  const defaultBadge = isEn ? 'Lesson Mission' : 'مهمة الدرس';
+  const finalBadge = badge || defaultBadge;
+
   return (
     <div className="educational-page mission-hook-page">
-      {badge && <Badge variant="cobalt">{badge}</Badge>}
+      {finalBadge && <Badge variant="cobalt">{finalBadge}</Badge>}
       
       {title && (
         <h2 className="page-heading font-heading" style={{ marginTop: 'var(--space-2)' }}>
@@ -27,13 +34,13 @@ export default function MissionHookPage({
       )}
 
       {contextScenario && (
-        <Card variant="navy" title="سيناريو الاستكشاف">
+        <Card variant="navy" title={isEn ? 'Exploration Scenario' : 'سيناريو الاستكشاف'}>
           <p>{contextScenario}</p>
         </Card>
       )}
 
       {learningObjectives.length > 0 && (
-        <Card variant="teal" title="أهداف التعلم">
+        <Card variant="teal" title={isEn ? 'Learning Objectives' : 'أهداف التعلم'}>
           <ul>
             {learningObjectives.map((objective, idx) => (
               <li key={idx}>{objective}</li>
@@ -45,7 +52,7 @@ export default function MissionHookPage({
       {mentorChallenge && (
         <CalloutBox
           type="mentor"
-          title={mentorChallenge.title || 'تحدي المُرشد الذكي'}
+          title={mentorChallenge.title || (isEn ? 'The Smart Mentor Challenge' : 'تحدي المُرشد الذكي')}
         >
           <p>{mentorChallenge.prompt}</p>
         </CalloutBox>

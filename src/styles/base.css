@@ -13,10 +13,15 @@
 
 html {
   direction: rtl;
-  text-align: right;
+  text-align: start;
   background-color: var(--surface-page);
   color: var(--text-primary);
   scroll-behavior: smooth;
+}
+
+html[dir="ltr"] {
+  direction: ltr;
+  text-align: start;
 }
 
 body {
@@ -49,7 +54,7 @@ li {
 table {
   width: 100%;
   border-collapse: collapse;
-  text-align: right;
+  text-align: start;
 }
 
 th,

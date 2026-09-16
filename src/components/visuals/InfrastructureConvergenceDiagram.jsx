@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '../../i18n/LanguageContext.js';
 
 /**
  * InfrastructureConvergenceDiagram
@@ -9,10 +10,15 @@ import React from 'react';
  * 3. Central Cloud (الحوسبة السحابية المركزية)
  */
 export default function InfrastructureConvergenceDiagram({ className = '' }) {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
   return (
     <div className={`st-convergence-widget ${className}`}>
       <div className="st-convergence-header">
-        <span className="st-convergence-title font-caption">مستوى الاعتمادية والترابط المتبادل</span>
+        <span className="st-convergence-title font-caption">
+          {isEn ? 'Interdependence & Convergence Level' : 'مستوى الاعتمادية والترابط المتبادل'}
+        </span>
         <span className="st-convergence-rate font-code">100% INTERDEPENDENT</span>
       </div>
 
@@ -22,7 +28,7 @@ export default function InfrastructureConvergenceDiagram({ className = '' }) {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className="st-convergence-svg"
-          aria-label="مخطط ترابط أركان البنية التحتية الرقمية الثلاثة"
+          aria-label={isEn ? 'Foundational 3 Pillars Diagram' : 'مخطط ترابط أركان البنية التحتية الرقمية الثلاثة'}
         >
           {/* Base Track */}
           <rect x="10" y="14" width="190" height="5" rx="2.5" fill="var(--color-cobalt-100)" />
@@ -42,7 +48,7 @@ export default function InfrastructureConvergenceDiagram({ className = '' }) {
             fontSize="8.5"
             fontWeight="700"
           >
-            أجهزة
+            {isEn ? 'Devices' : 'أجهزة'}
           </text>
 
           {/* Node 2: Networks */}
@@ -57,7 +63,7 @@ export default function InfrastructureConvergenceDiagram({ className = '' }) {
             fontSize="8.5"
             fontWeight="700"
           >
-            شبكات
+            {isEn ? 'Networks' : 'شبكات'}
           </text>
 
           {/* Node 3: Cloud */}
@@ -72,7 +78,7 @@ export default function InfrastructureConvergenceDiagram({ className = '' }) {
             fontSize="8.5"
             fontWeight="700"
           >
-            سحابة
+            {isEn ? 'Cloud' : 'سحابة'}
           </text>
 
           {/* SVG Gradient */}

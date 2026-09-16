@@ -145,6 +145,16 @@
   --font-heading:       'Cairo', 'Alexandria', system-ui, -apple-system, sans-serif;
   --font-body:          'Noto Sans Arabic', 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
   --font-code:          'Fira Code', 'JetBrains Mono', monospace;
+}
+
+:root[dir="ltr"],
+html[dir="ltr"],
+[data-lang="en"] {
+  --font-heading:       'Inter', system-ui, -apple-system, sans-serif;
+  --font-body:          'Inter', system-ui, -apple-system, sans-serif;
+}
+
+:root {
 
   --font-size-xs:       0.75rem;   /* 12px */
   --font-size-sm:       0.875rem;  /* 14px */

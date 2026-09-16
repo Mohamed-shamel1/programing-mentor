@@ -2,6 +2,7 @@ import React from 'react';
 import Card from '../ui/Card.jsx';
 import CalloutBox from '../ui/CalloutBox.jsx';
 import Badge from '../ui/Badge.jsx';
+import { useLanguage } from '../../i18n/LanguageContext.js';
 
 /**
  * RevisionPage
@@ -10,16 +11,22 @@ import Badge from '../ui/Badge.jsx';
  * All content received via props.
  */
 export default function RevisionPage({
-  badge = 'مراجعة وتثبيت',
+  badge,
   title,
   summaryCards = [],
   keyTerms = [],
   checkQuestions = [],
   mentorClosing,
 }) {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
+  const defaultBadge = isEn ? 'Review & Synthesis' : 'مراجعة وتثبيت';
+  const finalBadge = badge || defaultBadge;
+
   return (
     <div className="educational-page revision-page">
-      {badge && <Badge variant="navy">{badge}</Badge>}
+      {finalBadge && <Badge variant="navy">{finalBadge}</Badge>}
 
       {title && (
         <h2 className="page-heading font-heading" style={{ marginTop: 'var(--space-2)' }}>
@@ -38,12 +45,12 @@ export default function RevisionPage({
       )}
 
       {keyTerms.length > 0 && (
-        <Card variant="teal" title="مصطلحات رئيسية">
+        <Card variant="teal" title={isEn ? 'Key Vocabulary' : 'مصطلحات رئيسية'}>
           <table>
             <thead>
               <tr>
-                <th style={{ width: '35%' }}>المصطلح</th>
-                <th>المفهوم المعياري</th>
+                <th style={{ width: '35%' }}>{isEn ? 'Term' : 'المصطلح'}</th>
+                <th>{isEn ? 'Standard Definition' : 'المفهوم المعياري'}</th>
               </tr>
             </thead>
             <tbody>
@@ -61,7 +68,7 @@ export default function RevisionPage({
       {checkQuestions.length > 0 && (
         <div className="activity-box" style={{ marginTop: 'var(--space-4)' }}>
           <h4 className="font-heading" style={{ marginBottom: 'var(--space-2)' }}>
-            تقييم ذاتي سريع:
+            {isEn ? 'Quick Self-Assessment:' : 'تقييم ذاتي سريع:'}
           </h4>
           <ol>
             {checkQuestions.map((q, idx) => (
@@ -76,7 +83,7 @@ export default function RevisionPage({
       {mentorClosing && (
         <CalloutBox
           type="mentor"
-          title={mentorClosing.title || 'رسالة المُرشد الختامية'}
+          title={mentorClosing.title || (isEn ? "Mentor's Closing Insight" : 'رسالة المُرشد الختامية')}
           style={{ marginTop: 'var(--space-4)' }}
         >
           <p>{mentorClosing.text}</p>

@@ -3,6 +3,7 @@ import PageShell from '../../layout/PageShell.jsx';
 import Icon from '../../ui/Icon.jsx';
 import MentorAvatar from '../../ui/MentorAvatar.jsx';
 import { globalRoadmapData as defaultData } from '../../../data/frontMatterData.js';
+import { useLanguage } from '../../../i18n/LanguageContext.js';
 
 /**
  * GlobalRoadmapPage (Front-Matter Page 01)
@@ -10,6 +11,9 @@ import { globalRoadmapData as defaultData } from '../../../data/frontMatterData.
  * Completely data-driven from frontMatterData.
  */
 export default function GlobalRoadmapPage({ data = defaultData, standalone = true }) {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
   const innerContent = (
     <div className="global-roadmap-content">
       {/* 1. Subheader Hero Banner */}
@@ -27,14 +31,14 @@ export default function GlobalRoadmapPage({ data = defaultData, standalone = tru
             <span className="fm-counter-num" style={{ color: 'var(--color-amber-300)' }}>
               {data.hero.totalChapters}
             </span>
-            <span className="fm-counter-label">فصول</span>
+            <span className="fm-counter-label">{isEn ? 'Chapters' : 'فصول'}</span>
           </div>
           <div className="fm-counter-divider" />
           <div className="fm-counter-item">
             <span className="fm-counter-num" style={{ color: '#6ee7b7' }}>
               {data.hero.totalLessons}
             </span>
-            <span className="fm-counter-label">درساً رسمياً</span>
+            <span className="fm-counter-label">{isEn ? 'Official Lessons' : 'درساً رسمياً'}</span>
           </div>
         </div>
       </div>
@@ -128,7 +132,7 @@ export default function GlobalRoadmapPage({ data = defaultData, standalone = tru
       }}
       footerProps={{
         currentPage: '01',
-        subjectTitle: 'خريطة المنهج — نظرة شمولية عامة',
+        subjectTitle: isEn ? 'Curriculum Roadmap — Macro Architecture' : 'خريطة المنهج — نظرة شمولية عامة',
       }}
       className="global-roadmap-page"
     >

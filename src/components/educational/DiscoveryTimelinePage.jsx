@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Icon from '../ui/Icon.jsx';
 import CumulativeLayersDiagram from '../visuals/CumulativeLayersDiagram.jsx';
+import { useLanguage } from '../../i18n/LanguageContext.js';
 
 /**
  * DiscoveryTimelinePage (Page 02)
@@ -13,27 +14,40 @@ import CumulativeLayersDiagram from '../visuals/CumulativeLayersDiagram.jsx';
  * - 5-Minute Critical Thinking Pair Workshop with Ruled Handwriting Lines & Teacher Rubric
  */
 export default function DiscoveryTimelinePage({
-  topicRibbon = {
-    number: '02',
-    unitTitle: 'الوحدة الأولى: أساسيات الحوسبة والذكاء الاصطناعي',
-    lessonCode: 'الدرس 1-1',
-    subBadge: 'هندسة المسار الزمني',
-    title: 'مسار الاكتشاف الزمني: التطور التراكمي لنظم الحوسبة وأثرها المجتمعي',
-    logicTag: 'المنطق السببي الثلاثي',
-    analysisType: 'تحليل أثر',
-  },
-  guideText = 'تتبع التتابع الحتمي: الجهاز والعتاد ← القدرة البشرية المكتسبة ← الانعكاس الاجتماعي',
+  topicRibbon,
+  guideText,
   timeSpan = '1940 ➔ 2026+',
   stations = [],
   sidebar = {},
-  footerNote = {
-    author: 'الأستاذ / محمد شامل محمد',
-    authorTitle: 'خبير تكنولوجيا المعلومات والمناهج',
-    pageLabel: 'صفحة 02',
-    academicYear: 'العام الدراسي 2026-2027',
-  },
+  footerNote,
 }) {
-  const [selectedPair, setSelectedPair] = useState('المحطة 1 & 2');
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
+  const defaultTopicRibbon = {
+    number: '02',
+    unitTitle: isEn ? 'Unit 1: Computing & AI Fundamentals' : 'الوحدة الأولى: أساسيات الحوسبة والذكاء الاصطناعي',
+    lessonCode: isEn ? 'Lesson 1-1' : 'الدرس 1-1',
+    subBadge: isEn ? 'Timeline Engineering' : 'هندسة المسار الزمني',
+    title: isEn ? 'Discovery Timeline: Cumulative Evolution of Computing & Societal Impact' : 'مسار الاكتشاف الزمني: التطور التراكمي لنظم الحوسبة وأثرها المجتمعي',
+    logicTag: isEn ? 'Causal Logic' : 'المنطق السببي الثلاثي',
+    analysisType: isEn ? 'Impact Analysis' : 'تحليل أثر',
+  };
+
+  const finalTopicRibbon = topicRibbon || defaultTopicRibbon;
+  const defaultGuideText = isEn
+    ? 'Trace the causal chain: Hardware Device → Acquired Human Capability → Societal Reflection'
+    : 'تتبع التتابع الحتمي: الجهاز والعتاد ← القدرة البشرية المكتسبة ← الانعكاس الاجتماعي';
+
+  const defaultFooterNote = {
+    author: isEn ? 'Mohamed Shamel Mohamed' : 'الأستاذ / محمد شامل محمد',
+    authorTitle: isEn ? 'Curriculum & IT Expert' : 'خبير تكنولوجيا المعلومات والمناهج',
+    pageLabel: isEn ? 'Page 02' : 'صفحة 02',
+    academicYear: isEn ? 'Academic Year 2026-2027' : 'العام الدراسي 2026-2027',
+  };
+  const finalFooterNote = footerNote || defaultFooterNote;
+
+  const [selectedPair, setSelectedPair] = useState(isEn ? 'Station 1 & 2' : 'المحطة 1 & 2');
 
   const {
     misconception = {
@@ -65,25 +79,25 @@ export default function DiscoveryTimelinePage({
       {/* 1. Topic Ribbon Header */}
       <section className="timeline-ribbon-header">
         <div className="ribbon-right">
-          <span className="ribbon-number font-heading">{topicRibbon.number}</span>
+          <span className="ribbon-number font-heading">{finalTopicRibbon.number}</span>
           <div>
             <div className="ribbon-breadcrumbs">
-              <span>{topicRibbon.unitTitle}</span>
+              <span>{finalTopicRibbon.unitTitle}</span>
               <span className="bullet">•</span>
-              <span>{topicRibbon.lessonCode}</span>
+              <span>{finalTopicRibbon.lessonCode}</span>
               <span className="bullet">•</span>
-              <span className="ribbon-sub-badge">{topicRibbon.subBadge}</span>
+              <span className="ribbon-sub-badge">{finalTopicRibbon.subBadge}</span>
             </div>
-            <h1 className="ribbon-title font-heading">{topicRibbon.title}</h1>
+            <h1 className="ribbon-title font-heading">{finalTopicRibbon.title}</h1>
           </div>
         </div>
 
         <div className="ribbon-left">
           <div className="logic-badge-group">
             <Icon name="schema" size={16} color="var(--color-amber-600)" />
-            <span className="logic-tag-text font-heading">{topicRibbon.logicTag}</span>
+            <span className="logic-tag-text font-heading">{finalTopicRibbon.logicTag}</span>
           </div>
-          <span className="analysis-pill">{topicRibbon.analysisType}</span>
+          <span className="analysis-pill">{finalTopicRibbon.analysisType}</span>
         </div>
       </section>
 
@@ -95,28 +109,22 @@ export default function DiscoveryTimelinePage({
           <div className="timeline-guide-bar">
             <div className="guide-text-group">
               <Icon name="timeline" size={15} color="var(--color-cobalt-600)" />
-              <span className="guide-text">{guideText}</span>
+              <span className="guide-text">{guideText || defaultGuideText}</span>
             </div>
             <span className="timespan-badge font-code" dir="ltr">{timeSpan}</span>
           </div>
 
-          {/* Stations List */}
-          <div className="stations-cards-list">
+          {/* Chronological Stations Feed */}
+          <div className="stations-feed">
             {stations.map((station) => (
-              <article key={station.num || station.id} className="station-card">
+              <article key={station.num} className={`station-card station-${station.num}`}>
                 <div className="station-card-header">
-                  <div className="station-title-group">
-                    <span className={`station-num-bubble ${station.isCurrent ? 'current' : ''}`}>
-                      {station.num}
-                    </span>
-                    <div className="station-names">
-                      <strong className="station-title font-heading">{station.title}</strong>
-                      <span className="station-years font-code" dir="ltr">{station.years}</span>
-                    </div>
+                  <div className="station-badge-group">
+                    <span className="station-num-circle font-heading">{station.num}</span>
+                    <span className="station-title font-heading">{station.title}</span>
+                    <span className="station-years font-code" dir="ltr">{station.years}</span>
                   </div>
-                  <span className={`station-badge-pill ${station.isCurrent ? 'current' : ''}`}>
-                    {station.stationBadge}
-                  </span>
+                  <span className="station-tag font-heading">{station.stationBadge}</span>
                 </div>
 
                 <div className="station-dual-grid">
@@ -124,7 +132,7 @@ export default function DiscoveryTimelinePage({
                   <div className="station-subbox ability-box">
                     <div className="subbox-label ability-label">
                       <Icon name="psychology" size={14} color="var(--color-cobalt-600)" />
-                      <span>ما أصبح ممكناً للبشر:</span>
+                      <span>{isEn ? 'What became possible for humans:' : 'ما أصبح ممكناً للبشر:'}</span>
                     </div>
                     <p className="subbox-text">{station.abilityText}</p>
                   </div>
@@ -133,7 +141,7 @@ export default function DiscoveryTimelinePage({
                   <div className="station-subbox social-box">
                     <div className="subbox-label social-label">
                       <Icon name="groups" size={14} color="var(--color-amber-700)" />
-                      <span>التحول المجتمعي الناتج:</span>
+                      <span>{isEn ? 'Resulting societal shift:' : 'التحول المجتمعي الناتج:'}</span>
                     </div>
                     <p className="subbox-text">{station.socialText}</p>
                   </div>
@@ -250,12 +258,13 @@ export default function DiscoveryTimelinePage({
         <div className="footer-author-note">
           <Icon name="person_pin" size={16} color="var(--color-cobalt-600)" />
           <span>
-            إعداد وتأليف: <strong className="author-name">{footerNote.author}</strong> • {footerNote.authorTitle}
+            {isEn ? 'Prepared & Authored by: ' : 'إعداد وتأليف: '}
+            <strong className="author-name">{finalFooterNote.author}</strong> • {finalFooterNote.authorTitle}
           </span>
         </div>
         <div className="footer-page-meta">
-          <span className="footer-page-pill font-code">{footerNote.pageLabel}</span>
-          <span className="footer-academic-year">{footerNote.academicYear}</span>
+          <span className="footer-page-pill font-code">{finalFooterNote.pageLabel}</span>
+          <span className="footer-academic-year">{finalFooterNote.academicYear}</span>
         </div>
       </footer>
     </div>

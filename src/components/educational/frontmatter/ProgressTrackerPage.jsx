@@ -2,6 +2,7 @@ import React from 'react';
 import PageShell from '../../layout/PageShell.jsx';
 import Icon from '../../ui/Icon.jsx';
 import { progressTrackerData as defaultData } from '../../../data/frontMatterData.js';
+import { useLanguage } from '../../../i18n/LanguageContext.js';
 
 /**
  * ProgressTrackerPage (Front-Matter Page 02)
@@ -9,6 +10,9 @@ import { progressTrackerData as defaultData } from '../../../data/frontMatterDat
  * Displays units, interactive/printable check indicators, milestones, and student contract.
  */
 export default function ProgressTrackerPage({ data = defaultData, standalone = true }) {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
   const innerContent = (
     <div className="progress-tracker-content">
       {/* 1. Subheader Banner */}
@@ -36,7 +40,7 @@ export default function ProgressTrackerPage({ data = defaultData, standalone = t
       <div className="progress-legend-bar">
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 'var(--font-weight-bold)' }}>
           <Icon name="check_circle" size={15} color="var(--color-cobalt-600)" />
-          <span>دليل رموز التقييم الذاتي:</span>
+          <span>{isEn ? 'Self-Evaluation Legend:' : 'دليل رموز التقييم الذاتي:'}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           {data.legendKeys.map((k) => (
@@ -223,7 +227,7 @@ export default function ProgressTrackerPage({ data = defaultData, standalone = t
                 border: '1px solid var(--color-neutral-200)',
               }}
             >
-              ...... / ...... / 2026م
+              ...... / ...... / {isEn ? '2026' : '2026م'}
             </span>
           </div>
         </div>
@@ -244,7 +248,7 @@ export default function ProgressTrackerPage({ data = defaultData, standalone = t
       }}
       footerProps={{
         currentPage: '02',
-        subjectTitle: 'خريطة الإنجاز ومسار الدروس (14 درساً)',
+        subjectTitle: isEn ? 'Achievement Map & Lesson Track (14 Lessons)' : 'خريطة الإنجاز ومسار الدروس (14 درساً)',
       }}
       className="progress-tracker-page"
     >

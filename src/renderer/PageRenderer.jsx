@@ -43,13 +43,14 @@ export default function PageRenderer({ page }) {
         unitTitle: page.unitTitle,
         lessonTitle: page.lessonTitle,
         badgeText: page.badgeText,
+        pageTag: page.pageTag || (page.pageNumber ? `CH-01 // PAGE ${page.pageNumber}` : null),
       }}
       footerProps={{
         currentPage: page.pageNumber,
         totalPages: page.totalPages,
       }}
     >
-      <PageComponent {...(page.content || {})} />
+      {React.createElement(PageComponent, page.content || {})}
     </PageShell>
   );
 }

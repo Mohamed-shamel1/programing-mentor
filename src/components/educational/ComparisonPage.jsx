@@ -3,6 +3,7 @@ import Card from '../ui/Card.jsx';
 import CalloutBox from '../ui/CalloutBox.jsx';
 import Badge from '../ui/Badge.jsx';
 import ComparisonGrid from '../visuals/ComparisonGrid.jsx';
+import { useLanguage } from '../../i18n/LanguageContext.js';
 
 /**
  * ComparisonPage
@@ -11,7 +12,7 @@ import ComparisonGrid from '../visuals/ComparisonGrid.jsx';
  * All data passed via props.
  */
 export default function ComparisonPage({
-  badge = 'مقارنة وتحليل',
+  badge,
   title,
   overview,
   sideA,
@@ -19,9 +20,15 @@ export default function ComparisonPage({
   criteria = [],
   synthesis,
 }) {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
+  const defaultBadge = isEn ? 'Comparison & Analysis' : 'مقارنة وتحليل';
+  const finalBadge = badge || defaultBadge;
+
   return (
     <div className="educational-page comparison-page">
-      {badge && <Badge variant="teal">{badge}</Badge>}
+      {finalBadge && <Badge variant="teal">{finalBadge}</Badge>}
 
       {title && (
         <h2 className="page-heading font-heading" style={{ marginTop: 'var(--space-2)' }}>
@@ -65,9 +72,9 @@ export default function ComparisonPage({
           <table>
             <thead>
               <tr>
-                <th>معيار المقارنة</th>
-                <th>{sideA?.title || 'الطرف الأول'}</th>
-                <th>{sideB?.title || 'الطرف الثاني'}</th>
+                <th>{isEn ? 'Comparison Criterion' : 'معيار المقارنة'}</th>
+                <th>{sideA?.title || (isEn ? 'Party A' : 'الطرف الأول')}</th>
+                <th>{sideB?.title || (isEn ? 'Party B' : 'الطرف الثاني')}</th>
               </tr>
             </thead>
             <tbody>
@@ -85,11 +92,11 @@ export default function ComparisonPage({
 
       {synthesis && (
         <CalloutBox
-          type="insight"
-          title={synthesis.title || 'خلاصة المقارنة وتوجيه المُرشد'}
+          type="info"
+          title={typeof synthesis === 'object' && synthesis.title ? synthesis.title : (isEn ? 'Comparison Synthesis' : 'خلاصة المقارنة')}
           style={{ marginTop: 'var(--space-4)' }}
         >
-          <p>{synthesis.text}</p>
+          <p>{typeof synthesis === 'object' ? synthesis.text : synthesis}</p>
         </CalloutBox>
       )}
     </div>

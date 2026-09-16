@@ -193,9 +193,50 @@
     width: 100% !important;
   }
 
-  .tech-standard-card {
+  /* 9.2 Lesson 1-1 Compact Spacing for Strict A4 Sheet Containment */
+  .educational-page {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 1.5mm !important;
+  }
+
+  .lesson-overview-page,
+  .daily-comparison-page,
+  .discovery-timeline-page,
+  .moores-law-page,
+  .social-transformations-page,
+  .edge-vs-cloud-page,
+  .ar-vr-quantum-page,
+  .activity-decision-page,
+  .revision-page {
+    gap: 1.5mm !important;
+  }
+
+  .overview-hero-section,
+  .comparison-page-header,
+  .timeline-ribbon-header {
+    padding: 2mm 3mm !important;
+    margin-bottom: 1.5mm !important;
+  }
+
+  .domain-activity-card {
     padding: 1.5mm 2.5mm !important;
-    min-width: 0 !important;
+    margin-bottom: 1.5mm !important;
+  }
+
+  .activity-box {
+    padding: 2mm 3mm !important;
+  }
+
+  .activity-response-lines {
+    gap: 2mm !important;
+    margin-top: 1.5mm !important;
+  }
+
+  .activity-response-line {
+    height: 5mm !important;
   }
 
   /* 10. Grayscale / Toner-Safe Adaptations */
@@ -204,7 +245,9 @@
   .progress-unit-box,
   .mastery-stage-card,
   .honor-contract-card,
-  .tech-standard-card {
+  .tech-standard-card,
+  .activity-box,
+  .domain-activity-card {
     border: 1pt solid #cbd5e1 !important;
     box-shadow: none !important;
   }
@@ -212,6 +255,8 @@
   .callout-box {
     border-inline-start-width: 3pt !important;
     background: #f8fafc !important;
+    padding: 2mm 3mm !important;
+    margin-bottom: 2mm !important;
   }
 
   a {

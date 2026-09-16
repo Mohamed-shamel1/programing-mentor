@@ -59,17 +59,26 @@
         "required": ["pageNumber", "type", "content"],
         "properties": {
           "pageNumber": {
-            "type": "integer",
-            "minimum": 1
+            "type": ["integer", "string"]
           },
           "type": {
             "type": "string",
             "enum": [
+              "LESSON_OVERVIEW",
+              "DAILY_COMPARISON",
+              "DISCOVERY_TIMELINE",
+              "MOORES_LAW",
+              "SOCIAL_TRANSFORMATIONS",
+              "EDGE_VS_CLOUD",
+              "AR_VR_QUANTUM",
+              "ACTIVITY_DECISION",
+              "REVISION",
               "MISSION_HOOK",
               "CONCEPT_VISUAL",
               "COMPARISON",
-              "ACTIVITY_DECISION",
-              "REVISION"
+              "GLOBAL_ROADMAP",
+              "PROGRESS_TRACKER",
+              "MASTERY_PEDAGOGY"
             ]
           },
           "badgeText": {

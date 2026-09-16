@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Icon from '../ui/Icon.jsx';
 import MooresLawChart from '../visuals/MooresLawChart.jsx';
+import { useLanguage } from '../../i18n/LanguageContext.js';
 
 /**
  * MooresLawPage (Page 03)
@@ -12,98 +13,135 @@ import MooresLawChart from '../visuals/MooresLawChart.jsx';
  *   Left column (4): Key Concepts, Enrichment (Quantum Tunneling), Peer Discussion
  */
 export default function MooresLawPage({
-  topicRibbon = {
+  topicRibbon,
+  inquiry,
+  mooresLaw,
+  misconception,
+  quickCheck,
+  keyConcepts,
+  enrichment,
+  peerDiscussion,
+  footerNote,
+}) {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
+  const defaultTopicRibbon = {
     number: '03',
-    unitTitle: 'الوحدة الأولى: أساسيات الحوسبة والذكاء الاصطناعي',
-    lessonCode: 'الدرس 1-1',
-    subBadge: 'البنية الهندسية للمعالجات',
-    title: 'سر التسارع التقني: قانون مور وتحديات الفيزياء وأشباه الموصلات',
+    unitTitle: isEn ? 'Unit 1: Computing & AI Fundamentals' : 'الوحدة الأولى: أساسيات الحوسبة والذكاء الاصطناعي',
+    lessonCode: isEn ? 'Lesson 1-1' : 'الدرس 1-1',
+    subBadge: isEn ? 'Processor Architecture' : 'البنية الهندسية للمعالجات',
+    title: isEn ? "The Secret of Tech Acceleration: Moore's Law & Semiconductor Physics" : 'سر التسارع التقني: قانون مور وتحديات الفيزياء وأشباه الموصلات',
     chapterTag: 'CH-01 // PAGE 03',
-  },
-  inquiry = {
-    badge: 'تساؤل تمهيدي استكشافي',
+  };
+  const finalTopicRibbon = topicRibbon || defaultTopicRibbon;
+
+  const finalInquiry = inquiry || {
+    badge: isEn ? 'Exploratory Inquiry' : 'تساؤل تمهيدي استكشافي',
     codeTag: 'Q-CORE',
-    question:
-      '"لماذا أصبح هاتفك في جيبك أسرع بملايين المرات من حواسيب وكالة ناسا التي أطلقت رحلات أبولو، وبسعر متاح للجميع؟"',
-    hint: 'السر لا يكمن فقط في تطور البرمجيات، بل في ثورة فيزيائية صامتة صاغها أحد رواد صناعة السيليكون في ستينيات القرن الماضي.',
-  },
-  mooresLaw = {
-    sectionTitle: 'قانون مور (Moore\'s Law — 1965)',
+    question: isEn
+      ? '"Why is the smartphone in your pocket millions of times faster than the NASA computers that guided Apollo to the Moon, yet affordably accessible to all?"'
+      : '"لماذا أصبح هاتفك في جيبك أسرع بملايين المرات من حواسيب وكالة ناسا التي أطلقت رحلات أبولو، وبسعر متاح للجميع؟"',
+    hint: isEn
+      ? 'The secret lies not merely in software code, but in an exponential hardware sprint begun in the mid-1960s.'
+      : 'السر لا يكمن فقط في تطور البرمجيات، بل في ثورة فيزيائية صامتة صاغها أحد رواد صناعة السيليكون في ستينيات القرن الماضي.',
+  };
+
+  const finalMooresLaw = mooresLaw || {
+    sectionTitle: isEn ? "Moore's Law (1965)" : "قانون مور (Moore's Law — 1965)",
     codeTag: 'TRANSISTOR DENSITY',
-    body: 'صاغ المهندس',
-    engineerName: 'جوردون مور (Gordon Moore)',
-    bodyAfter:
-      'ملاحظته الشهيرة عام 1965، وتنص على:',
-    quote:
-      '"يتضاعف عدد الترانزستورات المدمجة على شريحة الدائرة المتكاملة كل عامين تقريباً، مع انخفاض تكلفة المعالجة إلى النصف تقريباً."',
-    bodyEnd:
-      'وقد أتاح هذا التكديس الهائل رفع الترددات الحسابية وتصغير الأبعاد الهندسية للحواسيب.',
-  },
-  misconception = {
-    badge: 'مفهوم علمي مغلوط شائع #01',
-    subBadge: 'دقة الاصطلاح المنهجي',
-    question: '"هل قانون مور قانون فيزيائي حتمي لا يتغير مثل قانون الجاذبية لنيوتن؟"',
-    answer:
-      'كلا تماماً! إنه ليس قانوناً طبيعياً محتوماً، بل كان ملاحظة تجريبية وتوقعاً هندسياً/صناعياً اتخذته كبرى شركات تصنيع السيليكون كخريطة طريق (Roadmap) لأبحاثها واستثماراتها. وقد بدأ هذا النسق يتباطأ فعلياً بفعل قيود حجم الذرات واستحالة خفض الحرارة الناتجة دون حلول تبريد فائقة التعقيد.',
-  },
-  quickCheck = {
-    sectionTitle: 'تقييم المفاهيم الفورية (Quick Check)',
-    badge: 'نشاط صفي تقويمي',
-    instruction: 'ضع علامة (✓) أو (✗) أمام كل عبارة، مع تدوين التعليل العلمي الدقيق في المساحة المخصصة:',
+    body: isEn ? 'Formulated by Intel co-founder ' : 'صاغ المهندس ',
+    engineerName: 'Gordon Moore',
+    bodyAfter: isEn ? 'his empirical observation stating that:' : 'ملاحظته الشهيرة عام 1965، وتنص على:',
+    quote: isEn
+      ? '"The number of transistors packed onto a microchip doubles approximately every two years, while the cost of computation is halved."'
+      : '"يتضاعف عدد الترانزستورات المدمجة على شريحة الدائرة المتكاملة كل عامين تقريباً، مع انخفاض تكلفة المعالجة إلى النصف تقريباً."',
+    bodyEnd: isEn
+      ? 'This relentless miniaturization enabled exponential processing leaps.'
+      : 'وقد أتاح هذا التكديس الهائل رفع الترددات الحسابية وتصغير الأبعاد الهندسية للحواسيب.',
+  };
+
+  const finalMisconception = misconception || {
+    badge: isEn ? 'Common Scientific Misconception #01' : 'مفهوم علمي مغلوط شائع #01',
+    subBadge: isEn ? 'Rigorous Terminology' : 'دقة الاصطلاح المنهجي',
+    question: isEn
+      ? '"Is Moore’s Law an immutable physical law of the universe like Newton’s law of universal gravitation?"'
+      : '"هل قانون مور قانون فيزيائي حتمي لا يتغير مثل قانون الجاذبية لنيوتن؟"',
+    answer: isEn
+      ? 'Not at all! It is an empirical observation and economic roadmap, not an inescapable natural law. It has begun to encounter hard quantum boundaries.'
+      : 'كلا تماماً! إنه ليس قانوناً طبيعياً محتوماً، بل كان ملاحظة تجريبية وتوقعاً هندسياً/صناعياً اتخذته كبرى شركات تصنيع السيليكون كخريطة طريق (Roadmap) لأبحاثها واستثماراتها. وقد بدأ هذا النسق يتباطأ فعلياً بفعل قيود حجم الذرات واستحالة خفض الحرارة الناتجة دون حلول تبريد فائقة التعقيد.',
+  };
+
+  const finalQuickCheck = quickCheck || {
+    sectionTitle: isEn ? 'Quick Check Concept Assessment' : 'تقييم المفاهيم الفورية (Quick Check)',
+    badge: isEn ? 'Formative Activity' : 'نشاط صفي تقويمي',
+    instruction: isEn
+      ? 'Mark (✓) or (✗) for each statement and formulate your scientific justification:'
+      : 'ضع علامة (✓) أو (✗) أمام كل عبارة، مع تدوين التعليل العلمي الدقيق في المساحة المخصصة:',
     questions: [
       {
         id: 'q1',
-        text: '١. يضمن قانون مور استمرار تضاعف سرعة المعالجات وقدرتها الحسابية إلى ما لا نهاية بنفس المعدل التاريخي.',
+        text: isEn
+          ? '1. Moore’s Law guarantees that processor speeds will double infinitely at the exact same historical pace.'
+          : '١. يضمن قانون مور استمرار تضاعف سرعة المعالجات وقدرتها الحسابية إلى ما لا نهاية بنفس المعدل التاريخي.',
       },
       {
         id: 'q2',
-        text: '٢. تصغير الأبعاد الهندسية للترانزستور (Nanometer Shrinkage) هو العامل الحاسم تاريخياً لظهور حواسب كفية فائقة القوة.',
+        text: isEn
+          ? '2. Nanometer shrinkage of transistors is the definitive historical enabler of pocket supercomputing.'
+          : '٢. تصغير الأبعاد الهندسية للترانزستور (Nanometer Shrinkage) هو العامل الحاسم تاريخياً لظهور حواسب كفية فائقة القوة.',
       },
     ],
-    reasoningLabel: 'التعليل العلمي:',
-  },
-  keyConcepts = {
-    title: 'ركائز الدرس (Key Concepts)',
+    reasoningLabel: isEn ? 'Scientific Justification:' : 'التعليل العلمي:',
+  };
+
+  const finalKeyConcepts = keyConcepts || {
+    title: isEn ? 'Key Concepts' : 'ركائز الدرس (Key Concepts)',
     concepts: [
       {
-        term: 'الترانزستور (Transistor):',
-        definition: 'مفتاح إلكتروني ثنائي (On/Off) يمثل الوحدة البنائية لحسابات البت المنطقية.',
+        term: isEn ? 'Transistor:' : 'الترانزستور (Transistor):',
+        definition: isEn ? 'Binary electronic switch (On/Off) representing the fundamental unit of logic calculation.' : 'مفتاح إلكتروني ثنائي (On/Off) يمثل الوحدة البنائية لحسابات البت المنطقية.',
         color: 'cobalt',
       },
       {
-        term: 'النمو الأسي (Exponential):',
-        definition: 'تضاعف مضاعف متسارع يختلف جذرياً عن النمو الخطي الثابت (1، 2، 4، 8، 16...).',
+        term: isEn ? 'Exponential Growth:' : 'النمو الأسي (Exponential):',
+        definition: isEn ? 'Rapid multi-fold acceleration differing fundamentally from linear increments (1, 2, 4, 8, 16...).' : 'تضاعف مضاعف متسارع يختلف جذرياً عن النمو الخطي الثابت (1، 2، 4، 8، 16...).',
         color: 'amber',
       },
       {
-        term: 'كثافة الرقاقة (Die Density):',
-        definition: 'عدد المكونات النشطة لكل ملليمتر مربع من سطح شريحة السيليكون النقي.',
+        term: isEn ? 'Die Density:' : 'كثافة الرقاقة (Die Density):',
+        definition: isEn ? 'Number of active computational components per square millimeter of silicon die.' : 'عدد المكونات النشطة لكل ملليمتر مربع من سطح شريحة السيليكون النقي.',
         color: 'teal',
       },
     ],
-  },
-  enrichment = {
-    title: 'عقبة النفق الكمومي (Quantum Tunneling)',
-    badge: 'إثراء معرفي منضبط | Nice to Know',
-    body: 'عندما تقل بوابة الترانزستور عن',
+  };
+
+  const finalEnrichment = enrichment || {
+    title: isEn ? 'The Quantum Tunneling Barrier' : 'عقبة النفق الكمومي (Quantum Tunneling)',
+    badge: isEn ? 'Enrichment | Nice to Know' : 'إثراء معرفي منضبط | Nice to Know',
+    body: isEn ? 'When transistor gate widths drop below ' : 'عندما تقل بوابة الترانزستور عن ',
     threshold: '2nm',
-    bodyAfter:
-      '، تصبح الجدران العازلة رقيقة جداً بدرجة تقارب بضع ذرات! هنا تتصرف الإلكترونات وفق ميكانيكا الكم وتخترق الحاجز العازل (تيار تسرب / Leakage)، مما يولد حرارة هائلة ويعطل عمل البت الحسابي.',
-    solutionLabel: 'الحل المستقبلي:',
-    solution: 'الحوسبة الكمومية والرقائق ثلاثية الأبعاد (3D Chiplets)',
-  },
-  peerDiscussion = {
-    badge: 'حوار تطبيقي ثنائي (Peer Discussion)',
-    prompt:
-      'ناقش مع زميلك: لو استمرت صناعة السيارات بالتسارع الأسي لقانون مور، كم سيكون حجم سيارتك وسعرها وسرعتها اليوم مقارنة بعام 1970؟',
-  },
-  footerNote = {
-    author: 'الأستاذ / محمد شامل محمد',
-    authorTitle: 'خبير تكنولوجيا المعلومات والمناهج',
-    pageLabel: 'صفحة 03',
-    academicYear: 'العام الدراسي 2026-2027',
-  },
-}) {
+    bodyAfter: isEn
+      ? ', insulating walls become atomic layers thin. Electrons begin leaking across barriers (Quantum Tunneling), generating excessive heat and disrupting binary states.'
+      : '، تصبح الجدران العازلة رقيقة جداً بدرجة تقارب بضع ذرات! هنا تتصرف الإلكترونات وفق ميكانيكا الكم وتخترق الحاجز العازل (تيار تسرب / Leakage)، مما يولد حرارة هائلة ويعطل عمل البت الحسابي.',
+    solutionLabel: isEn ? 'Future Frontier:' : 'الحل المستقبلي:',
+    solution: isEn ? 'Quantum Computing & 3D Chiplets' : 'الحوسبة الكمومية والرقائق ثلاثية الأبعاد (3D Chiplets)',
+  };
+
+  const finalPeerDiscussion = peerDiscussion || {
+    badge: isEn ? 'Peer Discussion' : 'حوار تطبيقي ثنائي (Peer Discussion)',
+    prompt: isEn
+      ? 'Discuss with your peer: If the automotive industry had accelerated at the exponential rate of Moore’s Law, what would your car look like, cost, and how fast would it travel today compared to 1970?'
+      : 'ناقش مع زميلك: لو استمرت صناعة السيارات بالتسارع الأسي لقانون مور، كم سيكون حجم سيارتك وسعرها وسرعتها اليوم مقارنة بعام 1970؟',
+  };
+
+  const finalFooterNote = footerNote || {
+    author: isEn ? 'Mohamed Shamel Mohamed' : 'الأستاذ / محمد شامل محمد',
+    authorTitle: isEn ? 'Curriculum & IT Expert' : 'خبير تكنولوجيا المعلومات والمناهج',
+    pageLabel: isEn ? 'Page 03' : 'صفحة 03',
+    academicYear: isEn ? 'Academic Year 2026-2027' : 'العام الدراسي 2026-2027',
+  };
+
   const [answers, setAnswers] = useState({});
 
   const handleAnswer = (qId, val) => {
@@ -115,19 +153,19 @@ export default function MooresLawPage({
       {/* 1. Topic Ribbon Header */}
       <section className="ml-ribbon-header">
         <div className="ribbon-right">
-          <span className="ribbon-number font-heading">{topicRibbon.number}</span>
+          <span className="ribbon-number font-heading">{finalTopicRibbon.number}</span>
           <div>
             <div className="ribbon-breadcrumbs">
-              <span>{topicRibbon.unitTitle}</span>
+              <span>{finalTopicRibbon.unitTitle}</span>
               <span className="bullet">•</span>
-              <span>{topicRibbon.lessonCode}</span>
+              <span>{finalTopicRibbon.lessonCode}</span>
               <span className="bullet">•</span>
-              <span className="ribbon-sub-badge">{topicRibbon.subBadge}</span>
+              <span className="ribbon-sub-badge">{finalTopicRibbon.subBadge}</span>
             </div>
-            <h1 className="ribbon-title font-heading">{topicRibbon.title}</h1>
+            <h1 className="ribbon-title font-heading">{finalTopicRibbon.title}</h1>
           </div>
         </div>
-        <span className="ml-chapter-tag font-code">{topicRibbon.chapterTag}</span>
+        <span className="ml-chapter-tag font-code">{finalTopicRibbon.chapterTag}</span>
       </section>
 
       {/* 2. Main 8:4 Grid */}
@@ -142,11 +180,11 @@ export default function MooresLawPage({
             </div>
             <div className="ml-inquiry-body">
               <div className="ml-inquiry-meta">
-                <span className="ml-inquiry-badge font-heading">{inquiry.badge}</span>
-                <span className="ml-inquiry-code font-code">{inquiry.codeTag}</span>
+                <span className="ml-inquiry-badge font-heading">{finalInquiry.badge}</span>
+                <span className="ml-inquiry-code font-code">{finalInquiry.codeTag}</span>
               </div>
-              <p className="ml-inquiry-question font-heading">{inquiry.question}</p>
-              <p className="ml-inquiry-hint">{inquiry.hint}</p>
+              <p className="ml-inquiry-question font-heading">{finalInquiry.question}</p>
+              <p className="ml-inquiry-hint">{finalInquiry.hint}</p>
             </div>
           </div>
 
@@ -155,16 +193,16 @@ export default function MooresLawPage({
             <div className="ml-moores-card-header">
               <div className="ml-moores-header-title-group">
                 <Icon name="show_chart" size={20} color="var(--color-cobalt-600)" />
-                <span className="ml-moores-section-title font-heading">{mooresLaw.sectionTitle}</span>
+                <span className="ml-moores-section-title font-heading">{finalMooresLaw.sectionTitle}</span>
               </div>
-              <span className="ml-moores-code-tag font-code">{mooresLaw.codeTag}</span>
+              <span className="ml-moores-code-tag font-code">{finalMooresLaw.codeTag}</span>
             </div>
             <p className="ml-moores-body">
-              صاغ المهندس{' '}
-              <strong className="ml-moores-engineer">{mooresLaw.engineerName}</strong>{' '}
-              {mooresLaw.bodyAfter}{' '}
-              <em className="ml-moores-quote">{mooresLaw.quote}</em>{' '}
-              {mooresLaw.bodyEnd}
+              {finalMooresLaw.body}{' '}
+              <strong className="ml-moores-engineer">{finalMooresLaw.engineerName}</strong>{' '}
+              {finalMooresLaw.bodyAfter}{' '}
+              <em className="ml-moores-quote">{finalMooresLaw.quote}</em>{' '}
+              {finalMooresLaw.bodyEnd}
             </p>
 
             {/* Moore's Law Chart */}
@@ -178,11 +216,11 @@ export default function MooresLawPage({
             </div>
             <div className="ml-misconception-body">
               <div className="ml-misconception-badges">
-                <span className="ml-misconception-badge-error font-heading">{misconception.badge}</span>
-                <span className="ml-misconception-sub-badge">{misconception.subBadge}</span>
+                <span className="ml-misconception-badge-error font-heading">{finalMisconception.badge}</span>
+                <span className="ml-misconception-sub-badge">{finalMisconception.subBadge}</span>
               </div>
-              <p className="ml-misconception-question font-heading">{misconception.question}</p>
-              <p className="ml-misconception-answer">{misconception.answer}</p>
+              <p className="ml-misconception-question font-heading">{finalMisconception.question}</p>
+              <p className="ml-misconception-answer">{finalMisconception.answer}</p>
             </div>
           </div>
 
@@ -191,13 +229,13 @@ export default function MooresLawPage({
             <div className="ml-check-header">
               <div className="ml-check-header-title">
                 <Icon name="assignment_turned_in" size={20} color="var(--color-cobalt-700)" />
-                <span className="ml-check-title font-heading">{quickCheck.sectionTitle}</span>
+                <span className="ml-check-title font-heading">{finalQuickCheck.sectionTitle}</span>
               </div>
-              <span className="ml-check-badge">{quickCheck.badge}</span>
+              <span className="ml-check-badge">{finalQuickCheck.badge}</span>
             </div>
-            <p className="ml-check-instruction">{quickCheck.instruction}</p>
+            <p className="ml-check-instruction">{finalQuickCheck.instruction}</p>
 
-            {quickCheck.questions.map((q) => (
+            {finalQuickCheck.questions.map((q) => (
               <div key={q.id} className={`ml-check-question-block ${answers[q.id] ? 'answered' : ''}`}>
                 <div className="ml-check-question-row">
                   <p className="ml-check-question-text">{q.text}</p>
@@ -224,61 +262,62 @@ export default function MooresLawPage({
                     </label>
                   </div>
                 </div>
-                <div className="ml-check-reasoning-row">
-                  <span className="ml-check-reasoning-label font-heading">{quickCheck.reasoningLabel}</span>
-                  <div className="ml-check-reasoning-line" />
+                <div className="ml-check-reasoning-zone">
+                  <span className="ml-reasoning-label">{finalQuickCheck.reasoningLabel}</span>
+                  <div className="ml-reasoning-lines">
+                    <div className="ml-reasoning-line" />
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Left Column: 4 cols — Pedagogical Sidebar */}
+        {/* Left Column: 4 cols — Sidebar */}
         <aside className="ml-sidebar-column">
-          {/* Key Concepts Card */}
-          <section className="ml-sidebar-card ml-concepts-card">
-            <div className="ml-sidebar-card-header concepts">
-              <Icon name="hub" size={18} color="var(--color-cobalt-700)" />
-              <span className="ml-sidebar-header-title font-heading">{keyConcepts.title}</span>
+          {/* 1. Key Concepts */}
+          <div className="ml-concepts-card">
+            <div className="ml-concepts-header">
+              <Icon name="fact_check" size={18} color="var(--color-navy-800)" />
+              <span className="ml-concepts-title font-heading">{finalKeyConcepts.title}</span>
             </div>
-            <ul className="ml-concepts-list">
-              {keyConcepts.concepts.map((c, i) => (
-                <li key={i} className="ml-concept-item">
-                  <span className={`ml-concept-dot ${c.color}`} />
-                  <div>
-                    <div className="ml-concept-term font-heading">{c.term}</div>
-                    <div className="ml-concept-def">{c.definition}</div>
-                  </div>
-                </li>
+            <div className="ml-concepts-list">
+              {finalKeyConcepts.concepts.map((c, i) => (
+                <div key={i} className={`ml-concept-item concept-${c.color || 'default'}`}>
+                  <strong className="concept-term font-heading">{c.term}</strong>
+                  <span className="concept-def">{c.definition}</span>
+                </div>
               ))}
-            </ul>
-          </section>
+            </div>
+          </div>
 
-          {/* Quantum Tunneling Enrichment Card */}
+          {/* 2. Enrichment Box */}
           <section className="ml-sidebar-card ml-enrichment-card">
             <div className="ml-enrichment-header">
               <Icon name="science" size={18} color="var(--color-teal-300)" />
-              <span className="ml-enrichment-badge font-heading">{enrichment.badge}</span>
+              <div>
+                <span className="ml-enrichment-badge font-heading">{finalEnrichment.badge}</span>
+                <h4 className="ml-enrichment-title font-heading">{finalEnrichment.title}</h4>
+              </div>
             </div>
-            <h4 className="ml-enrichment-title font-heading">{enrichment.title}</h4>
             <p className="ml-enrichment-body">
-              {enrichment.body}{' '}
-              <strong className="ml-enrichment-threshold font-code">{enrichment.threshold}</strong>
-              {enrichment.bodyAfter}
+              {finalEnrichment.body}{' '}
+              <strong className="ml-enrichment-threshold font-code">{finalEnrichment.threshold}</strong>
+              {finalEnrichment.bodyAfter}
             </p>
             <div className="ml-enrichment-solution-bar">
-              <span className="ml-solution-label">{enrichment.solutionLabel}</span>
-              <span className="ml-solution-value font-heading">{enrichment.solution}</span>
+              <span className="ml-solution-label">{finalEnrichment.solutionLabel}</span>
+              <span className="ml-solution-value font-heading">{finalEnrichment.solution}</span>
             </div>
           </section>
 
-          {/* Peer Discussion Prompt */}
+          {/* 3. Peer Discussion Prompt */}
           <section className="ml-sidebar-card ml-peer-card">
             <div className="ml-peer-header">
-              <Icon name="group" size={18} color="var(--color-amber-700)" />
-              <span className="ml-peer-badge font-heading">{peerDiscussion.badge}</span>
+              <Icon name="groups" size={18} color="var(--color-amber-700)" />
+              <span className="ml-peer-badge font-heading">{finalPeerDiscussion.badge}</span>
             </div>
-            <p className="ml-peer-prompt">{peerDiscussion.prompt}</p>
+            <p className="ml-peer-prompt">{finalPeerDiscussion.prompt}</p>
           </section>
         </aside>
       </div>
@@ -288,12 +327,13 @@ export default function MooresLawPage({
         <div className="footer-author-note">
           <Icon name="person_pin" size={16} color="var(--color-cobalt-600)" />
           <span>
-            إعداد وتأليف: <strong className="author-name">{footerNote.author}</strong> • {footerNote.authorTitle}
+            {isEn ? 'Prepared & Authored by: ' : 'إعداد وتأليف: '}
+            <strong className="author-name">{finalFooterNote.author}</strong> • {finalFooterNote.authorTitle}
           </span>
         </div>
         <div className="footer-page-meta">
-          <span className="footer-page-pill font-code">{footerNote.pageLabel}</span>
-          <span className="footer-academic-year">{footerNote.academicYear}</span>
+          <span className="footer-page-pill font-code">{finalFooterNote.pageLabel}</span>
+          <span className="footer-academic-year">{finalFooterNote.academicYear}</span>
         </div>
       </footer>
     </div>

@@ -3,6 +3,7 @@ import PageShell from '../../layout/PageShell.jsx';
 import Icon from '../../ui/Icon.jsx';
 import MentorAvatar from '../../ui/MentorAvatar.jsx';
 import { masteryPedagogyData as defaultData } from '../../../data/frontMatterData.js';
+import { useLanguage } from '../../../i18n/LanguageContext.js';
 
 /**
  * MasteryPedagogyPage (Front-Matter Page 03)
@@ -10,6 +11,9 @@ import { masteryPedagogyData as defaultData } from '../../../data/frontMatterDat
  * Engineered for exact 1-to-1 A4 single-sheet print budgeting.
  */
 export default function MasteryPedagogyPage({ data = defaultData, standalone = true }) {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
   const innerContent = (
     <div className="mastery-pedagogy-content" style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
       {/* 1. Subheader Banner */}
@@ -80,11 +84,13 @@ export default function MasteryPedagogyPage({ data = defaultData, standalone = t
               }}
             />
             <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '12px', fontWeight: 'var(--font-weight-black)', margin: 0 }}>
-              دورة الإتقان الخماسية — The Mastery Flow
+              {isEn ? 'The 5-Stage Mastery Flow' : 'دورة الإتقان الخماسية — The Mastery Flow'}
             </h2>
           </div>
           <span style={{ fontSize: '9.5px', color: 'var(--text-muted)' }}>
-            تسلسل إدراكي هندسي يبدأ بالمعنى وينتهي بصنع القرار
+            {isEn
+              ? 'An engineering progression from foundational logic to evidence-based decisions'
+              : 'تسلسل إدراكي هندسي يبدأ بالمعنى وينتهي بصنع القرار'}
           </span>
         </div>
 
@@ -327,7 +333,7 @@ export default function MasteryPedagogyPage({ data = defaultData, standalone = t
       }}
       footerProps={{
         currentPage: '03',
-        subjectTitle: 'فلسفة المنهج ودورة الإتقان المعرفي',
+        subjectTitle: isEn ? 'Pedagogical Philosophy & Cognitive Mastery Flow' : 'فلسفة المنهج ودورة الإتقان المعرفي',
       }}
       className="mastery-pedagogy-page"
     >

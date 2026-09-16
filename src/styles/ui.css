@@ -1,0 +1,154 @@
+/* --------------------------------------------------------------------
+ * 3. Educational Cards (Subtle borders, clean elevation, no blur)
+ * -------------------------------------------------------------------- */
+.card {
+  background-color: var(--surface-card);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-navy {
+  border-top: 3px solid var(--color-navy-800);
+}
+
+.card-cobalt {
+  border-top: 3px solid var(--color-cobalt-600);
+}
+
+.card-teal {
+  border-top: 3px solid var(--color-teal-600);
+}
+
+.card-amber {
+  border-top: 3px solid var(--color-amber-500);
+}
+
+.card-header {
+  margin-bottom: var(--space-3);
+}
+
+.card-title {
+  font-size: var(--font-size-lg);
+  margin: 0;
+  color: var(--color-navy-950);
+}
+
+/* --------------------------------------------------------------------
+ * 4. Callout Box (Mentor Prompts, Pedagogical Tips, Cautions)
+ * -------------------------------------------------------------------- */
+.callout-box {
+  background-color: var(--surface-callout);
+  border: 1px solid var(--color-neutral-200);
+  border-inline-start: 4px solid var(--color-cobalt-600);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.callout-box.mentor {
+  background-color: var(--color-amber-50);
+  border-color: var(--color-amber-100);
+  border-inline-start-color: var(--color-amber-500);
+}
+
+.callout-box.insight {
+  background-color: var(--color-teal-50);
+  border-color: var(--color-teal-100);
+  border-inline-start-color: var(--color-teal-600);
+}
+
+.callout-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-1);
+  color: var(--color-navy-950);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* --------------------------------------------------------------------
+ * 5. Badges
+ * -------------------------------------------------------------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.2rem 0.55rem;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-xs);
+  line-height: 1;
+}
+
+.badge-navy {
+  background-color: var(--color-navy-100);
+  color: var(--color-navy-800);
+}
+
+.badge-cobalt {
+  background-color: var(--color-cobalt-100);
+  color: var(--color-cobalt-700);
+}
+
+.badge-teal {
+  background-color: var(--color-teal-100);
+  color: var(--color-teal-700);
+}
+
+.badge-amber {
+  background-color: var(--color-amber-100);
+  color: var(--color-amber-700);
+}
+
+/* --------------------------------------------------------------------
+ * 6. Educational Specialized Layouts (Comparison, Diagram, Activity)
+ * -------------------------------------------------------------------- */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+@media (max-width: 640px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.diagram-frame {
+  background-color: var(--color-neutral-50);
+  border: 1px dashed var(--color-neutral-300);
+  border-radius: var(--radius-sm);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  text-align: center;
+}
+
+.activity-box {
+  background-color: var(--color-neutral-0);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.activity-response-lines {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.activity-response-line {
+  border-bottom: 1px dashed var(--color-neutral-300);
+  height: 20px;
+}
+

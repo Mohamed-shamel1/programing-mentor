@@ -25,8 +25,9 @@ export function validateLessonStructure(lesson) {
     errors.push('Lesson must have a non-empty string `id` (e.g. "term1-ch1-l01")');
   }
 
-  if (!lesson.title || typeof lesson.title !== 'string') {
-    errors.push('Lesson must have a non-empty string `title`');
+  const hasTitle = (lesson.title && typeof lesson.title === 'string') || (lesson.titleAr && typeof lesson.titleAr === 'string');
+  if (!hasTitle) {
+    errors.push('Lesson must have a non-empty string `title` or `titleAr`');
   }
 
   if (!Array.isArray(lesson.pages)) {
@@ -36,8 +37,9 @@ export function validateLessonStructure(lesson) {
       if (!page.type || typeof page.type !== 'string') {
         errors.push(`Page at index ${index} must specify a string \`type\``);
       }
-      if (typeof page.pageNumber !== 'number') {
-        errors.push(`Page at index ${index} must specify a numeric \`pageNumber\``);
+      const hasPageNumber = typeof page.pageNumber === 'number' || (typeof page.pageNumber === 'string' && page.pageNumber.trim().length > 0);
+      if (!hasPageNumber) {
+        errors.push(`Page at index ${index} must specify a numeric or string \`pageNumber\``);
       }
       if (!page.content || typeof page.content !== 'object') {
         errors.push(`Page at index ${index} must have a \`content\` object payload`);

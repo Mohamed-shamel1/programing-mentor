@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Icon from '../ui/Icon.jsx';
 import InfrastructureConvergenceDiagram from '../visuals/InfrastructureConvergenceDiagram.jsx';
+import { useLanguage } from '../../i18n/LanguageContext.js';
 
 /**
  * SocialTransformationsPage (Page 04)
@@ -12,143 +13,178 @@ import InfrastructureConvergenceDiagram from '../visuals/InfrastructureConvergen
  *   Left column (4): Central Concept & 3 Pillars (with Convergence SVG), Golden Exam Insight, Ink Scratchpad
  */
 export default function SocialTransformationsPage({
-  topicRibbon = {
+  topicRibbon,
+  ahaMoment,
+  bigFive,
+  activity,
+  sidebarCentralConcept,
+  goldenRule,
+  inkScratchpad,
+  footerNote,
+}) {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
+  const defaultTopicRibbon = {
     number: '04',
-    unitTitle: 'الوحدة الأولى: أساسيات الحوسبة والذكاء الاصطناعي',
-    lessonCode: 'الدرس 1-1',
-    subBadge: 'التحولات الاجتماعية الكبرى',
-    title: 'شجرة واحدة تنمو من بنية تحتية مشتركة',
+    unitTitle: isEn ? 'Unit 1: Computing & AI Fundamentals' : 'الوحدة الأولى: أساسيات الحوسبة والذكاء الاصطناعي',
+    lessonCode: isEn ? 'Lesson 1-1' : 'الدرس 1-1',
+    subBadge: isEn ? 'Major Social Transformations' : 'التحولات الاجتماعية الكبرى',
+    title: isEn ? 'One Common Tree Growing from a Shared Infrastructure' : 'شجرة واحدة تنمو من بنية تحتية مشتركة',
     chapterTag: 'TRANSFORM-5 // PAGE 04',
-  },
-  ahaMoment = {
-    badge: 'لحظة الاكتشاف والإدراك (The Aha! Moment)',
-    subBadge: '• قف وتأمل المنظومة',
-    lead:
-      'قد يظن البعض أن تطبيقات الشراء، والعمل من المنزل، والدفع الإلكتروني، ودورات الأونلاين ظواهر تكنولوجية منفصلة.. لكن الحقيقة الهندسية تثبت أنها جميعاً ثمرات تنمو من شجرة بنية تحتية رقمية واحدة ثلاثية الأركان:',
-    pillars: ['هاتف ذكي موثوق', 'اتصال فائق السرعة', 'حوسبة سحابية مركزية'],
-  },
-  bigFive = {
-    title: 'شبكة التحولات الاجتماعية الخمسة (The Big Five)',
-    subTitle: 'دراسة تحليلية مقارنة',
+  };
+  const finalTopicRibbon = topicRibbon || defaultTopicRibbon;
+
+  const defaultAhaMoment = {
+    badge: isEn ? 'The Aha! Moment' : 'لحظة الاكتشاف والإدراك (The Aha! Moment)',
+    subBadge: isEn ? '• Observe the System' : '• قف وتأمل المنظومة',
+    lead: isEn
+      ? 'One might think e-commerce, remote work, digital payments, and online learning are isolated phenomena... But engineering analysis proves they all drink from the same shared infrastructure triad:'
+      : 'قد يظن البعض أن تطبيقات الشراء، والعمل من المنزل، والدفع الإلكتروني، ودورات الأونلاين ظواهر تكنولوجية منفصلة.. لكن الحقيقة الهندسية تثبت أنها جميعاً ثمرات تنمو من شجرة بنية تحتية رقمية واحدة ثلاثية الأركان:',
+    pillars: isEn
+      ? ['Reliable Smartphone', 'High-Speed Broadband', 'Centralized Cloud Hyperscalers']
+      : ['هاتف ذكي موثوق', 'اتصال فائق السرعة', 'حوسبة سحابية مركزية'],
+  };
+  const finalAha = ahaMoment || defaultAhaMoment;
+
+  const defaultBigFive = {
+    title: isEn ? 'The Big Five Social Transformations' : 'شبكة التحولات الاجتماعية الخمسة (The Big Five)',
+    subTitle: isEn ? 'Comparative Analytical Study' : 'دراسة تحليلية مقارنة',
     items: [
       {
         id: 'sns',
         num: '01',
         tag: 'SNS',
-        title: 'شبكات التواصل الاجتماعي',
-        description:
-          'تحويل المستخدم من مجرد متلقٍ سلبي للمعلومة إلى صانع محتوى وناشر ومشارك في مجتمعات افتراضية عابرة للحدود.',
-        impactLabel: 'الأثر المحوري:',
-        impact: 'دمقرطة النشر والمشاركة',
+        title: isEn ? 'Social Networking Services' : 'شبكات التواصل الاجتماعي',
+        description: isEn
+          ? 'Transforming users from passive consumers into creators, publishers, and cross-border networked communities.'
+          : 'تحويل المستخدم من مجرد متلقٍ سلبي للمعلومة إلى صانع محتوى وناشر ومشارك في مجتمعات افتراضية عابرة للحدود.',
+        impactLabel: isEn ? 'Key Impact:' : 'الأثر المحوري:',
+        impact: isEn ? 'Democratizing Publishing & Participation' : 'دمقرطة النشر والمشاركة',
         color: 'cobalt',
       },
       {
         id: 'ecomm',
         num: '02',
         tag: 'E-COMM',
-        title: 'التجارة الإلكترونية',
-        description:
-          'إلغاء العوائق المكانية والجغرافية، وتوفير الشراء الآني والمقارنة الفورية للأسعار وسلاسل التوريد الرقمية المترابطة.',
-        impactLabel: 'الأثر المحوري:',
-        impact: 'سوق عالمي مفتوح 24/7',
+        title: isEn ? 'E-Commerce & Digital Markets' : 'التجارة الإلكترونية',
+        description: isEn
+          ? 'Eradicating geographic barriers, enabling instant purchasing, live price comparisons, and digital supply chains.'
+          : 'إلغاء العوائق المكانية والجغرافية، وتوفير الشراء الآني والمقارنة الفورية للأسعار وسلاسل التوريد الرقمية المترابطة.',
+        impactLabel: isEn ? 'Key Impact:' : 'الأثر المحوري:',
+        impact: isEn ? 'Borderless Global Market 24/7' : 'سوق عالمي مفتوح 24/7',
         color: 'amber',
       },
       {
         id: 'remote',
         num: '03',
         tag: 'REMOTE',
-        title: 'العمل عن بُعد',
-        description:
-          'فصل الإنتاجية المهنية عن الحضور الجغرافي للمقر الوظيفي بالاعتماد على المنصات التشاركية والاجتماعات الافتراضية.',
-        impactLabel: 'الأثر المحوري:',
-        impact: 'مرونة ومكاتب افتراضية',
+        title: isEn ? 'Remote & Hybrid Work' : 'العمل عن بُعد',
+        description: isEn
+          ? 'Decoupling career productivity from physical co-location through collaboration hubs and cloud conferences.'
+          : 'فصل الإنتاجية المهنية عن الحضور الجغرافي للمقر الوظيفي بالاعتماد على المنصات التشاركية والاجتماعات الافتراضية.',
+        impactLabel: isEn ? 'Key Impact:' : 'الأثر المحوري:',
+        impact: isEn ? 'Labor Flexibility & Virtual Offices' : 'مرونة ومكاتب افتراضية',
         color: 'teal',
       },
       {
         id: 'learn',
         num: '04',
         tag: 'LEARN',
-        title: 'التعلم عبر الإنترنت',
-        description:
-          'إتاحة المحاضرات التفاعلية والمقررات المعيارية والشهادات الاحترافية لأي متعلم حول العالم في أي وقت وبدون قيود.',
-        impactLabel: 'الأثر المحوري:',
-        impact: 'التعليم مدى الحياة',
+        title: isEn ? 'Digital & On-Demand Learning' : 'التعلم عبر الإنترنت',
+        description: isEn
+          ? 'Providing interactive lectures, standardized curricula, and micro-degrees to global learners at any time.'
+          : 'إتاحة المحاضرات التفاعلية والمقررات المعيارية والشهادات الاحترافية لأي متعلم حول العالم في أي وقت وبدون قيود.',
+        impactLabel: isEn ? 'Key Impact:' : 'الأثر المحوري:',
+        impact: isEn ? 'Universal Lifelong Education' : 'التعليم مدى الحياة',
         color: 'cobalt',
       },
       {
         id: 'fintech',
         num: '05',
         tag: 'FINTECH',
-        title: 'الدفع غير النقدي (Cashless Economy)',
-        description:
-          'استبدال تبادل الأوراق النقدية بحلول رقمية فورية وآمنة عبر المحافظ الإلكترونية، وبطاقات الدفع الذكية، ورموز الاستجابة السريعة (QR Codes)، مما يرفع موثوقية النشاط الاقتصادي وسرعة تسويته.',
-        techStack: 'التقنيات الساندة: NFC / المحافظ الذكية / التشفير البنكي',
-        impactLabel: 'الأثر المحوري:',
-        impact: 'اقتصاد رقمي فوري',
+        title: isEn ? 'Cashless & Fintech Economy' : 'الدفع غير النقدي (Cashless Economy)',
+        description: isEn
+          ? 'Replacing paper currency with encrypted digital tokens, contactless cards, and QR codes for instant settlement.'
+          : 'استبدال تبادل الأوراق النقدية بحلول رقمية فورية وآمنة عبر المحافظ الإلكترونية، وبطاقات الدفع الذكية، ورموز الاستجابة السريعة (QR Codes)، مما يرفع موثوقية النشاط الاقتصادي وسرعة تسويته.',
+        techStack: isEn ? 'Enablers: NFC / Secure Wallets / Banking APIs' : 'التقنيات الساندة: NFC / المحافظ الذكية / التشفير البنكي',
+        impactLabel: isEn ? 'Key Impact:' : 'الأثر المحوري:',
+        impact: isEn ? 'Frictionless Instant Economy' : 'اقتصاد رقمي فوري',
         color: 'amber',
         fullWidth: true,
       },
     ],
-  },
-  activity = {
-    title: 'نشاط تطبيقي تفاعلي (استكشف في ثنائيات - 5 دقائق)',
+  };
+  const finalBigFive = bigFive || defaultBigFive;
+
+  const defaultActivity = {
+    title: isEn ? 'Applied Activity (Pair Exploration - 5 Mins)' : 'نشاط تطبيقي تفاعلي (استكشف في ثنائيات - 5 دقائق)',
     codeTag: 'ACT-4.1',
-    badge: 'تقييم مهارات التحليل',
-    instruction:
-      'المهمة: ناقش مع زميلك المجاور المواقف الحياتية التالية، ثم حدد في الجدول المرفق: (1) نوع التحول الاجتماعي، و(2) ركن البنية التحتية الأساسي الذي لو انهار لتوقف التطبيق كلياً:',
+    badge: isEn ? 'Analytical Skills Assessment' : 'تقييم مهارات التحليل',
+    instruction: isEn
+      ? 'Task: Discuss with your neighbor the following scenarios, then specify in the table: (1) The transformation type, and (2) The foundational pillar that if failed would collapse the entire service:'
+      : 'المهمة: ناقش مع زميلك المجاور المواقف الحياتية التالية، ثم حدد في الجدول المرفق: (1) نوع التحول الاجتماعي، و(2) ركن البنية التحتية الأساسي الذي لو انهار لتوقف التطبيق كلياً:',
     situations: [
       {
         id: 1,
-        situation: 'طلب وجبة طعام عائلية وتتبع مسار المندوب عبر الخريطة بالهاتف.',
+        situation: isEn ? 'Ordering dinner and tracking the courier via live GPS on phone.' : 'طلب وجبة طعام عائلية وتتبع مسار المندوب عبر الخريطة بالهاتف.',
       },
       {
         id: 2,
-        situation: 'حضور جلسة شرح فيزياء مباشرة والتفاعل صوتياً على منصة المدرسة.',
+        situation: isEn ? 'Attending a live physics lecture and interacting via audio on school LMS.' : 'حضور جلسة شرح فيزياء مباشرة والتفاعل صوتياً على منصة المدرسة.',
       },
       {
         id: 3,
-        situation: 'سداد فاتورة الكهرباء الشهرية عن طريق مسح رمز QR عبر محفظة الهاتف.',
+        situation: isEn ? 'Paying the monthly electricity bill by scanning a QR code via phone wallet.' : 'سداد فاتورة الكهرباء الشهرية عن طريق مسح رمز QR عبر محفظة الهاتف.',
       },
       {
         id: 4,
-        situation: 'مشاركة مهندس برمجيات مقيم بالقاهرة في فريق شركة تقنية بمقرها بلندن.',
+        situation: isEn ? 'A software engineer in Cairo collaborating seamlessly with a London-based tech team.' : 'مشاركة مهندس برمجيات مقيم بالقاهرة في فريق شركة تقنية بمقرها بلندن.',
       },
     ],
-    selfEvalLabel: 'التقييم الذاتي للنشاط:',
-    selfEvalOptions: ['متقن تماماً (3/3)', 'يحتاج مراجعة (2/3)'],
-    teacherSign: 'توقيع المعلم: ........................',
-  },
-  sidebarCentralConcept = {
+    selfEvalLabel: isEn ? 'Activity Self-Evaluation:' : 'التقييم الذاتي للنشاط:',
+    selfEvalOptions: isEn ? ['Fully Mastered (3/3)', 'Needs Review (2/3)'] : ['متقن تماماً (3/3)', 'يحتاج مراجعة (2/3)'],
+    teacherSign: isEn ? 'Teacher Signature: ........................' : 'توقيع المعلم: ........................',
+  };
+  const finalActivity = activity || defaultActivity;
+
+  const defaultSidebarCentralConcept = {
     unitTag: 'UNIT 01 // 1-1',
-    badge: 'المفهوم المركزي',
-    title: 'التحولات الاجتماعية الخمسة',
-    body:
-      'تغيرات سلوكية وتنظيمية عميقة طرأت على نسيج المجتمع نتيجة نضوج تكنولوجيا المعلومات والاتصالات.',
-    pillarsLabel: 'الأعمدة الثلاثية المشتركة:',
-    pillars: [
-      'الهاتف الذكي الموثوق',
-      'الإنترنت السريع المستقر',
-      'الحوسبة السحابية المركزية',
-    ],
-  },
-  goldenRule = {
-    title: 'ملحوظة ذهبية للاختبار',
+    badge: isEn ? 'Core Concept' : 'المفهوم المركزي',
+    title: isEn ? 'The Big Five Transformations' : 'التحولات الاجتماعية الخمسة',
+    body: isEn
+      ? 'Profound behavioral and organizational shifts across society sparked by the maturity of computing and telecommunications.'
+      : 'تغيرات سلوكية وتنظيمية عميقة طرأت على نسيج المجتمع نتيجة نضوج تكنولوجيا المعلومات والاتصالات.',
+    pillarsLabel: isEn ? 'Shared Foundational Triad:' : 'الأعمدة الثلاثية المشتركة:',
+    pillars: isEn
+      ? ['Reliable Smartphone', 'High-Speed Broadband', 'Centralized Cloud Hyperscalers']
+      : ['الهاتف الذكي الموثوق', 'الإنترنت السريع المستقر', 'الحوسبة السحابية المركزية'],
+  };
+  const finalSidebar = sidebarCentralConcept || defaultSidebarCentralConcept;
+
+  const defaultGoldenRule = {
+    title: isEn ? 'Golden Exam Insight' : 'ملحوظة ذهبية للاختبار',
     codeTag: 'P.04-EX',
-    subBadge: 'سؤال متكرر في الامتحانات',
-    body:
-      'التحولات الاجتماعية ليست مجرد برمجيات وتطبيقات تجارية منفصلة؛ بل هي إعادة هيكلة لسلوك الأفراد والمؤسسات تحققت بعد أن أصبحت أجهزة الاستشعار الذكية والسحابة الرقمية متاحة للجميع بتكلفة منخفضة.',
-  },
-  inkScratchpad = {
-    title: 'تدوين حر واستنتاج شخصي',
-    subBadge: 'بقلم الحبر',
-  },
-  footerNote = {
-    author: 'الأستاذ / محمد شامل محمد',
-    authorTitle: 'خبير المادة وتطوير المناهج',
-    pageLabel: 'صفحة 04',
-    academicYear: 'العام الدراسي 2026-2027',
-  },
-}) {
+    subBadge: isEn ? 'Recurring Exam Question' : 'سؤال متكرر في الامتحانات',
+    body: isEn
+      ? 'Social transformations are not just standalone apps; they represent fundamental structural rewiring of human society, unlocked when sensors and hyperscale cloud became affordable commodity utilities.'
+      : 'التحولات الاجتماعية ليست مجرد برمجيات وتطبيقات تجارية منفصلة؛ بل هي إعادة هيكلة لسلوك الأفراد والمؤسسات تحققت بعد أن أصبحت أجهزة الاستشعار الذكية والسحابة الرقمية متاحة للجميع بتكلفة منخفضة.',
+  };
+  const finalGoldenRule = goldenRule || defaultGoldenRule;
+
+  const defaultInkScratchpad = {
+    title: isEn ? 'Free Reflection & Personal Inference' : 'تدوين حر واستنتاج شخصي',
+    subBadge: isEn ? 'Ink Pen' : 'بقلم الحبر',
+  };
+  const finalInk = inkScratchpad || defaultInkScratchpad;
+
+  const defaultFooterNote = {
+    author: isEn ? 'Mohamed Shamel Mohamed' : 'الأستاذ / محمد شامل محمد',
+    authorTitle: isEn ? 'Curriculum & IT Expert' : 'خبير المادة وتطوير المناهج',
+    pageLabel: isEn ? 'Page 04' : 'صفحة 04',
+    academicYear: isEn ? 'Academic Year 2026-2027' : 'العام الدراسي 2026-2027',
+  };
+  const finalFooter = footerNote || defaultFooterNote;
   const [selectedEval, setSelectedEval] = useState(null);
 
   return (
@@ -156,19 +192,19 @@ export default function SocialTransformationsPage({
       {/* 1. Topic Ribbon Header */}
       <section className="st-ribbon-header">
         <div className="ribbon-right">
-          <span className="ribbon-number font-heading">{topicRibbon.number}</span>
+          <span className="ribbon-number font-heading">{finalTopicRibbon.number}</span>
           <div>
             <div className="ribbon-breadcrumbs">
-              <span>{topicRibbon.unitTitle}</span>
+              <span>{finalTopicRibbon.unitTitle}</span>
               <span className="bullet">•</span>
-              <span>{topicRibbon.lessonCode}</span>
+              <span>{finalTopicRibbon.lessonCode}</span>
               <span className="bullet">•</span>
-              <span className="ribbon-sub-badge">{topicRibbon.subBadge}</span>
+              <span className="ribbon-sub-badge">{finalTopicRibbon.subBadge}</span>
             </div>
-            <h1 className="ribbon-title font-heading">{topicRibbon.title}</h1>
+            <h1 className="ribbon-title font-heading">{finalTopicRibbon.title}</h1>
           </div>
         </div>
-        <span className="st-chapter-tag font-code">{topicRibbon.chapterTag}</span>
+        <span className="st-chapter-tag font-code">{finalTopicRibbon.chapterTag}</span>
       </section>
 
       {/* 2. Main 8:4 Grid */}
@@ -182,15 +218,15 @@ export default function SocialTransformationsPage({
             </div>
             <div className="st-aha-body">
               <div className="st-aha-meta">
-                <span className="st-aha-badge font-heading">{ahaMoment.badge}</span>
-                <span className="st-aha-sub-badge">{ahaMoment.subBadge}</span>
+                <span className="st-aha-badge font-heading">{finalAha.badge}</span>
+                <span className="st-aha-sub-badge">{finalAha.subBadge}</span>
               </div>
-              <p className="st-aha-lead">{ahaMoment.lead}</p>
+              <p className="st-aha-lead">{finalAha.lead}</p>
               <div className="st-aha-pillars">
-                {ahaMoment.pillars.map((pillar, idx) => (
+                {finalAha.pillars.map((pillar, idx) => (
                   <React.Fragment key={idx}>
                     <span className="st-pillar-chip font-heading">{pillar}</span>
-                    {idx < ahaMoment.pillars.length - 1 && <span className="st-pillar-plus">+</span>}
+                    {idx < finalAha.pillars.length - 1 && <span className="st-pillar-plus">+</span>}
                   </React.Fragment>
                 ))}
               </div>
@@ -202,13 +238,13 @@ export default function SocialTransformationsPage({
             <div className="st-big-five-header">
               <div className="st-big-five-title-group">
                 <span className="st-title-dot" />
-                <h3 className="st-big-five-title font-heading">{bigFive.title}</h3>
+                <h3 className="st-big-five-title font-heading">{finalBigFive.title}</h3>
               </div>
-              <span className="st-big-five-subtitle font-caption">{bigFive.subTitle}</span>
+              <span className="st-big-five-subtitle font-caption">{finalBigFive.subTitle}</span>
             </div>
 
             <div className="st-cards-mosaic">
-              {bigFive.items.map((item) => (
+              {finalBigFive.items.map((item) => (
                 <div
                   key={item.id}
                   className={`st-card ${item.color} ${item.fullWidth ? 'full-width' : ''}`}
@@ -241,15 +277,15 @@ export default function SocialTransformationsPage({
             <div className="st-activity-header">
               <div className="st-activity-title-group">
                 <Icon name="group_work" size={20} color="#ffffff" />
-                <span className="st-activity-title font-heading">{activity.title}</span>
+                <span className="st-activity-title font-heading">{finalActivity.title}</span>
               </div>
               <div className="st-activity-meta">
-                <span className="st-activity-badge font-heading">{activity.badge}</span>
-                <span className="st-activity-code font-code">{activity.codeTag}</span>
+                <span className="st-activity-badge font-heading">{finalActivity.badge}</span>
+                <span className="st-activity-code font-code">{finalActivity.codeTag}</span>
               </div>
             </div>
 
-            <p className="st-activity-instruction">{activity.instruction}</p>
+            <p className="st-activity-instruction">{finalActivity.instruction}</p>
 
             {/* Academic Structured Table */}
             <div className="st-table-wrapper">
@@ -257,13 +293,13 @@ export default function SocialTransformationsPage({
                 <thead>
                   <tr>
                     <th className="st-th-num">#</th>
-                    <th className="st-th-situation">الموقف الحياتي العملي</th>
-                    <th className="st-th-type">نوع التحول الاجتماعي</th>
-                    <th className="st-th-pillar">ركن البنية التحتية الحرج</th>
+                    <th className="st-th-situation">{isEn ? 'Daily Life Scenario' : 'الموقف الحياتي العملي'}</th>
+                    <th className="st-th-type">{isEn ? 'Transformation Type' : 'نوع التحول الاجتماعي'}</th>
+                    <th className="st-th-pillar">{isEn ? 'Critical Infrastructure Pillar' : 'ركن البنية التحتية الحرج'}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {activity.situations.map((row) => (
+                  {finalActivity.situations.map((row) => (
                     <tr key={row.id}>
                       <td className="st-td-num font-code">{row.id}</td>
                       <td className="st-td-situation">{row.situation}</td>
@@ -282,8 +318,8 @@ export default function SocialTransformationsPage({
             {/* Self-Evaluation & Signoff Strip */}
             <div className="st-activity-footer">
               <div className="st-self-eval-group">
-                <span className="st-self-eval-label font-heading">{activity.selfEvalLabel}</span>
-                {activity.selfEvalOptions.map((opt, idx) => (
+                <span className="st-self-eval-label font-heading">{finalActivity.selfEvalLabel}</span>
+                {finalActivity.selfEvalOptions.map((opt, idx) => (
                   <label key={idx} className="st-checkbox-label">
                     <input
                       type="checkbox"
@@ -296,7 +332,7 @@ export default function SocialTransformationsPage({
                 ))}
               </div>
               <div className="st-teacher-sign font-caption">
-                <span>{activity.teacherSign}</span>
+                <span>{finalActivity.teacherSign}</span>
               </div>
             </div>
           </div>
@@ -309,22 +345,22 @@ export default function SocialTransformationsPage({
             <div className="st-sidebar-header cobalt">
               <div className="st-sidebar-title-row">
                 <Icon name="auto_stories" size={18} color="var(--color-cobalt-700)" />
-                <span className="st-sidebar-code font-code">{sidebarCentralConcept.unitTag}</span>
+                <span className="st-sidebar-code font-code">{finalSidebar.unitTag}</span>
               </div>
-              <span className="st-sidebar-badge font-heading">{sidebarCentralConcept.badge}</span>
+              <span className="st-sidebar-badge font-heading">{finalSidebar.badge}</span>
             </div>
 
             <div className="st-concept-box">
-              <div className="st-concept-heading font-heading">{sidebarCentralConcept.title}</div>
-              <p className="st-concept-body">{sidebarCentralConcept.body}</p>
+              <div className="st-concept-heading font-heading">{finalSidebar.title}</div>
+              <p className="st-concept-body">{finalSidebar.body}</p>
             </div>
 
             <div className="st-pillars-list-wrap">
               <span className="st-pillars-label font-heading">
-                {sidebarCentralConcept.pillarsLabel}
+                {finalSidebar.pillarsLabel}
               </span>
               <ul className="st-pillars-list">
-                {sidebarCentralConcept.pillars.map((p, i) => (
+                {finalSidebar.pillars.map((p, i) => (
                   <li key={i} className="st-pillar-item">
                     <span className="st-pillar-num font-code">{i + 1}</span>
                     <span className="st-pillar-text font-heading">{p}</span>
@@ -342,13 +378,13 @@ export default function SocialTransformationsPage({
             <div className="st-golden-header">
               <div className="st-golden-title-row">
                 <Icon name="lightbulb" size={18} color="var(--color-amber-700)" />
-                <span className="st-golden-title font-heading">{goldenRule.title}</span>
+                <span className="st-golden-title font-heading">{finalGoldenRule.title}</span>
               </div>
-              <span className="st-golden-code font-code">{goldenRule.codeTag}</span>
+              <span className="st-golden-code font-code">{finalGoldenRule.codeTag}</span>
             </div>
-            <p className="st-golden-body">{goldenRule.body}</p>
+            <p className="st-golden-body">{finalGoldenRule.body}</p>
             <div className="st-golden-footer font-caption">
-              <span className="st-golden-tag">{goldenRule.subBadge}</span>
+              <span className="st-golden-tag">{finalGoldenRule.subBadge}</span>
             </div>
           </section>
 
@@ -357,9 +393,9 @@ export default function SocialTransformationsPage({
             <div className="st-scratchpad-header">
               <div className="st-scratchpad-title-row">
                 <Icon name="draw" size={18} color="var(--color-cobalt-600)" />
-                <span className="st-scratchpad-title font-heading">{inkScratchpad.title}</span>
+                <span className="st-scratchpad-title font-heading">{finalInk.title}</span>
               </div>
-              <span className="st-scratchpad-badge font-caption">{inkScratchpad.subBadge}</span>
+              <span className="st-scratchpad-badge font-caption">{finalInk.subBadge}</span>
             </div>
             <div className="st-scratchpad-lines">
               <div className="st-ruled-line" />
@@ -375,13 +411,14 @@ export default function SocialTransformationsPage({
         <div className="footer-author-note">
           <Icon name="school" size={16} color="var(--color-cobalt-600)" />
           <span>
-            إعداد الأستاذ: <strong className="author-name">{footerNote.author}</strong> •{' '}
-            {footerNote.authorTitle}
+            {isEn ? 'Prepared by: ' : 'إعداد الأستاذ: '}
+            <strong className="author-name">{finalFooter.author}</strong> •{' '}
+            {finalFooter.authorTitle}
           </span>
         </div>
         <div className="footer-page-meta">
-          <span className="footer-page-pill font-code">{footerNote.pageLabel}</span>
-          <span className="footer-academic-year">{footerNote.academicYear}</span>
+          <span className="footer-page-pill font-code">{finalFooter.pageLabel}</span>
+          <span className="footer-academic-year">{finalFooter.academicYear}</span>
         </div>
       </footer>
     </div>
