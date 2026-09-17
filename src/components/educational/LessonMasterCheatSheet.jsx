@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLanguage } from '../../i18n/LanguageContext.js';
 import { lesson01CheatSheetData } from '../../data/lesson01CheatSheetData.js';
 import { lesson01CheatSheetDataEn } from '../../data/lesson01CheatSheetDataEn.js';
@@ -10,6 +10,13 @@ import { lesson01CheatSheetDataEn } from '../../data/lesson01CheatSheetDataEn.js
  */
 export default function LessonMasterCheatSheet({ data: propData }) {
   const { language, isRTL } = useLanguage();
+
+  useEffect(() => {
+    document.body.classList.add('landscape-active');
+    return () => {
+      document.body.classList.remove('landscape-active');
+    };
+  }, []);
 
   // Resolve active dataset based on prop or global language context
   const data =
@@ -29,6 +36,34 @@ export default function LessonMasterCheatSheet({ data: propData }) {
 
   return (
     <div className="cheat-sheet-wrapper">
+      <style>{`
+        @page {
+          size: A4 landscape !important;
+          margin: 0 !important;
+        }
+        @page landscape-sheet {
+          size: A4 landscape !important;
+          margin: 0 !important;
+        }
+        @media print {
+          @page {
+            size: A4 landscape !important;
+            margin: 0 !important;
+          }
+          html, body {
+            width: 297mm !important;
+            height: 210mm !important;
+            max-width: 297mm !important;
+            max-height: 210mm !important;
+            overflow: hidden !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background-color: #ffffff !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+        }
+      `}</style>
       <main className="cheat-sheet-canvas">
         {/* ============================================================= */}
         {/* HEADER SECTION                                                */}
