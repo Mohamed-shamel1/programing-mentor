@@ -3,6 +3,7 @@ import Card from '../ui/Card.jsx';
 import CalloutBox from '../ui/CalloutBox.jsx';
 import Badge from '../ui/Badge.jsx';
 import { useLanguage } from '../../i18n/LanguageContext.js';
+import StudentExamPortalCard from './exam/StudentExamPortalCard.jsx';
 
 /**
  * RevisionPage
@@ -79,6 +80,9 @@ export default function RevisionPage({
           </ol>
         </div>
       )}
+
+      {/* Instructor's Student Exam Portal Card with Real QR Code */}
+      <StudentExamPortalCard lessonCode="1-1" examHash="#exam-1-1" />
 
       {mentorClosing && (
         <CalloutBox

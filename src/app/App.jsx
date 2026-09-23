@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { VIEWS, NAVIGATION_SECTIONS } from './routes.js';
 import HomePage from '../pages/HomePage.jsx';
 import CurriculumCoverPage from '../components/educational/frontmatter/CurriculumCoverPage.jsx';
@@ -7,6 +7,7 @@ import ProgressTrackerPage from '../components/educational/frontmatter/ProgressT
 import MasteryPedagogyPage from '../components/educational/frontmatter/MasteryPedagogyPage.jsx';
 import LessonRenderer from '../renderer/LessonRenderer.jsx';
 import LessonMasterCheatSheet from '../components/educational/LessonMasterCheatSheet.jsx';
+import LessonExamPage from '../components/educational/exam/LessonExamPage.jsx';
 import { lesson01Data } from '../data/lesson01Data.js';
 import { lesson01DataEn } from '../data/lesson01DataEn.js';
 import { lesson01CheatSheetData } from '../data/lesson01CheatSheetData.js';
@@ -21,6 +22,28 @@ import { LanguageProvider } from '../i18n/LanguageProvider.jsx';
 function AppContent() {
   const [currentView, setCurrentView] = useState(VIEWS.CURRICULUM_COVER);
   const { language, t } = useLanguage();
+
+  // Standalone Student Exam Mode triggered by hash #exam-1-1 or query param
+  const [isStandaloneExam, setIsStandaloneExam] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return (
+        window.location.hash === '#exam-1-1' ||
+        window.location.search.includes('exam=1-1')
+      );
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const isExam =
+        window.location.hash === '#exam-1-1' ||
+        window.location.search.includes('exam=1-1');
+      setIsStandaloneExam(isExam);
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   // Active curriculum data resolved by current language
   const activeLesson01 = language === 'en' ? lesson01DataEn : lesson01Data;
@@ -242,6 +265,9 @@ function AppContent() {
           </div>
         );
 
+      case VIEWS.LESSON_1_1_EXAM:
+        return <LessonExamPage />;
+
       default: {
         // Dynamic Single Lesson Page Resolution
         const targetPageId = lessonPageIdMap[currentView];
@@ -260,6 +286,95 @@ function AppContent() {
       }
     }
   };
+
+  if (isStandaloneExam || currentView === VIEWS.LESSON_1_1_EXAM) {
+    return (
+      <div
+        className="student-exam-standalone-wrap"
+        style={{
+          minHeight: '100vh',
+          backgroundColor: '#0a192f',
+          color: '#ffffff',
+        }}
+      >
+        <header
+          className="screen-only"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '10px 16px',
+            backgroundColor: '#091322',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            position: 'sticky',
+            top: 0,
+            zIndex: 100,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span
+              style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                backgroundColor: '#38bdf8',
+                display: 'inline-block',
+                boxShadow: '0 0 8px #38bdf8',
+              }}
+            />
+            <span
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: '13px',
+                fontWeight: 'bold',
+                color: '#f8fafc',
+              }}
+            >
+              {language === 'en'
+                ? 'The Mentor — Official Student Examination'
+                : 'منصة المُرشد الذكي — نظام اختبارات الطلاب الرسمية'}
+            </span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <LanguageSwitcher />
+
+            <button
+              type="button"
+              onClick={() => {
+                if (window.location.hash) {
+                  window.history.pushState(
+                    '',
+                    document.title,
+                    window.location.pathname + window.location.search
+                  );
+                }
+                setIsStandaloneExam(false);
+                setCurrentView(VIEWS.LESSON_1_1_PAGE8);
+              }}
+              style={{
+                background: 'transparent',
+                border: '1px solid #475569',
+                borderRadius: '6px',
+                color: '#94a3b8',
+                padding: '4px 10px',
+                fontSize: '11px',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+              title={language === 'en' ? 'Return to Instructor View' : 'العودة لمنصة المعلم'}
+            >
+              {language === 'en' ? 'Instructor View ↩' : 'منصة المعلم ↩'}
+            </button>
+          </div>
+        </header>
+
+        <main style={{ padding: '8px 4px' }}>
+          <LessonExamPage />
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="app-root">

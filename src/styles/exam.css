@@ -1,0 +1,779 @@
+/* ====================================================================
+ * EXAM COMPONENT STYLES (Mobile-First, Bilingual, Design System Aligned)
+ * Tokens: Navy-950, Cobalt-600, Teal-600, Amber-500, Emerald-600
+ * ==================================================================== */
+
+.exam-viewport {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: var(--space-4, 16px) var(--space-3, 12px) var(--space-8, 48px);
+  box-sizing: border-box;
+  font-family: var(--font-body, system-ui, sans-serif);
+  color: var(--color-navy-950, #0f172a);
+}
+
+/* 1. Official Exam Header & Accreditation */
+.exam-official-header {
+  background: linear-gradient(135deg, #091322 0%, #0f172a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg, 14px);
+  padding: var(--space-5, 20px);
+  color: #ffffff;
+  margin-bottom: var(--space-4, 16px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.exam-official-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.exam-header-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: var(--space-3, 12px);
+}
+
+.exam-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.exam-pill-badge.ministry {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.exam-pill-badge.grade {
+  background: rgba(13, 148, 136, 0.2);
+  color: #2dd4bf;
+  border: 1px solid rgba(13, 148, 136, 0.35);
+}
+
+.exam-pill-badge.subject {
+  background: rgba(37, 99, 235, 0.2);
+  color: #93c5fd;
+  border: 1px solid rgba(37, 99, 235, 0.35);
+}
+
+.exam-title-main {
+  font-family: var(--font-heading, 'Cairo', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0 0 8px;
+  color: #ffffff;
+}
+
+.exam-subtitle-meta {
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 2. Sticky Student & Progress Bar */
+.exam-sticky-bar {
+  position: sticky;
+  top: 10px;
+  z-index: 40;
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md, 12px);
+  padding: 10px 14px;
+  margin-bottom: var(--space-4, 16px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.exam-student-identity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: #e2e8f0;
+}
+
+.exam-student-name-tag {
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+.exam-progress-tracker {
+  flex: 1;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exam-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.exam-progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.exam-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0d9488, #2563eb);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.exam-timer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 3. Section Navigation Tabs */
+.exam-section-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: var(--space-4, 16px);
+  scrollbar-width: thin;
+}
+
+.exam-section-tab-btn {
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.exam-section-tab-btn:hover {
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.exam-section-tab-btn.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.25);
+}
+
+.exam-section-tab-btn .tab-count {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.08);
+  color: inherit;
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 999px;
+}
+
+.exam-section-tab-btn.active .tab-count {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 4. Section Card Container */
+.exam-section-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-lg, 14px);
+  padding: var(--space-4, 16px);
+  margin-bottom: var(--space-5, 20px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.exam-section-header {
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: var(--space-4, 16px);
+}
+
+.exam-section-title-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.exam-section-title {
+  font-family: var(--font-heading, 'Cairo', sans-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.exam-section-instruction {
+  font-size: 0.8125rem;
+  color: #64748b;
+  margin: 4px 0 0;
+}
+
+/* 5. Question Item Box */
+.exam-question-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md, 12px);
+  padding: 14px;
+  margin-bottom: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.exam-question-item:focus-within {
+  border-color: #94a3b8;
+}
+
+.exam-question-item.status-correct {
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+.exam-question-item.status-incorrect {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+.exam-question-item.status-submitted-essay {
+  border-color: #0d9488;
+  background: #f0fdfa;
+}
+
+.exam-question-top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.exam-question-number-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.exam-question-text {
+  flex: 1;
+  font-family: var(--font-heading, 'Cairo', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 6. Simplified Hint Toggle Button (!) */
+.exam-simplified-hint-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 9999px;
+  color: #b45309;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease-in-out;
+  flex-shrink: 0;
+}
+
+.exam-simplified-hint-toggle:hover {
+  background: rgba(245, 158, 11, 0.22);
+  transform: translateY(-1px);
+}
+
+.exam-simplified-hint-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f59e0b;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.exam-simplified-hint-box {
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-inline-start: 4px solid #f59e0b;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 10px 0;
+  animation: fadeInDown 0.2s ease-out;
+}
+
+.exam-simplified-hint-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #92400e;
+  margin: 0 0 4px;
+}
+
+.exam-simplified-hint-text {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: #78350f;
+  margin: 0;
+}
+
+/* 7. Multiple Choice Options Grid */
+.exam-options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.exam-option-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.exam-option-card:hover {
+  border-color: #94a3b8;
+  background: #f8fafc;
+}
+
+.exam-option-card.selected {
+  border-color: #2563eb;
+  background: #eff6ff;
+  box-shadow: 0 0 0 1px #2563eb;
+}
+
+.exam-option-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #94a3b8;
+  font-size: 11px;
+  font-weight: 800;
+  color: #475569;
+  flex-shrink: 0;
+}
+
+.exam-option-card.selected .exam-option-indicator {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.exam-option-text {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: #1e293b;
+  flex: 1;
+}
+
+/* 8. Text Input (Fill Blank & Scientific Term) */
+.exam-text-input-wrap {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.exam-text-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0f172a;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.exam-text-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* 9. True/False Toggle Buttons */
+.exam-tf-buttons-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.exam-tf-btn {
+  flex: 1;
+  padding: 9px 14px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s;
+  min-height: 44px;
+}
+
+.exam-tf-btn:hover {
+  background: #f8fafc;
+}
+
+.exam-tf-btn.selected-true {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #065f46;
+}
+
+.exam-tf-btn.selected-false {
+  background: #fef2f2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+/* 10. Essay Textarea */
+.exam-essay-textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0f172a;
+  box-sizing: border-box;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+  margin-top: 8px;
+}
+
+.exam-essay-textarea:focus {
+  border-color: #0d9488;
+  box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.15);
+}
+
+.exam-essay-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* 11. Universal Explanation Box (Always Shown Post-Submission) */
+.exam-explanation-box {
+  margin-top: 12px;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-inline-start: 4px solid #0d9488;
+}
+
+.exam-explanation-box.correct {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  border-inline-start-color: #10b981;
+}
+
+.exam-explanation-box.incorrect {
+  background: #fef2f2;
+  border-color: #fecaca;
+  border-inline-start-color: #ef4444;
+}
+
+.exam-explanation-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 800;
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.exam-explanation-header.correct {
+  color: #15803d;
+}
+
+.exam-explanation-header.incorrect {
+  color: #b91c1c;
+}
+
+.exam-explanation-header.neutral {
+  color: #0f766e;
+}
+
+.exam-correction-text {
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #0f172a;
+}
+
+.exam-explanation-body {
+  color: #334155;
+  margin: 0;
+}
+
+/* 12. Model Answer Callout (For Essay Questions) */
+.exam-model-answer-box {
+  margin-top: 10px;
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+  border-inline-start: 4px solid #0d9488;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.8125rem;
+}
+
+.exam-model-answer-title {
+  font-weight: 800;
+  color: #0f766e;
+  margin: 0 0 4px;
+  font-size: 11px;
+}
+
+.exam-model-answer-content {
+  color: #134e4a;
+  white-space: pre-line;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* 13. Sticky Action Bar (Submit / WhatsApp) */
+.exam-action-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: var(--space-6, 24px);
+  padding: var(--space-4, 16px);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-lg, 14px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.exam-submit-primary-btn {
+  width: 100%;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-heading, 'Cairo', sans-serif);
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.18s ease-in-out;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+  min-height: 48px;
+}
+
+.exam-submit-primary-btn:hover {
+  background: #0f172a;
+  transform: translateY(-1px);
+}
+
+.exam-whatsapp-btn {
+  width: 100%;
+  padding: 12px 18px;
+  background: #25d366;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-heading, 'Cairo', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.18s;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  text-decoration: none;
+  box-sizing: border-box;
+  min-height: 48px;
+}
+
+.exam-whatsapp-btn:hover {
+  background: #1eb956;
+}
+
+.exam-reset-btn {
+  padding: 8px 14px;
+  background: transparent;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: center;
+}
+
+.exam-reset-btn:hover {
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+/* 14. Score Showcase Card (Post Submission) */
+.exam-score-card {
+  background: linear-gradient(135deg, #091322 0%, #0f172a 100%);
+  border-radius: var(--radius-lg, 14px);
+  padding: 20px;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.exam-score-number {
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: #38bdf8;
+  margin: 8px 0;
+  font-family: var(--font-heading, 'Cairo', sans-serif);
+}
+
+.exam-score-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.exam-manual-notice {
+  font-size: 0.8125rem;
+  color: #fbbf24;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+  .exam-viewport {
+    padding: 10px 8px 36px;
+  }
+
+  .exam-official-header {
+    padding: 14px;
+  }
+
+  .exam-title-main {
+    font-size: 1.1rem;
+  }
+
+  .exam-sticky-bar {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .exam-section-card {
+    padding: 12px;
+  }
+
+  .exam-question-item {
+    padding: 12px 10px;
+  }
+
+  .exam-option-card {
+    padding: 8px 10px;
+  }
+}

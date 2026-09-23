@@ -30,6 +30,7 @@ export const translations = {
     exploreCoverBtn: '📖 تصفح افتتاحية المنهج والغلاف الرسمي',
     exploreLessonBtn: '🚀 استكشف الدرس 1-1 (تطور تكنولوجيا المعلومات)',
     exploreCheatSheetBtn: '⚡ مخطط الإتقان والمراجعة الشاملة (A4 أفقي)',
+    exploreExamBtn: '📝 بدء الامتحان التفاعلي للدرس 1-1 (موبايل)',
 
     // Header & Footer
     defaultUnitTitle: 'الوحدة الأولى: تكنولوجيا المعلومات والمجتمع — البكالوريا المصرية (2026–2027)',
@@ -74,6 +75,7 @@ export const translations = {
     navArVrQuantum: 'الواقع المعزز والافتراضي والكمومي',
     navDecisionStakeholders: 'تحليل أصحاب المصلحة والقرار',
     navRevisionFinal: 'المراجعة والتحدي الختامي',
+    navLessonExam: 'الاختبار التفاعلي الشامل (موبايل)',
     navLessonBooklet: 'معاينة وطباعة كتيب الدرس',
   },
 
@@ -101,6 +103,7 @@ export const translations = {
     exploreCoverBtn: '📖 View Curriculum Cover & Opening',
     exploreLessonBtn: '🚀 Explore Lesson 1-1 (Evolution of IT)',
     exploreCheatSheetBtn: '⚡ Master Revision Poster (A4 Landscape)',
+    exploreExamBtn: '📝 Launch Lesson 1-1 Exam (Mobile)',
 
     // Header & Footer
     defaultUnitTitle: 'Unit 1: Computing & AI Fundamentals — Egyptian Baccalaureate (2026–2027)',
@@ -145,6 +148,7 @@ export const translations = {
     navArVrQuantum: 'AR, VR & Quantum Computing',
     navDecisionStakeholders: 'Stakeholder & Decision Analysis',
     navRevisionFinal: 'Revision & Final Challenge',
+    navLessonExam: 'Interactive Exam (Mobile)',
     navLessonBooklet: 'Preview & Print Lesson Booklet',
   },
 };
