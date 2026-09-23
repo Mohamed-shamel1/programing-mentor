@@ -10,11 +10,11 @@ export const lesson01ExamDataEn = {
   title: 'Comprehensive Questions Bank: Evolution of IT & Social Transformation',
   curriculumInfo: {
     country: 'Arab Republic of Egypt - Ministry of Education & Technical Education',
-    directorate: 'Dakahlia Directorate of Education - Education Development Ambassadors',
+    directorate: 'Ministry of Education & Technical Education - Secondary Education',
     grade: 'Grade 11 - Egyptian Baccalaureate',
     subject: 'Programming & Artificial Intelligence',
     term: 'First Term',
-    supervision: 'Supervised by General Inspector: Mr. Mahdy El-Saeed | Prepared by: Mrs. Seham Fayez'
+    supervision: 'Prepared & Instructed by: Mr. Mohamed Shamel'
   },
   totalQuestions: 28,
   autoGradedPoints: 22,
