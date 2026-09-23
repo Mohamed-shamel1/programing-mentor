@@ -4168,4 +4168,49 @@
   font-family: var(--font-heading);
   font-weight: bold;
 }
+
+/* ====================================================================
+ * Lesson 1-2 Dedicated Pages: 01, 02, 03
+ * ==================================================================== */
+
+.nested-categories-page,
+.learning-tiers-page,
+.paradigm-shift-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 6px;
+  box-sizing: border-box;
+}
+
+.nested-venn-wrapper ellipse {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nested-venn-wrapper ellipse:hover {
+  stroke-width: 3.5px;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.15));
+}
+
+.paradigm-flow-diagram button {
+  transition: all 0.15s ease;
+}
+
+.paradigm-flow-diagram button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+@media print {
+  .nested-categories-page,
+  .learning-tiers-page,
+  .paradigm-shift-page {
+    height: 100% !important;
+    gap: 4px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
+
 

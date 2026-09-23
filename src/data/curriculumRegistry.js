@@ -10,6 +10,10 @@ import { lesson01CheatSheetData } from './lesson01CheatSheetData.js';
 import { lesson01CheatSheetDataEn } from './lesson01CheatSheetDataEn.js';
 import { lesson01ExamData } from './lesson01ExamData.js';
 import { lesson01ExamDataEn } from './lesson01ExamDataEn.js';
+import { lesson02Data } from './lesson02Data.js';
+import { lesson02DataEn } from './lesson02DataEn.js';
+import { lesson02ExamData } from './lesson02ExamData.js';
+import { lesson02ExamDataEn } from './lesson02ExamDataEn.js';
 
 export const CURRICULUM_LESSONS = [
   {
@@ -38,14 +42,17 @@ export const CURRICULUM_LESSONS = [
     unitNumber: 1,
     unitTitleAr: 'الوحدة الأولى: أساسيات الحوسبة والذكاء الاصطناعي',
     unitTitleEn: 'Unit 1: Computing & AI Fundamentals',
-    titleAr: 'الدرس 1-2: معمارية الحاسب وعتاد المعالجة الدقيقة',
-    titleEn: 'Lesson 1-2: Computer Architecture & Microprocessor Hardware',
-    shortTitleAr: 'الدرس 1-2: معمارية الحاسب والعتاد',
-    shortTitleEn: 'Lesson 1-2: Computer Architecture',
-    icon: 'memory',
-    status: 'upcoming',
-    badgeAr: 'قريباً',
-    badgeEn: 'Soon',
+    titleAr: 'الدرس 1-2: أسس الذكاء الاصطناعي — المفاهيم والآليات والتحولات',
+    titleEn: 'Lesson 1-2: Foundations of AI — Concepts, Mechanisms & Transformations',
+    shortTitleAr: 'الدرس 1-2: أسس الذكاء الاصطناعي',
+    shortTitleEn: 'Lesson 1-2: Foundations of AI',
+    icon: 'psychology',
+    status: 'ready',
+    dataAr: lesson02Data,
+    dataEn: lesson02DataEn,
+    examAr: lesson02ExamData,
+    examEn: lesson02ExamDataEn,
+    examHash: '#exam-1-2',
   },
   {
     id: 'lesson-1-3',

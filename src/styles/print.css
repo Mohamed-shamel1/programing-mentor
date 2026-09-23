@@ -30,7 +30,7 @@
   /* 2. Standard A4 Portrait Page Setup: 210mm x 297mm */
   @page {
     size: A4 portrait;
-    margin: 8mm 10mm 8mm 10mm;
+    margin: 6mm 8mm 6mm 8mm;
   }
 
   /* 3. Hide all screen-only UI elements */
@@ -48,7 +48,7 @@
     background: transparent !important;
   }
 
-  /* 4. Page Shell Wrapper: Reset all outer screen paddings & enforce clean page breaks */
+  /* 4. Page Shell Wrapper: Clean single-sheet boundaries without double breaks */
   .page-shell-wrapper {
     margin: 0 !important;
     padding: 0 !important;
@@ -68,13 +68,13 @@
     break-after: auto !important;
   }
 
-  /* 5. A4 Page Shell: Exactly ONE Printed Sheet per DOM Page (297mm - 16mm = 281mm) */
+  /* 5. A4 Page Shell: Fits inside available 285mm print budget (297mm - 12mm) */
   .page-shell {
     width: 100% !important;
     max-width: 100% !important;
-    height: 281mm !important;
-    max-height: 281mm !important;
-    min-height: 281mm !important;
+    height: 283mm !important;
+    max-height: 283mm !important;
+    min-height: 283mm !important;
     margin: 0 !important;
     padding: 0 !important;
     box-shadow: none !important;
@@ -82,11 +82,11 @@
     border-radius: 0 !important;
     background: #ffffff !important;
     box-sizing: border-box !important;
-    page-break-after: always !important;
-    break-after: page !important;
+    page-break-after: auto !important; /* Critical: Prevent double-page breaks with wrapper */
+    break-after: auto !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    overflow: hidden !important; /* Strict guarantee: Content never spills onto accidental blank pages */
+    overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
@@ -193,13 +193,14 @@
     width: 100% !important;
   }
 
-  /* 9.2 Lesson 1-1 Compact Spacing for Strict A4 Sheet Containment */
+  /* 9.2 Lesson Pages Compact Spacing for Strict A4 Sheet Containment */
   .educational-page {
     height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     gap: 1.5mm !important;
+    box-sizing: border-box !important;
   }
 
   .lesson-overview-page,
@@ -210,8 +211,119 @@
   .edge-vs-cloud-page,
   .ar-vr-quantum-page,
   .activity-decision-page,
-  .revision-page {
+  .revision-page,
+  .nested-categories-page,
+  .learning-tiers-page,
+  .paradigm-shift-page {
+    gap: 1.2mm !important;
+    height: 100% !important;
+    justify-content: space-between !important;
+  }
+
+  /* Specific Print Tuning for Lesson Overview (Page 00) to Prevent Any Overflow */
+  .overview-hero-section {
+    padding: 2mm 3mm !important;
+    margin-bottom: 1mm !important;
+  }
+
+  .overview-lesson-title {
+    font-size: 13pt !important;
+    line-height: 1.2 !important;
+    margin: 1mm 0 1.5mm 0 !important;
+  }
+
+  .overview-grand-question-card {
+    padding: 1.2mm 2.5mm !important;
+    margin-bottom: 1mm !important;
+  }
+
+  .grand-question-text {
+    font-size: 9.5pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .overview-core-idea {
+    padding: 1mm 2mm !important;
+    margin: 1mm 0 !important;
+  }
+
+  .core-idea-text {
+    font-size: 8pt !important;
+  }
+
+  .overview-mission-context {
+    font-size: 7.8pt !important;
+    line-height: 1.2 !important;
+    margin: 1mm 0 0 0 !important;
+  }
+
+  .overview-core-concepts-section {
+    padding: 1.5mm 3mm !important;
+  }
+
+  .concepts-chips-grid {
+    gap: 1mm !important;
+  }
+
+  .concept-chip {
+    padding: 1mm 2mm !important;
+  }
+
+  .concept-chip-text {
+    font-size: 7.2pt !important;
+  }
+
+  .lesson-journey-map {
+    padding: 1.5mm 3mm !important;
+  }
+
+  .journey-node {
+    padding: 1.2mm 1mm !important;
+    min-height: 11mm !important;
+  }
+
+  .journey-node-name {
+    font-size: 7.5pt !important;
+  }
+
+  .journey-node-desc {
+    font-size: 6.5pt !important;
+  }
+
+  .overview-discovery-grid {
     gap: 1.5mm !important;
+  }
+
+  .discovery-pillar-card {
+    padding: 1.5mm 2.5mm !important;
+  }
+
+  .pillar-title {
+    font-size: 8.5pt !important;
+    margin: 1mm 0 !important;
+  }
+
+  .pillar-desc {
+    font-size: 7.2pt !important;
+    line-height: 1.2 !important;
+  }
+
+  .challenge-teaser-card {
+    padding: 1.5mm 3mm !important;
+  }
+
+  .challenge-teaser-title {
+    font-size: 8.5pt !important;
+  }
+
+  .challenge-teaser-desc {
+    font-size: 7.5pt !important;
+    line-height: 1.2 !important;
+  }
+
+  .overview-cognitive-key {
+    padding: 1mm 2.5mm !important;
+    font-size: 7.5pt !important;
   }
 
   .overview-hero-section,

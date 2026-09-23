@@ -10,6 +10,16 @@ import ConceptVisualPage from '../components/educational/ConceptVisualPage.jsx';
 import ComparisonPage from '../components/educational/ComparisonPage.jsx';
 import ActivityDecisionPage from '../components/educational/ActivityDecisionPage.jsx';
 import RevisionPage from '../components/educational/RevisionPage.jsx';
+import NestedCategoriesPage from '../components/educational/NestedCategoriesPage.jsx';
+import LearningTiersPage from '../components/educational/LearningTiersPage.jsx';
+import ParadigmShiftPage from '../components/educational/ParadigmShiftPage.jsx';
+import ArtificialBrainPage from '../components/educational/ArtificialBrainPage.jsx';
+import NarrowAiHallucinationPage from '../components/educational/NarrowAiHallucinationPage.jsx';
+import CaseStudiesPage from '../components/educational/CaseStudiesPage.jsx';
+import StakeholderPolicyPage from '../components/educational/StakeholderPolicyPage.jsx';
+import CriticalThinkingPage from '../components/educational/CriticalThinkingPage.jsx';
+import LessonSummaryDiagramPage from '../components/educational/LessonSummaryDiagramPage.jsx';
+import FinalAssessmentPage from '../components/educational/FinalAssessmentPage.jsx';
 import GlobalRoadmapPage from '../components/educational/frontmatter/GlobalRoadmapPage.jsx';
 import ProgressTrackerPage from '../components/educational/frontmatter/ProgressTrackerPage.jsx';
 import MasteryPedagogyPage from '../components/educational/frontmatter/MasteryPedagogyPage.jsx';
@@ -34,6 +44,18 @@ export const PAGE_TYPES = {
   ACTIVITY_DECISION: 'ACTIVITY_DECISION',
   REVISION: 'REVISION',
 
+  // Lesson 1-2 Dedicated Page Types
+  NESTED_CATEGORIES: 'NESTED_CATEGORIES',
+  LEARNING_TIERS: 'LEARNING_TIERS',
+  PARADIGM_SHIFT: 'PARADIGM_SHIFT',
+  ARTIFICIAL_BRAIN: 'ARTIFICIAL_BRAIN',
+  NARROW_AI_HALLUCINATION: 'NARROW_AI_HALLUCINATION',
+  CASE_STUDIES: 'CASE_STUDIES',
+  STAKEHOLDER_POLICY: 'STAKEHOLDER_POLICY',
+  CRITICAL_THINKING: 'CRITICAL_THINKING',
+  LESSON_SUMMARY_DIAGRAM: 'LESSON_SUMMARY_DIAGRAM',
+  FINAL_ASSESSMENT: 'FINAL_ASSESSMENT',
+
   // Front-Matter Opening Trilogy Page Types
   GLOBAL_ROADMAP: 'GLOBAL_ROADMAP',
   PROGRESS_TRACKER: 'PROGRESS_TRACKER',
@@ -53,6 +75,18 @@ const registry = {
   [PAGE_TYPES.COMPARISON]: ComparisonPage,
   [PAGE_TYPES.ACTIVITY_DECISION]: ActivityDecisionPage,
   [PAGE_TYPES.REVISION]: RevisionPage,
+
+  // Lesson 1-2 Pages
+  [PAGE_TYPES.NESTED_CATEGORIES]: NestedCategoriesPage,
+  [PAGE_TYPES.LEARNING_TIERS]: LearningTiersPage,
+  [PAGE_TYPES.PARADIGM_SHIFT]: ParadigmShiftPage,
+  [PAGE_TYPES.ARTIFICIAL_BRAIN]: ArtificialBrainPage,
+  [PAGE_TYPES.NARROW_AI_HALLUCINATION]: NarrowAiHallucinationPage,
+  [PAGE_TYPES.CASE_STUDIES]: CaseStudiesPage,
+  [PAGE_TYPES.STAKEHOLDER_POLICY]: StakeholderPolicyPage,
+  [PAGE_TYPES.CRITICAL_THINKING]: CriticalThinkingPage,
+  [PAGE_TYPES.LESSON_SUMMARY_DIAGRAM]: LessonSummaryDiagramPage,
+  [PAGE_TYPES.FINAL_ASSESSMENT]: FinalAssessmentPage,
 
   // Front-matter registrations
   [PAGE_TYPES.GLOBAL_ROADMAP]: GlobalRoadmapPage,
