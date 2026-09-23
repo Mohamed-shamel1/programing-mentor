@@ -9,12 +9,20 @@
 /* --------------------------------------------------------------------
  * 1. A4 Page Shell Container (Web Simulation & Document Shell)
  * -------------------------------------------------------------------- */
+.page-shell-wrapper,
+.front-matter-section,
+#fm-cover,
+#fm-roadmap,
+#fm-tracker,
+#fm-pedagogy {
+  scroll-margin-top: 115px;
+}
+
 .page-shell-wrapper {
   display: flex;
   justify-content: center;
   padding: var(--space-6) var(--space-4);
   background-color: var(--surface-page);
-  scroll-margin-top: 105px;
 }
 
 .page-shell {

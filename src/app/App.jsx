@@ -100,14 +100,38 @@ function AppContent() {
       if (isThrottled) return;
       isThrottled = true;
       requestAnimationFrame(() => {
-        const pages = activeLesson01.pages;
-        const scrollPos = window.scrollY + 130;
+        const pages = activeLesson01?.pages || [];
+        if (pages.length === 0) {
+          isThrottled = false;
+          return;
+        }
 
+        // At top of page -> first station
+        if (window.scrollY < 60) {
+          setCurrentLessonPageId(pages[0].id);
+          isThrottled = false;
+          return;
+        }
+
+        // At bottom of page -> last station
+        if (
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 60
+        ) {
+          setCurrentLessonPageId(pages[pages.length - 1].id);
+          isThrottled = false;
+          return;
+        }
+
+        // Reverse search by bounding client rect
         for (let i = pages.length - 1; i >= 0; i--) {
           const el = document.getElementById(pages[i].id);
-          if (el && el.offsetTop <= scrollPos) {
-            setCurrentLessonPageId(pages[i].id);
-            break;
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 140) {
+              setCurrentLessonPageId(pages[i].id);
+              break;
+            }
           }
         }
         isThrottled = false;
@@ -115,6 +139,7 @@ function AppContent() {
     };
 
     window.addEventListener('scroll', handleLessonScroll, { passive: true });
+    handleLessonScroll();
     return () => window.removeEventListener('scroll', handleLessonScroll);
   }, [activeNavTab, activeLesson01]);
 
@@ -134,12 +159,32 @@ function AppContent() {
       if (isThrottled) return;
       isThrottled = true;
       requestAnimationFrame(() => {
-        const scrollPos = window.scrollY + 130;
+        // At top of page -> Cover
+        if (window.scrollY < 60) {
+          setCurrentView(VIEWS.CURRICULUM_COVER);
+          isThrottled = false;
+          return;
+        }
+
+        // At bottom of page -> Pedagogy
+        if (
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 60
+        ) {
+          setCurrentView(VIEWS.PEDAGOGY_PAGE3);
+          isThrottled = false;
+          return;
+        }
+
+        // Reverse search by bounding client rect
         for (let i = fmElements.length - 1; i >= 0; i--) {
           const el = document.getElementById(fmElements[i].id);
-          if (el && el.offsetTop <= scrollPos) {
-            setCurrentView(fmElements[i].view);
-            break;
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 140) {
+              setCurrentView(fmElements[i].view);
+              break;
+            }
           }
         }
         isThrottled = false;
@@ -147,6 +192,7 @@ function AppContent() {
     };
 
     window.addEventListener('scroll', handleFmScroll, { passive: true });
+    handleFmScroll();
     return () => window.removeEventListener('scroll', handleFmScroll);
   }, [activeNavTab]);
 
@@ -177,6 +223,10 @@ function AppContent() {
     const el = document.getElementById(pageId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      setTimeout(() => {
+        document.getElementById(pageId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
     }
   };
 
@@ -186,9 +236,14 @@ function AppContent() {
       return;
     }
     setCurrentView(page.id);
-    const el = document.getElementById(page.elementId || 'fm-cover');
+    const targetId = page.elementId || 'fm-cover';
+    const el = document.getElementById(targetId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      setTimeout(() => {
+        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
     }
   };
 
@@ -205,16 +260,16 @@ function AppContent() {
       case VIEWS.BOOKLET_TRILOGY:
         return (
           <div className="front-matter-continuous-feed">
-            <div id="fm-cover">
+            <div id="fm-cover" className="front-matter-section">
               <CurriculumCoverPage />
             </div>
-            <div id="fm-roadmap">
+            <div id="fm-roadmap" className="front-matter-section">
               <GlobalRoadmapPage data={activeRoadmap} />
             </div>
-            <div id="fm-tracker">
+            <div id="fm-tracker" className="front-matter-section">
               <ProgressTrackerPage data={activeTracker} />
             </div>
-            <div id="fm-pedagogy">
+            <div id="fm-pedagogy" className="front-matter-section">
               <MasteryPedagogyPage data={activePedagogy} />
             </div>
           </div>
@@ -505,7 +560,7 @@ function AppContent() {
                 <button
                   key={page.id}
                   type="button"
-                  onClick={() => setCurrentView(page.id)}
+                  onClick={() => handleSelectFmPage(page)}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
