@@ -719,36 +719,6 @@
  * 10. Print Architecture (@media print: Single A4 Landscape Sheet)
  * -------------------------------------------------------------------- */
 @media print {
-  @page {
-    size: A4 landscape !important;
-    margin: 0 !important;
-  }
-
-  @page landscape-sheet {
-    size: A4 landscape !important;
-    margin: 0 !important;
-  }
-
-  html,
-  body {
-    background-color: #ffffff !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 297mm !important;
-    height: 210mm !important;
-    max-width: 297mm !important;
-    max-height: 210mm !important;
-    overflow: hidden !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-  .no-print,
-  .web-toolbar,
-  .screen-only {
-    display: none !important;
-  }
-
   .cheat-sheet-wrapper {
     padding: 0 !important;
     margin: 0 !important;
