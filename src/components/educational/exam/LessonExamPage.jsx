@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useLanguage } from '../../../i18n/LanguageContext.js';
 import { lesson01ExamData } from '../../../data/lesson01ExamData.js';
 import { lesson01ExamDataEn } from '../../../data/lesson01ExamDataEn.js';
+import { TEACHER_CONFIG } from '../../../data/teacherConfig.js';
 import Icon from '../../ui/Icon.jsx';
 import '../../../styles/exam.css';
 
@@ -213,10 +214,14 @@ export default function LessonExamPage({ customData = null }) {
   const generateWhatsAppLink = () => {
     const sName = studentName.trim() || (isEn ? 'Student' : 'طالب المنصة');
     const timeSpent = formatTime(elapsedSeconds);
+    const lessonCode = examData.lessonId || '1-1';
 
     let text = isEn
-      ? `*🎓 Lesson 1-1 Exam Report*\n`
-      : `*🎓 تقرير اختبار الدرس (1-1)*\n`;
+      ? `*🎓 Lesson ${lessonCode} Exam Report*\n`
+      : `*🎓 تقرير اختبار الدرس (${lessonCode})*\n`;
+    text += isEn
+      ? `*👨‍🏫 Teacher:* ${TEACHER_CONFIG.nameEn}\n`
+      : `*👨‍🏫 إشراف المعلم:* ${TEACHER_CONFIG.fullNameAr}\n`;
     text += isEn ? `*👤 Student:* ${sName}\n` : `*👤 اسم الطالب:* ${sName}\n`;
     text += isEn
       ? `*📊 Objective Score:* ${evaluation.autoScore} / ${evaluation.maxAutoScore} (${evaluation.percentage}%)\n`
@@ -228,23 +233,27 @@ export default function LessonExamPage({ customData = null }) {
       : `*📝 إجابات الطالب المقالية (لتقييم المعلم):*\n\n`;
 
     // Section E Answers
-    examData.sectionE.questions.forEach((q, idx) => {
-      const essayAns = answers[q.id] || (isEn ? '[No answer]' : '[لم يُجب]');
-      text += `${idx + 1}️⃣ *${q.question}*\n👉 ${essayAns}\n\n`;
-    });
+    if (examData.sectionE?.questions) {
+      examData.sectionE.questions.forEach((q, idx) => {
+        const essayAns = answers[q.id] || (isEn ? '[No answer]' : '[لم يُجب]');
+        text += `${idx + 1}️⃣ *${q.question}*\n👉 ${essayAns}\n\n`;
+      });
+    }
 
     // Section F Answers
-    examData.sectionF.questions.forEach((q, idx) => {
-      const essayAns = answers[q.id] || (isEn ? '[No answer]' : '[لم يُجب]');
-      text += `${idx + 4}️⃣ *${q.question}*\n👉 ${essayAns}\n\n`;
-    });
+    if (examData.sectionF?.questions) {
+      examData.sectionF.questions.forEach((q, idx) => {
+        const essayAns = answers[q.id] || (isEn ? '[No answer]' : '[لم يُجب]');
+        text += `${idx + 4}️⃣ *${q.question}*\n👉 ${essayAns}\n\n`;
+      });
+    }
 
     text += `━━━━━━━━━━━━━━━━━━\n`;
     text += isEn
-      ? `🔐 *Mentor Verification:* #DKH-101-${Math.floor(Math.random() * 9000 + 1000)}`
-      : `🔐 *كود التحقق:* #DKH-101-${Math.floor(Math.random() * 9000 + 1000)}`;
+      ? `🔐 *Mentor Verification:* #DKH-${lessonCode}-${Math.floor(Math.random() * 9000 + 1000)}`
+      : `🔐 *كود التحقق:* #DKH-${lessonCode}-${Math.floor(Math.random() * 9000 + 1000)}`;
 
-    return `https://wa.me/?text=${encodeURIComponent(text)}`;
+    return `https://wa.me/${TEACHER_CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
   };
 
   const sectionsList = [
@@ -296,8 +305,8 @@ export default function LessonExamPage({ customData = null }) {
           <p className="exam-manual-notice">
             <Icon name="info" size={16} />{' '}
             {isEn
-              ? 'Notice: 18 marks for analytical & essay questions are reserved for your teacher’s review via the WhatsApp button below.'
-              : 'تنبيه تربوي: يتبقى 18 درجة مخصصة للأسئلة المقالية والتحليلية يراجعها معلمك عبر زر الواتساب بالأسفل.'}
+              ? `Notice: ${examData.manualGradedPoints || 18} marks for analytical & essay questions are reserved for review by ${TEACHER_CONFIG.nameEn} via the WhatsApp button below.`
+              : `تنبيه تربوي: يتبقى ${examData.manualGradedPoints || 18} درجة مخصصة للأسئلة المقالية والتحليلية يراجعها ${TEACHER_CONFIG.nameAr} عبر زر الواتساب بالأسفل.`}
           </p>
         </div>
       )}
@@ -934,8 +943,8 @@ export default function LessonExamPage({ customData = null }) {
               <Icon name="send" size={20} color="#ffffff" />
               <span>
                 {isEn
-                  ? 'Send Answer Sheet to Teacher via WhatsApp 📲'
-                  : 'إرسال ورقة الإجابة للمستر على واتساب 📲'}
+                  ? `Send Answer Sheet to ${TEACHER_CONFIG.nameEn} via WhatsApp 📲`
+                  : `إرسال ورقة الإجابة للمستر (${TEACHER_CONFIG.nameAr}) على واتساب 📲`}
               </span>
             </a>
 
