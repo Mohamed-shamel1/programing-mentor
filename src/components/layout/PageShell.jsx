@@ -8,6 +8,7 @@ import PageFooter from './PageFooter.jsx';
  * Responsible for A4 dimensions, print-break boundaries, and integrated header/footer.
  */
 export default function PageShell({
+  id,
   children,
   headerProps = {},
   footerProps = {},
@@ -16,7 +17,7 @@ export default function PageShell({
   hideFooter = false,
 }) {
   return (
-    <div className="page-shell-wrapper">
+    <div className="page-shell-wrapper" id={id}>
       <article className={`page-shell ${className}`.trim()}>
         {!hideHeader && <PageHeader {...headerProps} />}
         <main className={`page-content ${hideHeader ? 'no-header' : ''} ${hideFooter ? 'no-footer' : ''}`}>

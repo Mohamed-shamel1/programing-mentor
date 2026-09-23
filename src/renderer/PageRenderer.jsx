@@ -39,6 +39,7 @@ export default function PageRenderer({ page }) {
 
   return (
     <PageShell
+      id={page.id || `page-${page.pageNumber}`}
       headerProps={{
         unitTitle: page.unitTitle,
         lessonTitle: page.lessonTitle,

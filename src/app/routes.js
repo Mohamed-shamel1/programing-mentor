@@ -43,10 +43,10 @@ export const NAVIGATION_SECTIONS = [
     icon: 'menu_book',
     defaultView: VIEWS.CURRICULUM_COVER,
     pages: [
-      { id: VIEWS.CURRICULUM_COVER, label: 'غلاف المنهج الرسمي', labelEn: 'Curriculum Cover', badge: 'الغلاف', badgeEn: 'Cover', icon: 'palette' },
-      { id: VIEWS.ROADMAP_PAGE1, label: 'الرؤية الكبرى وخريطة الفصول', labelEn: 'Curriculum Roadmap', badge: '01', badgeEn: '01', icon: 'route' },
-      { id: VIEWS.TRACKER_PAGE2, label: 'خطة ومسار تقدم الطالب', labelEn: 'Student Progress Tracker', badge: '02', badgeEn: '02', icon: 'trending_up' },
-      { id: VIEWS.PEDAGOGY_PAGE3, label: 'دورة الإتقان وفلسفة التعلم', labelEn: 'Mastery Pedagogy', badge: '03', badgeEn: '03', icon: 'psychology' },
+      { id: VIEWS.CURRICULUM_COVER, label: 'غلاف المنهج الرسمي', labelEn: 'Curriculum Cover', badge: 'الغلاف', badgeEn: 'Cover', icon: 'palette', elementId: 'fm-cover' },
+      { id: VIEWS.ROADMAP_PAGE1, label: 'الرؤية الكبرى وخريطة الفصول', labelEn: 'Curriculum Roadmap', badge: '01', badgeEn: '01', icon: 'route', elementId: 'fm-roadmap' },
+      { id: VIEWS.TRACKER_PAGE2, label: 'خطة ومسار تقدم الطالب', labelEn: 'Student Progress Tracker', badge: '02', badgeEn: '02', icon: 'trending_up', elementId: 'fm-tracker' },
+      { id: VIEWS.PEDAGOGY_PAGE3, label: 'دورة الإتقان وفلسفة التعلم', labelEn: 'Mastery Pedagogy', badge: '03', badgeEn: '03', icon: 'psychology', elementId: 'fm-pedagogy' },
       { id: VIEWS.BOOKLET_TRILOGY, label: 'طباعة الافتتاحية كاملاً', labelEn: 'Print Opening Booklet', badge: 'A4', badgeEn: 'A4', icon: 'print', isPrint: true },
     ],
   },
@@ -73,5 +73,3 @@ export const NAVIGATION_SECTIONS = [
 ];
 
 export const VIEW_CONFIG = NAVIGATION_SECTIONS.flatMap((sec) => sec.pages);
-
-

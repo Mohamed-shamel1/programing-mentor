@@ -8,6 +8,9 @@ import MasteryPedagogyPage from '../components/educational/frontmatter/MasteryPe
 import LessonRenderer from '../renderer/LessonRenderer.jsx';
 import LessonMasterCheatSheet from '../components/educational/LessonMasterCheatSheet.jsx';
 import LessonExamPage from '../components/educational/exam/LessonExamPage.jsx';
+import InstructorHeader from '../components/layout/InstructorHeader.jsx';
+import LessonPager from '../components/layout/LessonPager.jsx';
+import { CURRICULUM_LESSONS } from '../data/curriculumRegistry.js';
 import { lesson01Data } from '../data/lesson01Data.js';
 import { lesson01DataEn } from '../data/lesson01DataEn.js';
 import { lesson01CheatSheetData } from '../data/lesson01CheatSheetData.js';
@@ -74,78 +77,146 @@ function AppContent() {
     [VIEWS.LESSON_1_1_PAGE8]: 'page-08',
   };
 
+  const activeNavTab =
+    currentView === VIEWS.HOME
+      ? 'HOME'
+      : currentView === VIEWS.CURRICULUM_COVER ||
+        currentView === VIEWS.ROADMAP_PAGE1 ||
+        currentView === VIEWS.TRACKER_PAGE2 ||
+        currentView === VIEWS.PEDAGOGY_PAGE3 ||
+        currentView === VIEWS.BOOKLET_TRILOGY
+      ? 'FRONT_MATTER'
+      : 'LESSON';
+
+  const activeLessonId = 'lesson-1-1';
+  const [currentLessonPageId, setCurrentLessonPageId] = useState('page-00');
+
+  // ScrollSpy for Active Lesson (updates active stepper pill during downward scroll)
+  useEffect(() => {
+    if (activeNavTab !== 'LESSON') return;
+
+    let isThrottled = false;
+    const handleLessonScroll = () => {
+      if (isThrottled) return;
+      isThrottled = true;
+      requestAnimationFrame(() => {
+        const pages = activeLesson01.pages;
+        const scrollPos = window.scrollY + 130;
+
+        for (let i = pages.length - 1; i >= 0; i--) {
+          const el = document.getElementById(pages[i].id);
+          if (el && el.offsetTop <= scrollPos) {
+            setCurrentLessonPageId(pages[i].id);
+            break;
+          }
+        }
+        isThrottled = false;
+      });
+    };
+
+    window.addEventListener('scroll', handleLessonScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleLessonScroll);
+  }, [activeNavTab, activeLesson01]);
+
+  // ScrollSpy for Front Matter (updates active navigation pill during downward scroll)
+  useEffect(() => {
+    if (activeNavTab !== 'FRONT_MATTER') return;
+
+    const fmElements = [
+      { id: 'fm-cover', view: VIEWS.CURRICULUM_COVER },
+      { id: 'fm-roadmap', view: VIEWS.ROADMAP_PAGE1 },
+      { id: 'fm-tracker', view: VIEWS.TRACKER_PAGE2 },
+      { id: 'fm-pedagogy', view: VIEWS.PEDAGOGY_PAGE3 },
+    ];
+
+    let isThrottled = false;
+    const handleFmScroll = () => {
+      if (isThrottled) return;
+      isThrottled = true;
+      requestAnimationFrame(() => {
+        const scrollPos = window.scrollY + 130;
+        for (let i = fmElements.length - 1; i >= 0; i--) {
+          const el = document.getElementById(fmElements[i].id);
+          if (el && el.offsetTop <= scrollPos) {
+            setCurrentView(fmElements[i].view);
+            break;
+          }
+        }
+        isThrottled = false;
+      });
+    };
+
+    window.addEventListener('scroll', handleFmScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleFmScroll);
+  }, [activeNavTab]);
+
+  const handleSelectHome = () => {
+    setCurrentView(VIEWS.HOME);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectFrontMatter = () => {
+    setCurrentView(VIEWS.CURRICULUM_COVER);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectLesson = (_lessonId) => {
+    setCurrentView(VIEWS.LESSON_1_1_PAGE0);
+    setCurrentLessonPageId('page-00');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectLessonPageId = (pageId) => {
+    setCurrentLessonPageId(pageId);
+    const targetEntry = Object.entries(lessonPageIdMap).find(
+      ([, id]) => id === pageId
+    );
+    if (targetEntry) {
+      setCurrentView(targetEntry[0]);
+    }
+    const el = document.getElementById(pageId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleSelectFmPage = (page) => {
+    if (page.isPrint) {
+      window.print();
+      return;
+    }
+    setCurrentView(page.id);
+    const el = document.getElementById(page.elementId || 'fm-cover');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const renderActiveView = () => {
     switch (currentView) {
       case VIEWS.HOME:
         return <HomePage onNavigate={setCurrentView} />;
 
-      // Front Matter Pages
+      // Front Matter Pages (Continuous Document Feed)
       case VIEWS.CURRICULUM_COVER:
-        return <CurriculumCoverPage />;
       case VIEWS.ROADMAP_PAGE1:
-        return <GlobalRoadmapPage data={activeRoadmap} />;
       case VIEWS.TRACKER_PAGE2:
-        return <ProgressTrackerPage data={activeTracker} />;
       case VIEWS.PEDAGOGY_PAGE3:
-        return <MasteryPedagogyPage data={activePedagogy} />;
       case VIEWS.BOOKLET_TRILOGY:
         return (
-          <div className="booklet-trilogy-container">
-            <div
-              className="screen-only"
-              style={{
-                maxWidth: 'var(--a4-preview-width)',
-                margin: '0 auto var(--space-4)',
-                padding: 'var(--space-3) var(--space-4)',
-                backgroundColor: 'var(--color-navy-50)',
-                border: '1px solid var(--color-navy-100)',
-                borderRadius: 'var(--radius-sm)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--font-size-xs)', color: 'var(--color-navy-900)' }}>
-                <span
-                  style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    backgroundColor: 'var(--color-success-600)',
-                    display: 'inline-block',
-                  }}
-                />
-                <strong>{t('trilogyPreviewNote')}</strong>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => window.print()}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  backgroundColor: 'var(--color-cobalt-600)',
-                  color: '#ffffff',
-                  border: 'none',
-                  borderRadius: 'var(--radius-sm)',
-                  padding: '6px 14px',
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: 'var(--font-size-xs)',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  boxShadow: 'var(--shadow-sm)',
-                }}
-              >
-                <Icon name="print" size={16} color="#ffffff" />
-                <span>{t('printBookletAction')}</span>
-              </button>
+          <div className="front-matter-continuous-feed">
+            <div id="fm-cover">
+              <CurriculumCoverPage />
             </div>
-
-            <CurriculumCoverPage />
-            <GlobalRoadmapPage data={activeRoadmap} />
-            <ProgressTrackerPage data={activeTracker} />
-            <MasteryPedagogyPage data={activePedagogy} />
+            <div id="fm-roadmap">
+              <GlobalRoadmapPage data={activeRoadmap} />
+            </div>
+            <div id="fm-tracker">
+              <ProgressTrackerPage data={activeTracker} />
+            </div>
+            <div id="fm-pedagogy">
+              <MasteryPedagogyPage data={activePedagogy} />
+            </div>
           </div>
         );
 
@@ -269,20 +340,11 @@ function AppContent() {
         return <LessonExamPage />;
 
       default: {
-        // Dynamic Single Lesson Page Resolution
-        const targetPageId = lessonPageIdMap[currentView];
-        if (targetPageId) {
-          const singlePageLesson = {
-            ...activeLesson01,
-            pages: activeLesson01.pages.filter((p) => p.id === targetPageId),
-          };
-          return (
-            <div className="lesson-page-preview">
-              <LessonRenderer lesson={singlePageLesson} />
-            </div>
-          );
-        }
-        return <CurriculumCoverPage />;
+        return (
+          <div className="lesson-continuous-feed">
+            <LessonRenderer lesson={activeLesson01} />
+          </div>
+        );
       }
     }
   };
@@ -378,242 +440,122 @@ function AppContent() {
 
   return (
     <div className="app-root">
-      {/* Top Application Bar: Tier 1 (Screen Only) */}
-      <header
-        className="screen-only"
-        style={{
-          backgroundColor: 'var(--color-navy-950)',
-          color: 'var(--text-inverse)',
-          padding: '8px 24px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          borderBottom: '1px solid var(--color-navy-800)',
-          position: 'sticky',
-          top: 0,
-          zIndex: 100,
-        }}
-      >
-        {/* Brand & Level Badge (Clickable to Home) */}
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={() => setCurrentView(VIEWS.HOME)}
-          onKeyDown={(e) => e.key === 'Enter' && setCurrentView(VIEWS.HOME)}
-          title={t('returnHomeTooltip')}
-          style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
+      {/* Modern Instructor Nav Header */}
+      <InstructorHeader
+        activeNavTab={activeNavTab}
+        activeLessonId={activeLessonId}
+        onSelectHome={handleSelectHome}
+        onSelectFrontMatter={handleSelectFrontMatter}
+        onSelectLesson={handleSelectLesson}
+      />
+
+      {/* Contextual Tier 2: Dedicated Lesson Pager when inside a lesson */}
+      {activeNavTab === 'LESSON' && (
+        <LessonPager
+          lesson={activeLesson01}
+          currentPageId={currentLessonPageId}
+          onSelectPageId={handleSelectLessonPageId}
+          onOpenBooklet={() => setCurrentView(VIEWS.LESSON_1_1_BOOKLET)}
+          onOpenCheatSheet={() => setCurrentView(VIEWS.LESSON_1_1_CHEAT_SHEET)}
+          onOpenExam={() => setCurrentView(VIEWS.LESSON_1_1_EXAM)}
+        />
+      )}
+
+      {/* Contextual Tier 2: Clean Front-Matter Trilogy Bar */}
+      {activeNavTab === 'FRONT_MATTER' && (
+        <nav
+          className="screen-only"
+          style={{
+            backgroundColor: 'var(--color-navy-900, #0f172a)',
+            borderBottom: '1px solid var(--color-navy-800, #1e293b)',
+            padding: '6px 20px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            position: 'sticky',
+            top: '49px',
+            zIndex: 99,
+            overflowX: 'auto',
+          }}
+          aria-label="Curriculum Guide Pages"
         >
           <div
             style={{
-              width: '28px',
-              height: '28px',
-              borderRadius: 'var(--radius-xs)',
-              backgroundColor: 'var(--color-cobalt-600)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 10px rgba(56, 189, 248, 0.3)',
-            }}
-          >
-            <Icon name="psychology" size={18} color="#ffffff" />
-          </div>
-          <div>
-            <span
-              style={{
-                fontFamily: 'var(--font-heading)',
-                fontWeight: 'var(--font-weight-black)',
-                fontSize: '14px',
-                color: '#ffffff',
-                display: 'block',
-                lineHeight: 1.1,
-              }}
-            >
-              {t('platformName')}
-            </span>
-            <span
-              style={{
-                fontSize: '10px',
-                color: 'var(--color-neutral-400)',
-                display: 'block',
-              }}
-            >
-              {t('platformSubtitle')}
-            </span>
-          </div>
-        </div>
-
-        {/* Tier 1: Section Switcher Tabs */}
-        <div
-          style={{
-            display: 'flex',
-            backgroundColor: 'rgba(15, 23, 42, 0.8)',
-            border: '1px solid var(--color-navy-800)',
-            borderRadius: 'var(--radius-sm)',
-            padding: '3px',
-            gap: '4px',
-          }}
-        >
-          {NAVIGATION_SECTIONS.map((section) => {
-            const isSectionActive = activeSection.id === section.id;
-            const sectionTitle =
-              language === 'en' && section.titleEn ? section.titleEn : section.title;
-
-            return (
-              <button
-                key={section.id}
-                type="button"
-                onClick={() => setCurrentView(section.defaultView)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '6px 14px',
-                  fontSize: '12.5px',
-                  fontFamily: 'var(--font-heading)',
-                  fontWeight: isSectionActive ? 'bold' : 'normal',
-                  border: 'none',
-                  borderRadius: 'var(--radius-xs)',
-                  cursor: 'pointer',
-                  backgroundColor: isSectionActive ? 'var(--color-cobalt-600)' : 'transparent',
-                  color: isSectionActive ? '#ffffff' : 'var(--color-neutral-400)',
-                  boxShadow: isSectionActive ? 'var(--shadow-sm)' : 'none',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                <Icon
-                  name={section.icon}
-                  size={15}
-                  color={isSectionActive ? '#ffffff' : 'var(--color-neutral-400)'}
-                />
-                <span>{sectionTitle}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Quick Action: Language Switcher & Direct Print Shortcut */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <LanguageSwitcher />
-
-          <button
-            type="button"
-            onClick={() => window.print()}
-            title={t('printTooltip')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              backgroundColor: 'rgba(30, 41, 59, 0.8)',
-              border: '1px solid var(--color-navy-700)',
-              color: 'var(--color-neutral-200)',
-              borderRadius: 'var(--radius-xs)',
-              padding: '6px 12px',
               fontSize: '11px',
-              cursor: 'pointer',
+              color: 'var(--color-teal-400, #2dd4bf)',
               fontFamily: 'var(--font-heading)',
+              fontWeight: 'bold',
+              paddingInlineEnd: '8px',
+              borderInlineEnd: '1px solid var(--color-navy-700, #334155)',
+              whiteSpace: 'nowrap',
             }}
           >
-            <Icon name="print" size={14} color="var(--color-teal-400)" />
-            <span>{t('printA4')}</span>
-          </button>
-        </div>
-      </header>
+            <span>{language === 'en' ? 'Curriculum Guide:' : 'دليل وافتتاحية المنهج:'}</span>
+          </div>
 
-      {/* Tier 2: Sub-Nav Contextual Pages Bar (Screen Only) */}
-      <nav
-        className="screen-only"
-        style={{
-          backgroundColor: 'var(--color-navy-900)',
-          borderBottom: '1px solid var(--color-navy-800)',
-          padding: '6px 24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          position: 'sticky',
-          top: '49px',
-          zIndex: 99,
-          overflowX: 'auto',
-        }}
-      >
-        <div
-          style={{
-            fontSize: '11px',
-            color: 'var(--color-teal-400)',
-            fontFamily: 'var(--font-heading)',
-            fontWeight: 'bold',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-            paddingInlineEnd: '8px',
-            borderInlineEnd: '1px solid var(--color-navy-700)',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          <span>{t('pagesOfSection')} {activeSectionTitle}:</span>
-        </div>
+          <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+            {NAVIGATION_SECTIONS[1].pages.map((page) => {
+              const isPageActive = currentView === page.id;
+              const pageLabel =
+                language === 'en' && page.labelEn ? page.labelEn : page.label;
+              const pageBadge =
+                language === 'en' && page.badgeEn ? page.badgeEn : page.badge;
 
-        <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-          {activeSection.pages.map((page) => {
-            const isPageActive = currentView === page.id;
-            const pageLabel =
-              language === 'en' && page.labelEn ? page.labelEn : page.label;
-            const pageBadge =
-              language === 'en' && page.badgeEn ? page.badgeEn : page.badge;
-
-            return (
-              <button
-                key={page.id}
-                type="button"
-                onClick={() => setCurrentView(page.id)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  padding: '4px 10px',
-                  fontSize: '11.5px',
-                  fontFamily: 'var(--font-body)',
-                  border: page.isPrint
-                    ? '1px solid rgba(245, 158, 11, 0.4)'
-                    : isPageActive
-                    ? '1px solid var(--color-cobalt-400)'
-                    : '1px solid transparent',
-                  borderRadius: 'var(--radius-xs)',
-                  cursor: 'pointer',
-                  backgroundColor: isPageActive
-                    ? 'var(--color-cobalt-700)'
-                    : page.isPrint
-                    ? 'rgba(245, 158, 11, 0.12)'
-                    : 'rgba(15, 23, 42, 0.4)',
-                  color: isPageActive
-                    ? '#ffffff'
-                    : page.isPrint
-                    ? 'var(--color-amber-300)'
-                    : 'var(--color-neutral-300)',
-                  fontWeight: isPageActive ? 'bold' : 'normal',
-                  whiteSpace: 'nowrap',
-                  transition: 'all 0.12s ease',
-                }}
-              >
-                {pageBadge && (
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-code)',
-                      fontSize: '9.5px',
-                      backgroundColor: isPageActive ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.1)',
-                      padding: '1px 5px',
-                      borderRadius: '2px',
-                    }}
-                  >
-                    {pageBadge}
-                  </span>
-                )}
-                <span>{pageLabel}</span>
-                {page.isPrint && <Icon name="print" size={13} color="currentColor" />}
-              </button>
-            );
-          })}
-        </div>
-      </nav>
+              return (
+                <button
+                  key={page.id}
+                  type="button"
+                  onClick={() => setCurrentView(page.id)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '4px 10px',
+                    fontSize: '11.5px',
+                    fontFamily: 'var(--font-body)',
+                    border: page.isPrint
+                      ? '1px solid rgba(245, 158, 11, 0.4)'
+                      : isPageActive
+                      ? '1px solid var(--color-cobalt-400, #60a5fa)'
+                      : '1px solid transparent',
+                    borderRadius: 'var(--radius-xs, 4px)',
+                    cursor: 'pointer',
+                    backgroundColor: isPageActive
+                      ? 'var(--color-cobalt-700, #1d4ed8)'
+                      : page.isPrint
+                      ? 'rgba(245, 158, 11, 0.12)'
+                      : 'rgba(15, 23, 42, 0.4)',
+                    color: isPageActive
+                      ? '#ffffff'
+                      : page.isPrint
+                      ? 'var(--color-amber-300, #fcd34d)'
+                      : '#cbd5e1',
+                    fontWeight: isPageActive ? 'bold' : 'normal',
+                    whiteSpace: 'nowrap',
+                    transition: 'all 0.12s ease',
+                  }}
+                >
+                  {pageBadge && (
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-code)',
+                        fontSize: '9.5px',
+                        backgroundColor: isPageActive ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.1)',
+                        padding: '1px 5px',
+                        borderRadius: '2px',
+                      }}
+                    >
+                      {pageBadge}
+                    </span>
+                  )}
+                  <span>{pageLabel}</span>
+                  {page.isPrint && <Icon name="print" size={13} color="currentColor" />}
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+      )}
 
       {/* Main Content Area */}
       <main className="app-main" style={{ padding: 'var(--space-4) 0' }}>

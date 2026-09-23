@@ -14,6 +14,7 @@
   justify-content: center;
   padding: var(--space-6) var(--space-4);
   background-color: var(--surface-page);
+  scroll-margin-top: 105px;
 }
 
 .page-shell {
