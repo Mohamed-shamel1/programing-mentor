@@ -14,6 +14,10 @@ import { lesson02Data } from './lesson02Data.js';
 import { lesson02DataEn } from './lesson02DataEn.js';
 import { lesson02ExamData } from './lesson02ExamData.js';
 import { lesson02ExamDataEn } from './lesson02ExamDataEn.js';
+import { lesson03Data } from './lesson03Data.js';
+import { lesson03DataEn } from './lesson03DataEn.js';
+import { lesson03ExamData } from './lesson03ExamData.js';
+import { lesson03ExamDataEn } from './lesson03ExamDataEn.js';
 
 export const CURRICULUM_LESSONS = [
   {
@@ -60,14 +64,17 @@ export const CURRICULUM_LESSONS = [
     unitNumber: 1,
     unitTitleAr: 'الوحدة الأولى: أساسيات الحوسبة والذكاء الاصطناعي',
     unitTitleEn: 'Unit 1: Computing & AI Fundamentals',
-    titleAr: 'الدرس 1-3: البيانات الضخمة وأنظمة الحوسبة السحابية',
-    titleEn: 'Lesson 1-3: Big Data & Cloud Computing Systems',
-    shortTitleAr: 'الدرس 1-3: البيانات الضخمة والسحابة',
-    shortTitleEn: 'Lesson 1-3: Big Data & Cloud',
-    icon: 'cloud',
-    status: 'upcoming',
-    badgeAr: 'قريباً',
-    badgeEn: 'Soon',
+    titleAr: 'الدرس 1-3: الذكاء الاصطناعي في الحياة اليومية والصناعة',
+    titleEn: 'Lesson 1-3: Artificial Intelligence in Daily Life & Industry',
+    shortTitleAr: 'الدرس 1-3: الذكاء الاصطناعي والصناعة',
+    shortTitleEn: 'Lesson 1-3: AI & Industry',
+    icon: 'precision_manufacturing',
+    status: 'ready',
+    dataAr: lesson03Data,
+    dataEn: lesson03DataEn,
+    examAr: lesson03ExamData,
+    examEn: lesson03ExamDataEn,
+    examHash: '#exam-1-3',
   },
 ];
 

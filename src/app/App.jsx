@@ -19,6 +19,10 @@ import { lesson01ExamData } from '../data/lesson01ExamData.js';
 import { lesson01ExamDataEn } from '../data/lesson01ExamDataEn.js';
 import { lesson02ExamData } from '../data/lesson02ExamData.js';
 import { lesson02ExamDataEn } from '../data/lesson02ExamDataEn.js';
+import { lesson03Data } from '../data/lesson03Data.js';
+import { lesson03DataEn } from '../data/lesson03DataEn.js';
+import { lesson03ExamData } from '../data/lesson03ExamData.js';
+import { lesson03ExamDataEn } from '../data/lesson03ExamDataEn.js';
 import { lesson01CheatSheetData } from '../data/lesson01CheatSheetData.js';
 import { lesson01CheatSheetDataEn } from '../data/lesson01CheatSheetDataEn.js';
 import { globalRoadmapData, progressTrackerData, masteryPedagogyData } from '../data/frontMatterData.js';
@@ -58,9 +62,16 @@ function AppContent() {
   const [selectedLessonId, setSelectedLessonId] = useState('lesson-1-1');
   const activeLesson01 = language === 'en' ? lesson01DataEn : lesson01Data;
   const activeLesson02 = language === 'en' ? lesson02DataEn : lesson02Data;
-  const currentActiveLesson = selectedLessonId === 'lesson-1-2' ? activeLesson02 : activeLesson01;
+  const activeLesson03 = language === 'en' ? lesson03DataEn : lesson03Data;
+  const currentActiveLesson =
+    selectedLessonId === 'lesson-1-3'
+      ? activeLesson03
+      : selectedLessonId === 'lesson-1-2'
+      ? activeLesson02
+      : activeLesson01;
   const activeLesson01Exam = language === 'en' ? lesson01ExamDataEn : lesson01ExamData;
   const activeLesson02Exam = language === 'en' ? lesson02ExamDataEn : lesson02ExamData;
+  const activeLesson03Exam = language === 'en' ? lesson03ExamDataEn : lesson03ExamData;
   const activeRoadmap = language === 'en' ? globalRoadmapDataEn : globalRoadmapData;
   const activeTracker = language === 'en' ? progressTrackerDataEn : progressTrackerData;
   const activePedagogy = language === 'en' ? masteryPedagogyDataEn : masteryPedagogyData;
@@ -98,6 +109,10 @@ function AppContent() {
     [VIEWS.LESSON_1_2_PAGE8]: 'page-08',
     [VIEWS.LESSON_1_2_PAGE9]: 'page-09',
     [VIEWS.LESSON_1_2_PAGE10]: 'page-10',
+    // Lesson 1-3
+    [VIEWS.LESSON_1_3_PAGE1]: 'page-01',
+    [VIEWS.LESSON_1_3_PAGE2]: 'page-02',
+    [VIEWS.LESSON_1_3_PAGE3]: 'page-03',
   };
 
   const activeNavTab =
@@ -231,12 +246,16 @@ function AppContent() {
   const handleSelectLesson = (lessonId) => {
     const targetLessonId = lessonId || 'lesson-1-1';
     setSelectedLessonId(targetLessonId);
-    if (targetLessonId === 'lesson-1-2') {
+    if (targetLessonId === 'lesson-1-3') {
+      setCurrentView(VIEWS.LESSON_1_3_PAGE1);
+      setCurrentLessonPageId('page-01');
+    } else if (targetLessonId === 'lesson-1-2') {
       setCurrentView(VIEWS.LESSON_1_2_PAGE0);
+      setCurrentLessonPageId('page-00');
     } else {
       setCurrentView(VIEWS.LESSON_1_1_PAGE0);
+      setCurrentLessonPageId('page-00');
     }
-    setCurrentLessonPageId('page-00');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -245,7 +264,9 @@ function AppContent() {
     const targetEntry = Object.entries(lessonPageIdMap).find(
       ([view, id]) =>
         id === pageId &&
-        (selectedLessonId === 'lesson-1-2'
+        (selectedLessonId === 'lesson-1-3'
+          ? view.startsWith('LESSON_1_3')
+          : selectedLessonId === 'lesson-1-2'
           ? view.startsWith('LESSON_1_2')
           : view.startsWith('LESSON_1_1'))
     );
@@ -429,6 +450,9 @@ function AppContent() {
       case VIEWS.LESSON_1_2_EXAM:
         return <LessonExamPage customData={activeLesson02Exam} />;
 
+      case VIEWS.LESSON_1_3_EXAM:
+        return <LessonExamPage customData={activeLesson03Exam} />;
+
       case VIEWS.LESSON_1_2_BOOKLET:
         return (
           <div className="booklet-lesson-container">
@@ -487,6 +511,64 @@ function AppContent() {
           </div>
         );
 
+      case VIEWS.LESSON_1_3_BOOKLET:
+        return (
+          <div className="booklet-lesson-container">
+            <div
+              className="screen-only"
+              style={{
+                maxWidth: 'var(--a4-preview-width)',
+                margin: '0 auto var(--space-4)',
+                padding: 'var(--space-3) var(--space-4)',
+                backgroundColor: 'var(--color-navy-50)',
+                border: '1px solid var(--color-navy-100)',
+                borderRadius: 'var(--radius-sm)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--font-size-xs)', color: 'var(--color-navy-900)' }}>
+                <span
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--color-success-600)',
+                    display: 'inline-block',
+                  }}
+                />
+                <strong>{t('lessonBookletPreviewNote')}</strong>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => window.print()}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: 'var(--color-cobalt-600)',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: 'var(--radius-sm)',
+                  padding: '6px 14px',
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: 'var(--font-size-xs)',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  boxShadow: 'var(--shadow-sm)',
+                }}
+              >
+                <Icon name="print" size={16} color="#ffffff" />
+                <span>{t('printBookletAction')}</span>
+              </button>
+            </div>
+
+            <LessonRenderer lesson={activeLesson03} />
+          </div>
+        );
+
       default: {
         return (
           <div className="lesson-continuous-feed">
@@ -497,17 +579,27 @@ function AppContent() {
     }
   };
 
+  const isExam13 =
+    selectedLessonId === 'lesson-1-3' ||
+    (typeof window !== 'undefined' &&
+      (window.location.hash.startsWith('#exam-1-3') ||
+        window.location.search.includes('exam=1-3')));
   const isExam12 =
     selectedLessonId === 'lesson-1-2' ||
     (typeof window !== 'undefined' &&
-      (window.location.hash === '#exam-1-2' ||
+      (window.location.hash.startsWith('#exam-1-2') ||
         window.location.search.includes('exam=1-2')));
-  const currentActiveExam = isExam12 ? activeLesson02Exam : activeLesson01Exam;
+  const currentActiveExam = isExam13
+    ? activeLesson03Exam
+    : isExam12
+    ? activeLesson02Exam
+    : activeLesson01Exam;
 
   if (
     isStandaloneExam ||
     currentView === VIEWS.LESSON_1_1_EXAM ||
-    currentView === VIEWS.LESSON_1_2_EXAM
+    currentView === VIEWS.LESSON_1_2_EXAM ||
+    currentView === VIEWS.LESSON_1_3_EXAM
   ) {
     return (
       <div
@@ -558,8 +650,6 @@ function AppContent() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <LanguageSwitcher />
-
             <button
               type="button"
               onClick={() => {
@@ -616,21 +706,27 @@ function AppContent() {
           onSelectPageId={handleSelectLessonPageId}
           onOpenBooklet={() =>
             setCurrentView(
-              selectedLessonId === 'lesson-1-2'
+              selectedLessonId === 'lesson-1-3'
+                ? VIEWS.LESSON_1_3_BOOKLET
+                : selectedLessonId === 'lesson-1-2'
                 ? VIEWS.LESSON_1_2_BOOKLET
                 : VIEWS.LESSON_1_1_BOOKLET
             )
           }
           onOpenCheatSheet={() =>
             setCurrentView(
-              selectedLessonId === 'lesson-1-2'
+              selectedLessonId === 'lesson-1-3'
+                ? VIEWS.LESSON_1_3_PAGE3
+                : selectedLessonId === 'lesson-1-2'
                 ? VIEWS.LESSON_1_2_CHEAT_SHEET
                 : VIEWS.LESSON_1_1_CHEAT_SHEET
             )
           }
           onOpenExam={() =>
             setCurrentView(
-              selectedLessonId === 'lesson-1-2'
+              selectedLessonId === 'lesson-1-3'
+                ? VIEWS.LESSON_1_3_EXAM
+                : selectedLessonId === 'lesson-1-2'
                 ? VIEWS.LESSON_1_2_EXAM
                 : VIEWS.LESSON_1_1_EXAM
             )

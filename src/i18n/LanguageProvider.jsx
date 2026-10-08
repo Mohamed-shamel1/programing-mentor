@@ -4,8 +4,28 @@ import { LanguageContext } from './LanguageContext.js';
 
 const STORAGE_KEY = 'mentor_language_preference';
 
+function detectUrlLanguage() {
+  if (typeof window !== 'undefined') {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchLang = urlParams.get('lang');
+      if (searchLang === 'ar' || searchLang === 'en') return searchLang;
+
+      const hash = window.location.hash || '';
+      if (hash.includes('lang=en')) return 'en';
+      if (hash.includes('lang=ar')) return 'ar';
+    } catch {
+      // ignore parsing errors
+    }
+  }
+  return null;
+}
+
 export function LanguageProvider({ children }) {
   const [language, setLanguageState] = useState(() => {
+    const urlLang = detectUrlLanguage();
+    if (urlLang) return urlLang;
+
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved === 'ar' || saved === 'en') {
@@ -29,6 +49,23 @@ export function LanguageProvider({ children }) {
   const toggleLanguage = () => {
     setLanguageState((prev) => (prev === 'ar' ? 'en' : 'ar'));
   };
+
+  // Listen for hash or URL language changes (e.g. scanning QR codes)
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const urlLang = detectUrlLanguage();
+      if (urlLang && (urlLang === 'ar' || urlLang === 'en')) {
+        setLanguageState(urlLang);
+      }
+    };
+
+    window.addEventListener('hashchange', handleUrlChange);
+    window.addEventListener('popstate', handleUrlChange);
+    return () => {
+      window.removeEventListener('hashchange', handleUrlChange);
+      window.removeEventListener('popstate', handleUrlChange);
+    };
+  }, []);
 
   useEffect(() => {
     try {

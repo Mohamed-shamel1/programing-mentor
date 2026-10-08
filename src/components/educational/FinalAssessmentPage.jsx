@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Icon from '../ui/Icon.jsx';
 import { useLanguage } from '../../i18n/LanguageContext.js';
+import StudentExamPortalCard from './exam/StudentExamPortalCard.jsx';
 
 /**
  * FinalAssessmentPage (Lesson 1-2, Page 10)
@@ -353,64 +354,25 @@ export default function FinalAssessmentPage({
         })}
       </section>
 
-      {/* 4. GATEWAY CTA BANNER TO FULL OFFICIAL EXAM */}
-      <section
-        style={{
-          backgroundColor: 'var(--color-navy-950)',
-          borderRadius: 'var(--radius-sm)',
-          padding: '10px 14px',
-          border: '1px solid var(--color-navy-800)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '10px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ backgroundColor: 'var(--color-cobalt-600)', padding: '6px', borderRadius: '50%', color: '#ffffff', display: 'flex' }}>
-            <Icon name="assignment" size={20} />
-          </div>
-          <div>
-            <h3 style={{ margin: '0 0 2px', fontSize: '12px', fontWeight: 'bold', color: '#ffffff', fontFamily: 'var(--font-heading)' }}>
-              {isEn ? 'Official Comprehensive Student Examination (Lesson 1-2)' : 'الاختبار الإلكتروني الشامل والتقييم النهائي (الدرس 1-2)'}
-            </h3>
-            <p style={{ margin: 0, fontSize: '10px', color: 'var(--color-navy-300)' }}>
-              {isEn
-                ? 'Standard Ministry-grade assessment: 20 auto-graded items + Socratic reasoning rubrics + immediate certificate generation.'
-                : 'بنك أسئلة معياري مطابق لمواصفات وزارة التربية والتعليم: تصحيح تلقائي فوري + تقييم مقالي معتمد.'}
-            </p>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => {
+      {/* 4. DUAL QR STUDENT EXAM PORTAL (ARABIC + ENGLISH) */}
+      <section style={{ width: '100%', marginTop: '12px' }}>
+        <StudentExamPortalCard
+          lessonCode="1-2"
+          examHash="#exam-1-2"
+          isDual={true}
+          onPreviewExam={(targetUrl) => {
             if (onOpenExam) {
-              onOpenExam();
+              onOpenExam(targetUrl);
             } else if (typeof window !== 'undefined') {
-              window.location.hash = '#exam-1-2';
+              if (targetUrl) {
+                window.location.href = targetUrl;
+              } else {
+                window.location.hash = '#exam-1-2';
+              }
               window.location.reload();
             }
           }}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            backgroundColor: 'var(--color-cobalt-600)',
-            color: '#ffffff',
-            border: 'none',
-            borderRadius: 'var(--radius-xs)',
-            padding: '6px 14px',
-            fontSize: '11px',
-            fontWeight: 'bold',
-            fontFamily: 'var(--font-heading)',
-            cursor: 'pointer',
-            boxShadow: 'var(--shadow-sm)',
-          }}
-        >
-          <span>{isEn ? 'Launch Official Exam ➔' : 'بدء الاختبار الإلكتروني الشامل ➔'}</span>
-        </button>
+        />
       </section>
     </div>
   );

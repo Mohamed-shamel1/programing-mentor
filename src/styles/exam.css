@@ -749,31 +749,141 @@
 /* Mobile Optimizations */
 @media (max-width: 640px) {
   .exam-viewport {
-    padding: 10px 8px 36px;
+    padding: 8px 6px 36px;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   .exam-official-header {
-    padding: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
   }
 
   .exam-title-main {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    line-height: 1.35;
+  }
+
+  .exam-header-badges {
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .exam-pill-badge {
+    font-size: 10px;
+    padding: 2px 8px;
   }
 
   .exam-sticky-bar {
     padding: 8px 10px;
     gap: 8px;
+    flex-wrap: wrap;
+    top: 4px;
+  }
+
+  .exam-student-identity {
+    font-size: 12px;
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .exam-student-identity input {
+    width: 100% !important;
+    max-width: 140px;
+  }
+
+  .exam-progress-tracker {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .exam-timer-pill {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .exam-section-tabs {
+    gap: 4px;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .exam-section-tab-btn {
+    padding: 5px 10px;
+    font-size: 10.5px;
   }
 
   .exam-section-card {
-    padding: 12px;
+    padding: 12px 10px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+  }
+
+  .exam-section-title {
+    font-size: 0.95rem;
+  }
+
+  .exam-section-instruction {
+    font-size: 0.75rem;
   }
 
   .exam-question-item {
     padding: 12px 10px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+
+  .exam-question-number-badge {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+
+  .exam-question-text {
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  .exam-options-grid {
+    gap: 7px;
+    margin-top: 8px;
   }
 
   .exam-option-card {
+    padding: 10px 12px;
+    min-height: 48px;
+    border-radius: 8px;
+    font-size: 0.8125rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .exam-option-text {
+    font-size: 0.8125rem;
+  }
+
+  .exam-tf-buttons-row {
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .exam-tf-btn {
+    min-height: 48px;
     padding: 8px 10px;
+    font-size: 0.8125rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .exam-submit-primary-btn,
+  .exam-whatsapp-btn {
+    width: 100%;
+    min-height: 48px;
+    font-size: 12px;
+  }
+
+  .student-exam-portal-wrapper {
+    padding: 12px !important;
   }
 }

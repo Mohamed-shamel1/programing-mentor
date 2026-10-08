@@ -4213,4 +4213,96 @@
   }
 }
 
+/* ====================================================================
+ * Lesson 1-3 Dedicated Pages: 01, 02, 03
+ * ==================================================================== */
+
+.daily-services-page,
+.industrial-sectors-page,
+.strengths-risks-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.service-card,
+.sector-card {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover,
+.sector-card:hover {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+}
+
+.plain-btn:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .services-grid,
+  .sectors-grid,
+  .core-concepts-row,
+  .matrix-columns,
+  .case-studies-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media print {
+  .daily-services-page,
+  .industrial-sectors-page,
+  .strengths-risks-page {
+    height: 100% !important;
+    gap: 1.5mm !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .service-card,
+  .sector-card {
+    box-shadow: none !important;
+    border: 0.8pt solid #cbd5e1 !important;
+    padding: 2mm 2.5mm !important;
+  }
+
+  .services-grid,
+  .sectors-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2mm !important;
+  }
+
+  .plain-text-drawer {
+    display: block !important;
+    margin-top: 1.5mm !important;
+    padding: 1.5mm 2mm !important;
+    font-size: 7.5pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .plain-btn {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+
+  .model-tier-pill {
+    border: 0.5pt solid #cbd5e1 !important;
+    font-size: 7.5pt !important;
+  }
+
+  .matrix-columns {
+    grid-template-columns: 1fr 1.3fr !important;
+    gap: 2mm !important;
+  }
+
+  .exam-card-wrap {
+    margin-top: 1mm !important;
+  }
+}
+
+
 

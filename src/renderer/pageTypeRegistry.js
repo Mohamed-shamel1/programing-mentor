@@ -20,6 +20,9 @@ import StakeholderPolicyPage from '../components/educational/StakeholderPolicyPa
 import CriticalThinkingPage from '../components/educational/CriticalThinkingPage.jsx';
 import LessonSummaryDiagramPage from '../components/educational/LessonSummaryDiagramPage.jsx';
 import FinalAssessmentPage from '../components/educational/FinalAssessmentPage.jsx';
+import DailyAiServicesPage from '../components/educational/DailyAiServicesPage.jsx';
+import IndustrialAiSectorsPage from '../components/educational/IndustrialAiSectorsPage.jsx';
+import AiStrengthsAndRisksPage from '../components/educational/AiStrengthsAndRisksPage.jsx';
 import GlobalRoadmapPage from '../components/educational/frontmatter/GlobalRoadmapPage.jsx';
 import ProgressTrackerPage from '../components/educational/frontmatter/ProgressTrackerPage.jsx';
 import MasteryPedagogyPage from '../components/educational/frontmatter/MasteryPedagogyPage.jsx';
@@ -56,6 +59,11 @@ export const PAGE_TYPES = {
   LESSON_SUMMARY_DIAGRAM: 'LESSON_SUMMARY_DIAGRAM',
   FINAL_ASSESSMENT: 'FINAL_ASSESSMENT',
 
+  // Lesson 1-3 Dedicated Page Types
+  DAILY_AI_SERVICES: 'DAILY_AI_SERVICES',
+  INDUSTRIAL_AI_SECTORS: 'INDUSTRIAL_AI_SECTORS',
+  AI_STRENGTHS_AND_RISKS: 'AI_STRENGTHS_AND_RISKS',
+
   // Front-Matter Opening Trilogy Page Types
   GLOBAL_ROADMAP: 'GLOBAL_ROADMAP',
   PROGRESS_TRACKER: 'PROGRESS_TRACKER',
@@ -87,6 +95,11 @@ const registry = {
   [PAGE_TYPES.CRITICAL_THINKING]: CriticalThinkingPage,
   [PAGE_TYPES.LESSON_SUMMARY_DIAGRAM]: LessonSummaryDiagramPage,
   [PAGE_TYPES.FINAL_ASSESSMENT]: FinalAssessmentPage,
+
+  // Lesson 1-3 Pages
+  [PAGE_TYPES.DAILY_AI_SERVICES]: DailyAiServicesPage,
+  [PAGE_TYPES.INDUSTRIAL_AI_SECTORS]: IndustrialAiSectorsPage,
+  [PAGE_TYPES.AI_STRENGTHS_AND_RISKS]: AiStrengthsAndRisksPage,
 
   // Front-matter registrations
   [PAGE_TYPES.GLOBAL_ROADMAP]: GlobalRoadmapPage,

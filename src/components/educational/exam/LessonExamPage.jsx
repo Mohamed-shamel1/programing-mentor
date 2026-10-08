@@ -7,7 +7,7 @@ import Icon from '../../ui/Icon.jsx';
 import '../../../styles/exam.css';
 
 /**
- * Text normalizer for tolerant Arabic and English matching
+ * Text normalizer for tolerant Arabic and English matching (fallback for text inputs)
  */
 function normalizeText(text) {
   if (!text) return '';
@@ -44,7 +44,7 @@ export default function LessonExamPage({ customData = null }) {
   // Answers state keyed by question ID
   const [answers, setAnswers] = useState({});
 
-  // Active toggled simplified hints for essay questions: { [questionId]: boolean }
+  // Active toggled simplified hints for essay/scenario questions: { [questionId]: boolean }
   const [activeHints, setActiveHints] = useState({});
 
   // Submission state
@@ -92,92 +92,132 @@ export default function LessonExamPage({ customData = null }) {
   // Evaluation Calculations
   const evaluation = useMemo(() => {
     let autoScore = 0;
+    let maxAutoScore = 0;
     const results = {};
 
     // 1. Evaluate Section A (MCQ)
-    examData.sectionA.questions.forEach((q) => {
-      const userAns = answers[q.id];
-      const isCorrect = userAns === q.correctAnswer;
-      if (isCorrect) autoScore += 1;
-      results[q.id] = {
-        isCorrect,
-        userAns: userAns || (isEn ? 'Not Answered' : 'لم يُجب'),
-        correctText: q.correctAnswer,
-      };
-    });
+    if (examData.sectionA?.questions) {
+      examData.sectionA.questions.forEach((q) => {
+        const pts = q.points || examData.sectionA.pointsPerQuestion || 1;
+        maxAutoScore += pts;
+        const userAns = answers[q.id];
+        const isCorrect = userAns === q.correctAnswer;
+        if (isCorrect) autoScore += pts;
+        results[q.id] = {
+          isCorrect,
+          userAns: userAns || (isEn ? 'Not Answered' : 'لم يُجب'),
+          correctText: q.correctAnswer,
+        };
+      });
+    }
 
-    // 2. Evaluate Section B (Fill in Blanks)
-    examData.sectionB.questions.forEach((q) => {
-      const userAns = answers[q.id] || '';
-      const normUser = normalizeText(userAns);
-      const isCorrect = q.acceptedAnswers.some(
-        (ans) => normalizeText(ans) === normUser
-      );
-      if (isCorrect) autoScore += 1;
-      results[q.id] = {
-        isCorrect,
-        userAns: userAns.trim() || (isEn ? 'Not Answered' : 'لم يُجب'),
-        correctText: q.displayAnswer,
-      };
-    });
+    // 2. Evaluate Section B (Matching / Fill in Blanks)
+    if (examData.sectionB?.questions) {
+      examData.sectionB.questions.forEach((q) => {
+        const pts = q.points || examData.sectionB.pointsPerQuestion || 1;
+        maxAutoScore += pts;
+        const userAns = answers[q.id] || '';
+        let isCorrect = false;
 
-    // 3. Evaluate Section C (Scientific Terms)
-    examData.sectionC.questions.forEach((q) => {
-      const userAns = answers[q.id] || '';
-      const normUser = normalizeText(userAns);
-      const isCorrect = q.acceptedAnswers.some(
-        (ans) => normalizeText(ans) === normUser
-      );
-      if (isCorrect) autoScore += 1;
-      results[q.id] = {
-        isCorrect,
-        userAns: userAns.trim() || (isEn ? 'Not Answered' : 'لم يُجب'),
-        correctText: q.displayAnswer,
-      };
-    });
+        if (q.options && q.options.length > 0) {
+          isCorrect = userAns === q.correctAnswer;
+        } else {
+          const normUser = normalizeText(userAns);
+          isCorrect = (q.acceptedAnswers || []).some(
+            (ans) => normalizeText(ans) === normUser
+          );
+        }
+
+        if (isCorrect) autoScore += pts;
+        results[q.id] = {
+          isCorrect,
+          userAns: userAns ? (q.options?.find((o) => o.id === userAns)?.text || userAns) : (isEn ? 'Not Answered' : 'لم يُجب'),
+          correctText: q.displayAnswer || q.options?.find((o) => o.id === q.correctAnswer)?.text || q.correctAnswer,
+        };
+      });
+    }
+
+    // 3. Evaluate Section C (Scientific Terms / Categorization)
+    if (examData.sectionC?.questions) {
+      examData.sectionC.questions.forEach((q) => {
+        const pts = q.points || examData.sectionC.pointsPerQuestion || 1;
+        maxAutoScore += pts;
+        const userAns = answers[q.id] || '';
+        let isCorrect = false;
+
+        if (q.options && q.options.length > 0) {
+          isCorrect = userAns === q.correctAnswer;
+        } else {
+          const normUser = normalizeText(userAns);
+          isCorrect = (q.acceptedAnswers || []).some(
+            (ans) => normalizeText(ans) === normUser
+          );
+        }
+
+        if (isCorrect) autoScore += pts;
+        results[q.id] = {
+          isCorrect,
+          userAns: userAns ? (q.options?.find((o) => o.id === userAns)?.text || userAns) : (isEn ? 'Not Answered' : 'لم يُجب'),
+          correctText: q.displayAnswer || q.options?.find((o) => o.id === q.correctAnswer)?.text || q.correctAnswer,
+        };
+      });
+    }
 
     // 4. Evaluate Section D (True / False)
-    examData.sectionD.questions.forEach((q) => {
-      const userAns = answers[q.id]; // boolean or undefined
-      const isCorrect = userAns === q.correctValue;
-      if (isCorrect) autoScore += 1;
-      results[q.id] = {
-        isCorrect,
-        userAns:
-          userAns === true
-            ? isEn
-              ? 'True'
-              : 'صح'
-            : userAns === false
-            ? isEn
-              ? 'False'
-              : 'خطأ'
-            : isEn
-            ? 'Not Answered'
-            : 'لم يُجب',
-        correctText: q.correctValue
-          ? isEn
-            ? 'True'
-            : 'صح'
-          : isEn
-          ? 'False'
-          : 'خطأ',
-      };
-    });
+    if (examData.sectionD?.questions) {
+      examData.sectionD.questions.forEach((q) => {
+        const pts = q.points || examData.sectionD.pointsPerQuestion || 1;
+        maxAutoScore += pts;
+        const userAns = answers[q.id]; // boolean or undefined
+        const isCorrect = userAns === q.correctValue;
+        if (isCorrect) autoScore += pts;
+        results[q.id] = {
+          isCorrect,
+          userAns:
+            userAns === true
+              ? isEn ? 'True (✓)' : 'صح (✓)'
+              : userAns === false
+              ? isEn ? 'False (✗)' : 'خطأ (✗)'
+              : isEn ? 'Not Answered' : 'لم يُجب',
+          correctText: q.correctValue
+            ? isEn ? 'True (✓)' : 'صح (✓)'
+            : isEn ? 'False (✗)' : 'خطأ (✗)',
+        };
+      });
+    }
+
+    // 5. Evaluate Section E (Case Studies / Analytical Decisions with options)
+    if (examData.sectionE?.questions) {
+      examData.sectionE.questions.forEach((q) => {
+        if (q.options && q.correctAnswer) {
+          const pts = q.points || examData.sectionE.pointsPerQuestion || 2;
+          maxAutoScore += pts;
+          const userAns = answers[q.id];
+          const isCorrect = userAns === q.correctAnswer;
+          if (isCorrect) autoScore += pts;
+          results[q.id] = {
+            isCorrect,
+            userAns: userAns ? (q.options?.find((o) => o.id === userAns)?.text || userAns) : (isEn ? 'Not Answered' : 'لم يُجب'),
+            correctText: q.options?.find((o) => o.id === q.correctAnswer)?.text || q.correctAnswer,
+          };
+        }
+      });
+    }
 
     // Calculate total questions answered
     const totalAnswered = Object.keys(answers).filter(
       (k) => answers[k] !== undefined && String(answers[k]).trim() !== ''
     ).length;
 
+    const finalMax = maxAutoScore || examData.autoGradedPoints || examData.totalPoints || 37;
+    const percentage = finalMax > 0 ? Math.round((autoScore / finalMax) * 100) : 0;
+
     return {
       autoScore,
-      maxAutoScore: examData.autoGradedPoints || 22,
+      maxAutoScore: finalMax,
       results,
       totalAnswered,
-      percentage: Math.round(
-        (autoScore / (examData.autoGradedPoints || 22)) * 100
-      ),
+      percentage,
     };
   }, [answers, examData, isEn]);
 
@@ -210,11 +250,20 @@ export default function LessonExamPage({ customData = null }) {
     return `${mins}:${remainder < 10 ? '0' : ''}${remainder}`;
   };
 
+  // Total questions count calculation
+  const totalQuestionsCount =
+    (examData.sectionA?.questions?.length || 0) +
+    (examData.sectionB?.questions?.length || 0) +
+    (examData.sectionC?.questions?.length || 0) +
+    (examData.sectionD?.questions?.length || 0) +
+    (examData.sectionE?.questions?.length || 0) +
+    (examData.sectionF?.questions?.length || 0);
+
   // Generate WhatsApp Report URL
   const generateWhatsAppLink = () => {
     const sName = studentName.trim() || (isEn ? 'Student' : 'طالب المنصة');
     const timeSpent = formatTime(elapsedSeconds);
-    const lessonCode = examData.lessonId || '1-1';
+    const lessonCode = examData.lessonId || '1-2';
 
     let text = isEn
       ? `*🎓 Lesson ${lessonCode} Exam Report*\n`
@@ -224,28 +273,33 @@ export default function LessonExamPage({ customData = null }) {
       : `*👨‍🏫 إشراف المعلم:* ${TEACHER_CONFIG.fullNameAr}\n`;
     text += isEn ? `*👤 Student:* ${sName}\n` : `*👤 اسم الطالب:* ${sName}\n`;
     text += isEn
-      ? `*📊 Objective Score:* ${evaluation.autoScore} / ${evaluation.maxAutoScore} (${evaluation.percentage}%)\n`
-      : `*📊 نتيجة الموضوعي:* ${evaluation.autoScore} / ${evaluation.maxAutoScore} (${evaluation.percentage}%)\n`;
+      ? `*📊 Score:* ${evaluation.autoScore} / ${evaluation.maxAutoScore} (${evaluation.percentage}%)\n`
+      : `*📊 النتيجة النهائية:* ${evaluation.autoScore} / ${evaluation.maxAutoScore} (${evaluation.percentage}%)\n`;
     text += isEn ? `*⏱️ Time:* ${timeSpent}\n` : `*⏱️ زمن الحل:* ${timeSpent}\n`;
     text += `━━━━━━━━━━━━━━━━━━\n`;
-    text += isEn
-      ? `*📝 Student Essay Answers (For Teacher Review):*\n\n`
-      : `*📝 إجابات الطالب المقالية (لتقييم المعلم):*\n\n`;
 
-    // Section E Answers
-    if (examData.sectionE?.questions) {
-      examData.sectionE.questions.forEach((q, idx) => {
-        const essayAns = answers[q.id] || (isEn ? '[No answer]' : '[لم يُجب]');
-        text += `${idx + 1}️⃣ *${q.question}*\n👉 ${essayAns}\n\n`;
-      });
-    }
+    if (examData.manualGradedPoints && examData.manualGradedPoints > 0) {
+      text += isEn
+        ? `*📝 Student Essay Answers (For Teacher Review):*\n\n`
+        : `*📝 إجابات الطالب المقالية (لتقييم المعلم):*\n\n`;
 
-    // Section F Answers
-    if (examData.sectionF?.questions) {
-      examData.sectionF.questions.forEach((q, idx) => {
-        const essayAns = answers[q.id] || (isEn ? '[No answer]' : '[لم يُجب]');
-        text += `${idx + 4}️⃣ *${q.question}*\n👉 ${essayAns}\n\n`;
-      });
+      if (examData.sectionE?.questions) {
+        examData.sectionE.questions.forEach((q, idx) => {
+          const essayAns = answers[q.id] || (isEn ? '[No answer]' : '[لم يُجب]');
+          text += `${idx + 1}️⃣ *${q.question}*\n👉 ${essayAns}\n\n`;
+        });
+      }
+
+      if (examData.sectionF?.questions) {
+        examData.sectionF.questions.forEach((q, idx) => {
+          const essayAns = answers[q.id] || (isEn ? '[No answer]' : '[لم يُجب]');
+          text += `${idx + 4}️⃣ *${q.question}*\n👉 ${essayAns}\n\n`;
+        });
+      }
+    } else {
+      text += isEn
+        ? `*✅ Assessment Mode:* 100% Deterministic Automated Evaluation\n`
+        : `*✅ نمط التقييم:* تصحيح إلكتروني شامل ومعتمد 100%\n`;
     }
 
     text += `━━━━━━━━━━━━━━━━━━\n`;
@@ -256,15 +310,70 @@ export default function LessonExamPage({ customData = null }) {
     return `https://wa.me/${TEACHER_CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
   };
 
+  // Dynamic sections navigation list
   const sectionsList = [
-    { id: 'all', title: isEn ? 'All Sections' : 'كافة الأسئلة (28)', count: 28 },
-    { id: 'section_a', title: examData.sectionA.badge, count: 8 },
-    { id: 'section_b', title: examData.sectionB.badge, count: 6 },
-    { id: 'section_c', title: examData.sectionC.badge, count: 4 },
-    { id: 'section_d', title: examData.sectionD.badge, count: 4 },
-    { id: 'section_e', title: examData.sectionE.badge, count: 3 },
-    { id: 'section_f', title: examData.sectionF.badge, count: 3 },
+    {
+      id: 'all',
+      title: isEn ? `All (${totalQuestionsCount})` : `كافة الأسئلة (${totalQuestionsCount})`,
+      count: totalQuestionsCount,
+    },
+    ...(examData.sectionA
+      ? [
+          {
+            id: 'section_a',
+            title: examData.sectionA.badge || (isEn ? 'MCQ' : 'اختيار من متعدد'),
+            count: examData.sectionA.questions?.length || 0,
+          },
+        ]
+      : []),
+    ...(examData.sectionB
+      ? [
+          {
+            id: 'section_b',
+            title: examData.sectionB.badge || (isEn ? 'Matching' : 'مطابقة ومفاهيم'),
+            count: examData.sectionB.questions?.length || 0,
+          },
+        ]
+      : []),
+    ...(examData.sectionC
+      ? [
+          {
+            id: 'section_c',
+            title: examData.sectionC.badge || (isEn ? 'Categorization' : 'تصنيف التطبيقات'),
+            count: examData.sectionC.questions?.length || 0,
+          },
+        ]
+      : []),
+    ...(examData.sectionD
+      ? [
+          {
+            id: 'section_d',
+            title: examData.sectionD.badge || (isEn ? 'True/False' : 'صواب أم خطأ'),
+            count: examData.sectionD.questions?.length || 0,
+          },
+        ]
+      : []),
+    ...(examData.sectionE
+      ? [
+          {
+            id: 'section_e',
+            title: examData.sectionE.badge || (isEn ? 'Case Studies' : 'دراسات الحالة'),
+            count: examData.sectionE.questions?.length || 0,
+          },
+        ]
+      : []),
+    ...(examData.sectionF
+      ? [
+          {
+            id: 'section_f',
+            title: examData.sectionF.badge || (isEn ? 'Applications' : 'التطبيقات'),
+            count: examData.sectionF.questions?.length || 0,
+          },
+        ]
+      : []),
   ];
+
+  const isAllAutoGraded = !examData.manualGradedPoints || examData.manualGradedPoints === 0;
 
   return (
     <div className="exam-viewport" dir={isEn ? 'ltr' : 'rtl'}>
@@ -294,7 +403,7 @@ export default function LessonExamPage({ customData = null }) {
         <div className="exam-score-card">
           <div className="exam-score-badge">
             <Icon name="emoji_events" size={14} />
-            <span>{isEn ? 'Official Assessment Completed' : 'تم تصحيح الجزء التلقائي بنجاح'}</span>
+            <span>{isEn ? 'Official Assessment Completed' : 'تم التصحيح بنجاح واعتماد النتيجة'}</span>
           </div>
           <div className="exam-score-number">
             {evaluation.autoScore} / {evaluation.maxAutoScore}
@@ -302,12 +411,38 @@ export default function LessonExamPage({ customData = null }) {
           <div style={{ fontSize: '1.05rem', fontWeight: 'bold', color: '#93c5fd' }}>
             {isEn ? `Achievement Rate: ${evaluation.percentage}%` : `نسبة الإتقان: ${evaluation.percentage}%`}
           </div>
-          <p className="exam-manual-notice">
-            <Icon name="info" size={16} />{' '}
-            {isEn
-              ? `Notice: ${examData.manualGradedPoints || 18} marks for analytical & essay questions are reserved for review by ${TEACHER_CONFIG.nameEn} via the WhatsApp button below.`
-              : `تنبيه تربوي: يتبقى ${examData.manualGradedPoints || 18} درجة مخصصة للأسئلة المقالية والتحليلية يراجعها ${TEACHER_CONFIG.nameAr} عبر زر الواتساب بالأسفل.`}
-          </p>
+
+          {!isAllAutoGraded ? (
+            <p className="exam-manual-notice">
+              <Icon name="info" size={16} />{' '}
+              {isEn
+                ? `Notice: ${examData.manualGradedPoints} marks for analytical & essay questions are reserved for review by ${TEACHER_CONFIG.nameEn} via the WhatsApp button below.`
+                : `تنبيه تربوي: يتبقى ${examData.manualGradedPoints} درجة مخصصة للأسئلة المقالية يراجعها ${TEACHER_CONFIG.nameAr} عبر زر الواتساب بالأسفل.`}
+            </p>
+          ) : (
+            <div
+              style={{
+                marginTop: '12px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: 'rgba(16, 185, 129, 0.15)',
+                border: '1px solid rgba(16, 185, 129, 0.35)',
+                color: '#34d399',
+                padding: '6px 14px',
+                borderRadius: '999px',
+                fontSize: '12px',
+                fontWeight: 'bold',
+              }}
+            >
+              <Icon name="verified" size={16} color="#34d399" />
+              <span>
+                {isEn
+                  ? '100% Certified Automated Grading (No teacher review required)'
+                  : 'تصحيح إلكتروني شامل ومعتمد 100% (دون الحاجة لمراجعة يدوية)'}
+              </span>
+            </div>
+          )}
         </div>
       )}
 
@@ -338,14 +473,18 @@ export default function LessonExamPage({ customData = null }) {
         <div className="exam-progress-tracker">
           <div className="exam-progress-labels">
             <span>
-              {isEn ? 'Answered' : 'المُجاب عنه'}: {evaluation.totalAnswered} / 28
+              {isEn ? 'Answered' : 'المُجاب عنه'}: {evaluation.totalAnswered} / {totalQuestionsCount}
             </span>
-            <span>{Math.round((evaluation.totalAnswered / 28) * 100)}%</span>
+            <span>
+              {totalQuestionsCount > 0 ? Math.round((evaluation.totalAnswered / totalQuestionsCount) * 100) : 0}%
+            </span>
           </div>
           <div className="exam-progress-track">
             <div
               className="exam-progress-fill"
-              style={{ width: `${(evaluation.totalAnswered / 28) * 100}%` }}
+              style={{
+                width: `${totalQuestionsCount > 0 ? (evaluation.totalAnswered / totalQuestionsCount) * 100 : 0}%`,
+              }}
             />
           </div>
         </div>
@@ -374,13 +513,15 @@ export default function LessonExamPage({ customData = null }) {
       {/* 5. Exam Questions Content */}
 
       {/* SECTION A: MCQ */}
-      {(activeTab === 'all' || activeTab === 'section_a') && (
+      {examData.sectionA && (activeTab === 'all' || activeTab === 'section_a') && (
         <section className="exam-section-card">
           <div className="exam-section-header">
             <div className="exam-section-title-wrap">
               <h2 className="exam-section-title">{examData.sectionA.title}</h2>
               <span className="exam-pill-badge grade">
-                {isEn ? '8 Questions • 8 Marks' : '8 أسئلة • 8 درجات'}
+                {isEn
+                  ? `${examData.sectionA.questions.length} Questions • ${examData.sectionA.questions.length} Marks`
+                  : `${examData.sectionA.questions.length} أسئلة • ${examData.sectionA.questions.length} درجات`}
               </span>
             </div>
             <p className="exam-section-instruction">{examData.sectionA.instruction}</p>
@@ -388,7 +529,6 @@ export default function LessonExamPage({ customData = null }) {
 
           {examData.sectionA.questions.map((q) => {
             const isCorrect = isSubmitted && evaluation.results[q.id]?.isCorrect;
-            const isIncorrect = isSubmitted && !evaluation.results[q.id]?.isCorrect;
             const selectedOpt = answers[q.id];
 
             return (
@@ -430,7 +570,6 @@ export default function LessonExamPage({ customData = null }) {
                   ))}
                 </div>
 
-                {/* Pedagogical Explanation: Always shown post-submission */}
                 {isSubmitted && (
                   <div
                     className={`exam-explanation-box ${
@@ -468,14 +607,16 @@ export default function LessonExamPage({ customData = null }) {
         </section>
       )}
 
-      {/* SECTION B: FILL IN THE BLANKS */}
-      {(activeTab === 'all' || activeTab === 'section_b') && (
+      {/* SECTION B: FILL IN BLANKS / MATCHING */}
+      {examData.sectionB && (activeTab === 'all' || activeTab === 'section_b') && (
         <section className="exam-section-card">
           <div className="exam-section-header">
             <div className="exam-section-title-wrap">
               <h2 className="exam-section-title">{examData.sectionB.title}</h2>
               <span className="exam-pill-badge grade">
-                {isEn ? '6 Questions • 6 Marks' : '6 أسئلة • 6 درجات'}
+                {isEn
+                  ? `${examData.sectionB.questions.length} Questions • ${examData.sectionB.questions.length} Marks`
+                  : `${examData.sectionB.questions.length} أسئلة • ${examData.sectionB.questions.length} درجات`}
               </span>
             </div>
             <p className="exam-section-instruction">{examData.sectionB.instruction}</p>
@@ -501,16 +642,42 @@ export default function LessonExamPage({ customData = null }) {
                   <h3 className="exam-question-text">{q.question}</h3>
                 </div>
 
-                <div className="exam-text-input-wrap">
-                  <input
-                    type="text"
-                    className="exam-text-input"
-                    value={currentVal}
-                    placeholder={q.placeholder}
-                    onChange={(e) => updateAnswer(q.id, e.target.value)}
-                    disabled={isSubmitted}
-                  />
-                </div>
+                {q.options && q.options.length > 0 ? (
+                  <div className="exam-options-grid">
+                    {q.options.map((opt) => {
+                      const isSelected = currentVal === opt.id;
+                      return (
+                        <label
+                          key={opt.id}
+                          className={`exam-option-card ${isSelected ? 'selected' : ''}`}
+                        >
+                          <input
+                            type="radio"
+                            name={q.id}
+                            value={opt.id}
+                            checked={isSelected}
+                            onChange={() => updateAnswer(q.id, opt.id)}
+                            disabled={isSubmitted}
+                            style={{ display: 'none' }}
+                          />
+                          <span className="exam-option-indicator">{opt.id}</span>
+                          <span className="exam-option-text">{opt.text}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="exam-text-input-wrap">
+                    <input
+                      type="text"
+                      className="exam-text-input"
+                      value={currentVal}
+                      placeholder={q.placeholder}
+                      onChange={(e) => updateAnswer(q.id, e.target.value)}
+                      disabled={isSubmitted}
+                    />
+                  </div>
+                )}
 
                 {isSubmitted && (
                   <div
@@ -530,11 +697,11 @@ export default function LessonExamPage({ customData = null }) {
                       <span>
                         {isCorrect
                           ? isEn
-                            ? 'Correct Fill-in!'
+                            ? 'Correct Concept!'
                             : 'إجابة صحيحة ومطابقة!'
                           : isEn
-                          ? `Model Concept: "${q.displayAnswer}"`
-                          : `المفهوم النموذجي: "${q.displayAnswer}"`}
+                          ? `Model Concept: "${q.displayAnswer || q.correctAnswer}"`
+                          : `المفهوم النموذجي: "${q.displayAnswer || q.correctAnswer}"`}
                       </span>
                     </div>
                     <p className="exam-explanation-body">
@@ -549,14 +716,16 @@ export default function LessonExamPage({ customData = null }) {
         </section>
       )}
 
-      {/* SECTION C: SCIENTIFIC TERMS */}
-      {(activeTab === 'all' || activeTab === 'section_c') && (
+      {/* SECTION C: SCIENTIFIC TERMS / CATEGORIZATION */}
+      {examData.sectionC && (activeTab === 'all' || activeTab === 'section_c') && (
         <section className="exam-section-card">
           <div className="exam-section-header">
             <div className="exam-section-title-wrap">
               <h2 className="exam-section-title">{examData.sectionC.title}</h2>
               <span className="exam-pill-badge grade">
-                {isEn ? '4 Questions • 4 Marks' : '4 أسئلة • 4 درجات'}
+                {isEn
+                  ? `${examData.sectionC.questions.length} Questions • ${examData.sectionC.questions.length} Marks`
+                  : `${examData.sectionC.questions.length} أسئلة • ${examData.sectionC.questions.length} درجات`}
               </span>
             </div>
             <p className="exam-section-instruction">{examData.sectionC.instruction}</p>
@@ -582,16 +751,42 @@ export default function LessonExamPage({ customData = null }) {
                   <h3 className="exam-question-text">{q.question}</h3>
                 </div>
 
-                <div className="exam-text-input-wrap">
-                  <input
-                    type="text"
-                    className="exam-text-input"
-                    value={currentVal}
-                    placeholder={q.placeholder}
-                    onChange={(e) => updateAnswer(q.id, e.target.value)}
-                    disabled={isSubmitted}
-                  />
-                </div>
+                {q.options && q.options.length > 0 ? (
+                  <div className="exam-options-grid">
+                    {q.options.map((opt) => {
+                      const isSelected = currentVal === opt.id;
+                      return (
+                        <label
+                          key={opt.id}
+                          className={`exam-option-card ${isSelected ? 'selected' : ''}`}
+                        >
+                          <input
+                            type="radio"
+                            name={q.id}
+                            value={opt.id}
+                            checked={isSelected}
+                            onChange={() => updateAnswer(q.id, opt.id)}
+                            disabled={isSubmitted}
+                            style={{ display: 'none' }}
+                          />
+                          <span className="exam-option-indicator">{opt.id}</span>
+                          <span className="exam-option-text">{opt.text}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="exam-text-input-wrap">
+                    <input
+                      type="text"
+                      className="exam-text-input"
+                      value={currentVal}
+                      placeholder={q.placeholder}
+                      onChange={(e) => updateAnswer(q.id, e.target.value)}
+                      disabled={isSubmitted}
+                    />
+                  </div>
+                )}
 
                 {isSubmitted && (
                   <div
@@ -611,11 +806,11 @@ export default function LessonExamPage({ customData = null }) {
                       <span>
                         {isCorrect
                           ? isEn
-                            ? 'Exact Scientific Term!'
-                            : 'المصطلح العلمي الصحيح!'
+                            ? 'Exact Scientific Classification!'
+                            : 'تصنيف علمي ممتاز ودقيق!'
                           : isEn
-                          ? `Standard Term: "${q.displayAnswer}"`
-                          : `المصطلح المعياري: "${q.displayAnswer}"`}
+                          ? `Standard Classification: "${q.displayAnswer || q.correctAnswer}"`
+                          : `التصنيف المعياري: "${q.displayAnswer || q.correctAnswer}"`}
                       </span>
                     </div>
                     <p className="exam-explanation-body">
@@ -631,13 +826,15 @@ export default function LessonExamPage({ customData = null }) {
       )}
 
       {/* SECTION D: TRUE / FALSE */}
-      {(activeTab === 'all' || activeTab === 'section_d') && (
+      {examData.sectionD && (activeTab === 'all' || activeTab === 'section_d') && (
         <section className="exam-section-card">
           <div className="exam-section-header">
             <div className="exam-section-title-wrap">
               <h2 className="exam-section-title">{examData.sectionD.title}</h2>
               <span className="exam-pill-badge grade">
-                {isEn ? '4 Questions • 4 Marks' : '4 أسئلة • 4 درجات'}
+                {isEn
+                  ? `${examData.sectionD.questions.length} Questions • ${examData.sectionD.questions.length} Marks`
+                  : `${examData.sectionD.questions.length} أسئلة • ${examData.sectionD.questions.length} درجات`}
               </span>
             </div>
             <p className="exam-section-instruction">{examData.sectionD.instruction}</p>
@@ -673,7 +870,7 @@ export default function LessonExamPage({ customData = null }) {
                     disabled={isSubmitted}
                   >
                     <Icon name="check" size={16} color={currentVal === true ? '#059669' : '#64748b'} />
-                    <span>{isEn ? 'True (Correct)' : 'صح (عبارة صحيحة)'}</span>
+                    <span>{isEn ? 'True (✓)' : 'صح (✓)'}</span>
                   </button>
 
                   <button
@@ -685,7 +882,7 @@ export default function LessonExamPage({ customData = null }) {
                     disabled={isSubmitted}
                   >
                     <Icon name="close" size={16} color={currentVal === false ? '#dc2626' : '#64748b'} />
-                    <span>{isEn ? 'False (Incorrect)' : 'خطأ (عبارة خاطئة)'}</span>
+                    <span>{isEn ? 'False (✗)' : 'خطأ (✗)'}</span>
                   </button>
                 </div>
 
@@ -714,10 +911,12 @@ export default function LessonExamPage({ customData = null }) {
                           : `تصويب العبارة`}
                       </span>
                     </div>
-                    <div className="exam-correction-text">
-                      <strong>{isEn ? 'Standard Correction: ' : 'التصويب الدقيق: '}</strong>
-                      {q.correction}
-                    </div>
+                    {q.correction && (
+                      <div className="exam-correction-text">
+                        <strong>{isEn ? 'Standard Correction: ' : 'التصويب الدقيق: '}</strong>
+                        {q.correction}
+                      </div>
+                    )}
                     <p className="exam-explanation-body">
                       <strong>{isEn ? 'Pedagogical Explanation: ' : 'الشرح التعليمي: '}</strong>
                       {q.explanation}
@@ -730,31 +929,40 @@ export default function LessonExamPage({ customData = null }) {
         </section>
       )}
 
-      {/* SECTION E: REASONING & COMPARISONS (ESSAY WITH SIMPLIFIED HINT '!') */}
-      {(activeTab === 'all' || activeTab === 'section_e') && (
+      {/* SECTION E: REASONING & CASE STUDIES */}
+      {examData.sectionE && (activeTab === 'all' || activeTab === 'section_e') && (
         <section className="exam-section-card">
           <div className="exam-section-header">
             <div className="exam-section-title-wrap">
               <h2 className="exam-section-title">{examData.sectionE.title}</h2>
               <span className="exam-pill-badge ministry">
-                {isEn ? '3 Questions • 12 Marks (Teacher Review)' : '3 أسئلة • 12 درجة (مراجعة معلم)'}
+                {isEn
+                  ? `${examData.sectionE.questions.length} Case Studies • Auto-Graded`
+                  : `${examData.sectionE.questions.length} دراسات حالة • تصحيح آلي`}
               </span>
             </div>
             <p className="exam-section-instruction">{examData.sectionE.instruction}</p>
           </div>
 
           {examData.sectionE.questions.map((q) => {
-            const currentText = answers[q.id] || '';
+            const isCorrect = isSubmitted && evaluation.results[q.id]?.isCorrect;
+            const currentVal = answers[q.id] || '';
             const isHintOpen = Boolean(activeHints[q.id]);
-            const wordCount = currentText.trim()
-              ? currentText.trim().split(/\s+/).length
+            const wordCount = typeof currentVal === 'string' && currentVal.trim()
+              ? currentVal.trim().split(/\s+/).length
               : 0;
 
             return (
               <article
                 key={q.id}
                 className={`exam-question-item ${
-                  isSubmitted ? 'status-submitted-essay' : ''
+                  isSubmitted
+                    ? q.options
+                      ? isCorrect
+                        ? 'status-correct'
+                        : 'status-incorrect'
+                      : 'status-submitted-essay'
+                    : ''
                 }`}
               >
                 <div className="exam-question-top-row">
@@ -762,19 +970,21 @@ export default function LessonExamPage({ customData = null }) {
                   <h3 className="exam-question-text">{q.question}</h3>
 
                   {/* The Special Simplified Hint Toggle Button (!) */}
-                  <button
-                    type="button"
-                    className="exam-simplified-hint-toggle"
-                    onClick={() => toggleHint(q.id)}
-                    title={isEn ? 'Click to see Mentor’s Simplified Hint' : 'انقر لعرض تبسيط المُرشد للسؤال'}
-                  >
-                    <span className="exam-simplified-hint-icon">!</span>
-                    <span>{isEn ? 'Simplify' : 'تبسيط السؤال'}</span>
-                  </button>
+                  {q.simplifiedHint && (
+                    <button
+                      type="button"
+                      className="exam-simplified-hint-toggle"
+                      onClick={() => toggleHint(q.id)}
+                      title={isEn ? 'Click to see Mentor’s Simplified Hint' : 'انقر لعرض تبسيط المُرشد للسؤال'}
+                    >
+                      <span className="exam-simplified-hint-icon">!</span>
+                      <span>{isEn ? 'Simplify' : 'تبسيط السؤال'}</span>
+                    </button>
+                  )}
                 </div>
 
                 {/* The Simplified Hint Box */}
-                {isHintOpen && (
+                {isHintOpen && q.simplifiedHint && (
                   <div className="exam-simplified-hint-box">
                     <div className="exam-simplified-hint-title">
                       <Icon name="lightbulb" size={15} color="#f59e0b" />
@@ -784,40 +994,100 @@ export default function LessonExamPage({ customData = null }) {
                   </div>
                 )}
 
-                <textarea
-                  className="exam-essay-textarea"
-                  value={currentText}
-                  onChange={(e) => updateAnswer(q.id, e.target.value)}
-                  placeholder={
-                    isEn
-                      ? 'Type your reasoned explanation or comparative points here...'
-                      : 'اكتب إجابتك التحليلية أو عناصر المقارنة هنا...'
-                  }
-                  disabled={isSubmitted}
-                />
+                {/* If Section E has selectable options (Zero typing) */}
+                {q.options && q.options.length > 0 ? (
+                  <div className="exam-options-grid">
+                    {q.options.map((opt) => {
+                      const isSelected = currentVal === opt.id;
+                      return (
+                        <label
+                          key={opt.id}
+                          className={`exam-option-card ${isSelected ? 'selected' : ''}`}
+                        >
+                          <input
+                            type="radio"
+                            name={q.id}
+                            value={opt.id}
+                            checked={isSelected}
+                            onChange={() => updateAnswer(q.id, opt.id)}
+                            disabled={isSubmitted}
+                            style={{ display: 'none' }}
+                          />
+                          <span className="exam-option-indicator">{opt.id}</span>
+                          <span className="exam-option-text">{opt.text}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <>
+                    <textarea
+                      className="exam-essay-textarea"
+                      value={currentVal}
+                      onChange={(e) => updateAnswer(q.id, e.target.value)}
+                      placeholder={
+                        isEn
+                          ? 'Type your reasoned explanation or comparative points here...'
+                          : 'اكتب إجابتك التحليلية أو عناصر المقارنة هنا...'
+                      }
+                      disabled={isSubmitted}
+                    />
+                    <div className="exam-essay-footer">
+                      <span>
+                        {isEn ? 'Words count' : 'عدد الكلمات'}: {wordCount}
+                      </span>
+                      <span>{isEn ? '4 Marks' : '4 درجات'}</span>
+                    </div>
+                  </>
+                )}
 
-                <div className="exam-essay-footer">
-                  <span>
-                    {isEn ? 'Words count' : 'عدد الكلمات'}: {wordCount}
-                  </span>
-                  <span>{isEn ? '4 Marks' : '4 درجات'}</span>
-                </div>
-
-                {/* Model Answer & Explanation (Always shown post-submission) */}
+                {/* Post Submission Explanation */}
                 {isSubmitted && (
-                  <div className="exam-model-answer-box">
-                    <div className="exam-model-answer-title">
-                      <Icon name="grading" size={15} color="#0d9488" />
-                      <span>{isEn ? 'Standard Model Answer (Official Rubric):' : 'نموذج الإجابة المعتمد للمراجعة:'}</span>
+                  <div
+                    className={`exam-explanation-box ${
+                      q.options
+                        ? isCorrect
+                          ? 'correct'
+                          : 'incorrect'
+                        : 'correct'
+                    }`}
+                  >
+                    <div
+                      className={`exam-explanation-header ${
+                        q.options
+                          ? isCorrect
+                            ? 'correct'
+                            : 'incorrect'
+                          : 'correct'
+                      }`}
+                    >
+                      <Icon
+                        name={isCorrect ? 'check_circle' : 'cancel'}
+                        size={15}
+                      />
+                      <span>
+                        {q.options
+                          ? isCorrect
+                            ? isEn
+                              ? 'Sound Engineering Decision!'
+                              : 'تحليل وقرار هندسي سليم!'
+                            : isEn
+                            ? `Correct Decision: (${q.correctAnswer})`
+                            : `التحليل الهندسي الصحيح: (${q.correctAnswer})`
+                          : isEn
+                          ? 'Model Answer & Rubric:'
+                          : 'نموذج الإجابة المعتمد للمراجعة:'}
+                      </span>
                     </div>
-                    <p className="exam-model-answer-content">{q.modelAnswer}</p>
-
-                    <div className="exam-explanation-box" style={{ marginTop: '8px' }}>
-                      <p className="exam-explanation-body">
-                        <strong>{isEn ? 'Pedagogical Rationale: ' : 'المغزى التعليمي: '}</strong>
-                        {q.explanation}
+                    {q.modelAnswer && (
+                      <p className="exam-model-answer-content" style={{ marginTop: '6px' }}>
+                        {q.modelAnswer}
                       </p>
-                    </div>
+                    )}
+                    <p className="exam-explanation-body">
+                      <strong>{isEn ? 'Pedagogical Rationale: ' : 'المغزى التعليمي: '}</strong>
+                      {q.explanation}
+                    </p>
                   </div>
                 )}
               </article>
@@ -826,14 +1096,14 @@ export default function LessonExamPage({ customData = null }) {
         </section>
       )}
 
-      {/* SECTION F: APPLICATIONS & 6-MARK QUESTION (ESSAY WITH SIMPLIFIED HINT '!') */}
-      {(activeTab === 'all' || activeTab === 'section_f') && (
+      {/* SECTION F: APPLICATIONS (If present in older lessons) */}
+      {examData.sectionF && (activeTab === 'all' || activeTab === 'section_f') && (
         <section className="exam-section-card">
           <div className="exam-section-header">
             <div className="exam-section-title-wrap">
               <h2 className="exam-section-title">{examData.sectionF.title}</h2>
               <span className="exam-pill-badge ministry">
-                {isEn ? '3 Questions • 6 Marks Each (Deep Analysis)' : '3 أسئلة • 6 درجات لكل سؤال'}
+                {isEn ? 'Deep Analysis Questions' : 'أسئلة التحليل المتعمق'}
               </span>
             </div>
             <p className="exam-section-instruction">{examData.sectionF.instruction}</p>
@@ -857,19 +1127,20 @@ export default function LessonExamPage({ customData = null }) {
                   <span className="exam-question-number-badge">{q.number}</span>
                   <h3 className="exam-question-text">{q.question}</h3>
 
-                  {/* The Special Simplified Hint Toggle Button (!) */}
-                  <button
-                    type="button"
-                    className="exam-simplified-hint-toggle"
-                    onClick={() => toggleHint(q.id)}
-                    title={isEn ? 'Click to see Mentor’s Simplified Hint' : 'انقر لعرض تبسيط المُرشد للموقف'}
-                  >
-                    <span className="exam-simplified-hint-icon">!</span>
-                    <span>{isEn ? 'Simplify' : 'تبسيط الموقف'}</span>
-                  </button>
+                  {q.simplifiedHint && (
+                    <button
+                      type="button"
+                      className="exam-simplified-hint-toggle"
+                      onClick={() => toggleHint(q.id)}
+                      title={isEn ? 'Click to see Mentor’s Simplified Hint' : 'انقر لعرض تبسيط المُرشد للموقف'}
+                    >
+                      <span className="exam-simplified-hint-icon">!</span>
+                      <span>{isEn ? 'Simplify' : 'تبسيط الموقف'}</span>
+                    </button>
+                  )}
                 </div>
 
-                {isHintOpen && (
+                {isHintOpen && q.simplifiedHint && (
                   <div className="exam-simplified-hint-box">
                     <div className="exam-simplified-hint-title">
                       <Icon name="lightbulb" size={15} color="#f59e0b" />

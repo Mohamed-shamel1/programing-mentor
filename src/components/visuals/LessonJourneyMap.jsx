@@ -18,6 +18,8 @@ export default function LessonJourneyMap({ stages = [] }) {
   }
 
   const stageCount = stages.length;
+  const isMultiRow = stageCount > 7;
+  const columnsCount = isMultiRow ? 5 : stageCount;
 
   return (
     <div className="lesson-journey-map" role="region" aria-label={isEn ? 'Learning Journey Map' : 'مسار رحلة التعلم'}>
@@ -36,14 +38,16 @@ export default function LessonJourneyMap({ stages = [] }) {
       </div>
 
       <div
-        className="lesson-journey-grid"
+        className={`lesson-journey-grid ${isMultiRow ? 'journey-grid-multi-row' : ''}`}
         style={{
-          gridTemplateColumns: `repeat(${stageCount}, minmax(0, 1fr))`,
-          gap: stageCount > 7 ? '4px' : '6px',
+          gridTemplateColumns: `repeat(${columnsCount}, minmax(0, 1fr))`,
+          gap: isMultiRow ? '5px 6px' : (stageCount > 7 ? '4px' : '6px'),
         }}
       >
         {stages.map((stage, idx) => {
           const isLast = idx === stages.length - 1;
+          const isRowEnd = isMultiRow && (idx + 1) % columnsCount === 0;
+          const showArrow = !isLast && !isRowEnd;
           const nodeNum = idx + 1 < 10 ? `0${idx + 1}` : `${idx + 1}`;
 
           return (
@@ -51,8 +55,9 @@ export default function LessonJourneyMap({ stages = [] }) {
               key={stage.id || idx}
               className={`journey-node ${stage.highlight ? 'journey-node-highlight' : ''}`}
               style={{
-                padding: stageCount > 7 ? '4px 3px' : '6px 5px',
-                minHeight: stageCount > 7 ? '60px' : '72px',
+                padding: isMultiRow ? '4px 6px' : (stageCount > 7 ? '4px 3px' : '6px 5px'),
+                minHeight: isMultiRow ? '48px' : (stageCount > 7 ? '60px' : '72px'),
+                minWidth: 0,
               }}
             >
               <div className="journey-node-top">
@@ -60,18 +65,18 @@ export default function LessonJourneyMap({ stages = [] }) {
                 <div
                   className="journey-node-icon"
                   style={{
-                    width: stageCount > 7 ? '16px' : '18px',
-                    height: stageCount > 7 ? '16px' : '18px',
+                    width: isMultiRow ? '16px' : (stageCount > 7 ? '16px' : '18px'),
+                    height: isMultiRow ? '16px' : (stageCount > 7 ? '16px' : '18px'),
                   }}
                 >
-                  <Icon name={stage.icon || 'explore'} size={stageCount > 7 ? 12 : 14} color="currentColor" />
+                  <Icon name={stage.icon || 'explore'} size={isMultiRow ? 12 : (stageCount > 7 ? 12 : 14)} color="currentColor" />
                 </div>
               </div>
 
               <div
                 className="journey-node-name"
                 style={{
-                  fontSize: stageCount > 7 ? '9.5px' : '11px',
+                  fontSize: isMultiRow ? '10px' : (stageCount > 7 ? '9.5px' : '11px'),
                   lineHeight: 1.2,
                 }}
               >
@@ -80,20 +85,20 @@ export default function LessonJourneyMap({ stages = [] }) {
               <div
                 className="journey-node-desc"
                 style={{
-                  fontSize: stageCount > 7 ? '8px' : '9px',
+                  fontSize: isMultiRow ? '8.5px' : (stageCount > 7 ? '8px' : '9px'),
                   lineHeight: 1.2,
                 }}
               >
                 {stage.subtitle}
               </div>
 
-              {!isLast && (
+              {showArrow && (
                 <div
                   className="journey-node-arrow"
                   aria-hidden="true"
                   style={{
-                    [isEn ? 'right' : 'left']: stageCount > 7 ? '-6px' : '-8px',
-                    fontSize: stageCount > 7 ? '8px' : '10px',
+                    [isEn ? 'right' : 'left']: isMultiRow ? '-7px' : (stageCount > 7 ? '-6px' : '-8px'),
+                    fontSize: isMultiRow ? '9px' : (stageCount > 7 ? '8px' : '10px'),
                   }}
                 >
                   {isEn ? '→' : '←'}

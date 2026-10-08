@@ -38,6 +38,12 @@ export const VIEWS = {
   LESSON_1_2_EXAM: 'LESSON_1_2_EXAM',
   LESSON_1_2_BOOKLET: 'LESSON_1_2_BOOKLET',
   LESSON_1_2_CHEAT_SHEET: 'LESSON_1_2_CHEAT_SHEET',
+  // Lesson 1-3
+  LESSON_1_3_PAGE1: 'LESSON_1_3_PAGE1',
+  LESSON_1_3_PAGE2: 'LESSON_1_3_PAGE2',
+  LESSON_1_3_PAGE3: 'LESSON_1_3_PAGE3',
+  LESSON_1_3_EXAM: 'LESSON_1_3_EXAM',
+  LESSON_1_3_BOOKLET: 'LESSON_1_3_BOOKLET',
 };
 
 export const NAVIGATION_SECTIONS = [
@@ -103,6 +109,19 @@ export const NAVIGATION_SECTIONS = [
       { id: VIEWS.LESSON_1_2_PAGE8, label: 'معمل التفكير النقدي وتفكيك الوعي', labelEn: 'Critical Thinking & Socratic Lab', badge: '08', badgeEn: '08', icon: 'psychology_alt' },
       { id: VIEWS.LESSON_1_2_PAGE9, label: 'شجرة المفاهيم وخريطة الإتقان الشاملة', labelEn: 'Comprehensive Mastery Concept Map', badge: '09', badgeEn: '09', icon: 'device_hub' },
       { id: VIEWS.LESSON_1_2_PAGE10, label: 'التحدي الختامي وبنك الأسئلة', labelEn: 'Final Challenge & Assessment Bank', badge: '10', badgeEn: '10', icon: 'quiz' },
+    ],
+  },
+  {
+    id: 'LESSON_1_3',
+    title: 'الدرس 1-3: الذكاء الاصطناعي في الحياة اليومية والصناعة',
+    titleEn: 'Lesson 1-3: AI in Daily Life & Industry',
+    icon: 'precision_manufacturing',
+    defaultView: VIEWS.LESSON_1_3_PAGE1,
+    pages: [
+      { id: VIEWS.LESSON_1_3_PAGE1, label: 'الذكاء الاصطناعي في الحياة اليومية', labelEn: 'AI in Daily Life', badge: '01', badgeEn: '01', icon: 'smartphone' },
+      { id: VIEWS.LESSON_1_3_PAGE2, label: 'الذكاء الاصطناعي في الصناعة والأتمتة', labelEn: 'AI in Industry & Automation', badge: '02', badgeEn: '02', icon: 'precision_manufacturing' },
+      { id: VIEWS.LESSON_1_3_PAGE3, label: 'مصفوفة القدرات والمخاطر وبوابة الاختبار', labelEn: 'Strengths, Risks & Exam Portal', badge: '03', badgeEn: '03', icon: 'balance' },
+      { id: VIEWS.LESSON_1_3_BOOKLET, label: 'معاينة وطباعة كتيب الدرس (A4)', labelEn: 'Preview & Print Booklet (A4)', badge: 'A4', badgeEn: 'A4', icon: 'print', isPrint: true },
     ],
   },
 ];
