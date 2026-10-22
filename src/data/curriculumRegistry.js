@@ -18,6 +18,10 @@ import { lesson03Data } from './lesson03Data.js';
 import { lesson03DataEn } from './lesson03DataEn.js';
 import { lesson03ExamData } from './lesson03ExamData.js';
 import { lesson03ExamDataEn } from './lesson03ExamDataEn.js';
+import { lesson04Data } from './lesson04Data.js';
+import { lesson04DataEn } from './lesson04DataEn.js';
+import { lesson04ExamData } from './lesson04ExamData.js';
+import { lesson04ExamDataEn } from './lesson04ExamDataEn.js';
 
 export const CURRICULUM_LESSONS = [
   {
@@ -75,6 +79,24 @@ export const CURRICULUM_LESSONS = [
     examAr: lesson03ExamData,
     examEn: lesson03ExamDataEn,
     examHash: '#exam-1-3',
+  },
+  {
+    id: 'lesson-1-4',
+    code: '1-4',
+    unitNumber: 1,
+    unitTitleAr: 'الوحدة الأولى: أساسيات الحوسبة والذكاء الاصطناعي',
+    unitTitleEn: 'Unit 1: Computing & AI Fundamentals',
+    titleAr: 'الدرس 1-4: القضايا الأخلاقية المتعلقة بالذكاء الاصطناعي',
+    titleEn: 'Lesson 1-4: Ethical Issues with AI',
+    shortTitleAr: 'الدرس 1-4: أخلاقيات الذكاء الاصطناعي',
+    shortTitleEn: 'Lesson 1-4: AI Ethics',
+    icon: 'balance',
+    status: 'ready',
+    dataAr: lesson04Data,
+    dataEn: lesson04DataEn,
+    examAr: lesson04ExamData,
+    examEn: lesson04ExamDataEn,
+    examHash: '#exam-1-4',
   },
 ];
 

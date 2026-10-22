@@ -44,6 +44,12 @@ export const VIEWS = {
   LESSON_1_3_PAGE3: 'LESSON_1_3_PAGE3',
   LESSON_1_3_EXAM: 'LESSON_1_3_EXAM',
   LESSON_1_3_BOOKLET: 'LESSON_1_3_BOOKLET',
+  // Lesson 1-4
+  LESSON_1_4_PAGE1: 'LESSON_1_4_PAGE1',
+  LESSON_1_4_PAGE2: 'LESSON_1_4_PAGE2',
+  LESSON_1_4_PAGE3: 'LESSON_1_4_PAGE3',
+  LESSON_1_4_EXAM: 'LESSON_1_4_EXAM',
+  LESSON_1_4_BOOKLET: 'LESSON_1_4_BOOKLET',
 };
 
 export const NAVIGATION_SECTIONS = [
@@ -122,6 +128,19 @@ export const NAVIGATION_SECTIONS = [
       { id: VIEWS.LESSON_1_3_PAGE2, label: 'الذكاء الاصطناعي في الصناعة والأتمتة', labelEn: 'AI in Industry & Automation', badge: '02', badgeEn: '02', icon: 'precision_manufacturing' },
       { id: VIEWS.LESSON_1_3_PAGE3, label: 'مصفوفة القدرات والمخاطر وبوابة الاختبار', labelEn: 'Strengths, Risks & Exam Portal', badge: '03', badgeEn: '03', icon: 'balance' },
       { id: VIEWS.LESSON_1_3_BOOKLET, label: 'معاينة وطباعة كتيب الدرس (A4)', labelEn: 'Preview & Print Booklet (A4)', badge: 'A4', badgeEn: 'A4', icon: 'print', isPrint: true },
+    ],
+  },
+  {
+    id: 'LESSON_1_4',
+    title: 'الدرس 1-4: القضايا الأخلاقية المتعلقة بالذكاء الاصطناعي',
+    titleEn: 'Lesson 1-4: Ethical Issues with AI',
+    icon: 'balance',
+    defaultView: VIEWS.LESSON_1_4_PAGE1,
+    pages: [
+      { id: VIEWS.LESSON_1_4_PAGE1, label: 'التحيز الخوارزمي وفخ البيانات', labelEn: 'Algorithmic Bias & Data Trap', badge: '01', badgeEn: '01', icon: 'balance' },
+      { id: VIEWS.LESSON_1_4_PAGE2, label: 'مخاطر الخصوصية ولغز الصندوق الأسود', labelEn: 'Privacy & The Black Box (XAI)', badge: '02', badgeEn: '02', icon: 'visibility' },
+      { id: VIEWS.LESSON_1_4_PAGE3, label: 'المبادئ الأربعة الأخلاقية وبوابة الاختبار', labelEn: '4 Ethical Pillars & Exam Portal', badge: '03', badgeEn: '03', icon: 'gavel' },
+      { id: VIEWS.LESSON_1_4_BOOKLET, label: 'معاينة وطباعة كتيب الدرس (A4)', labelEn: 'Preview & Print Booklet (A4)', badge: 'A4', badgeEn: 'A4', icon: 'print', isPrint: true },
     ],
   },
 ];

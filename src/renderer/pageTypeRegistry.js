@@ -23,6 +23,9 @@ import FinalAssessmentPage from '../components/educational/FinalAssessmentPage.j
 import DailyAiServicesPage from '../components/educational/DailyAiServicesPage.jsx';
 import IndustrialAiSectorsPage from '../components/educational/IndustrialAiSectorsPage.jsx';
 import AiStrengthsAndRisksPage from '../components/educational/AiStrengthsAndRisksPage.jsx';
+import AlgorithmicBiasPage from '../components/educational/AlgorithmicBiasPage.jsx';
+import PrivacyAndBlackBoxPage from '../components/educational/PrivacyAndBlackBoxPage.jsx';
+import AiEthicsPrinciplesPage from '../components/educational/AiEthicsPrinciplesPage.jsx';
 import GlobalRoadmapPage from '../components/educational/frontmatter/GlobalRoadmapPage.jsx';
 import ProgressTrackerPage from '../components/educational/frontmatter/ProgressTrackerPage.jsx';
 import MasteryPedagogyPage from '../components/educational/frontmatter/MasteryPedagogyPage.jsx';
@@ -64,6 +67,11 @@ export const PAGE_TYPES = {
   INDUSTRIAL_AI_SECTORS: 'INDUSTRIAL_AI_SECTORS',
   AI_STRENGTHS_AND_RISKS: 'AI_STRENGTHS_AND_RISKS',
 
+  // Lesson 1-4 Dedicated Page Types
+  ALGORITHMIC_BIAS: 'ALGORITHMIC_BIAS',
+  PRIVACY_AND_BLACK_BOX: 'PRIVACY_AND_BLACK_BOX',
+  AI_ETHICS_PRINCIPLES: 'AI_ETHICS_PRINCIPLES',
+
   // Front-Matter Opening Trilogy Page Types
   GLOBAL_ROADMAP: 'GLOBAL_ROADMAP',
   PROGRESS_TRACKER: 'PROGRESS_TRACKER',
@@ -100,6 +108,11 @@ const registry = {
   [PAGE_TYPES.DAILY_AI_SERVICES]: DailyAiServicesPage,
   [PAGE_TYPES.INDUSTRIAL_AI_SECTORS]: IndustrialAiSectorsPage,
   [PAGE_TYPES.AI_STRENGTHS_AND_RISKS]: AiStrengthsAndRisksPage,
+
+  // Lesson 1-4 Pages
+  [PAGE_TYPES.ALGORITHMIC_BIAS]: AlgorithmicBiasPage,
+  [PAGE_TYPES.PRIVACY_AND_BLACK_BOX]: PrivacyAndBlackBoxPage,
+  [PAGE_TYPES.AI_ETHICS_PRINCIPLES]: AiEthicsPrinciplesPage,
 
   // Front-matter registrations
   [PAGE_TYPES.GLOBAL_ROADMAP]: GlobalRoadmapPage,
