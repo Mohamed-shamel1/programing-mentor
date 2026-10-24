@@ -34,6 +34,12 @@
     margin: 6mm 8mm 6mm 8mm;
   }
 
+  /* Named A4 Landscape Page for Master Summary & Cheat Sheets */
+  @page landscape-sheet {
+    size: A4 landscape;
+    margin: 0;
+  }
+
   /* 3. Hide all screen-only UI elements */
   .no-print,
   .web-toolbar,
@@ -46,6 +52,23 @@
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
+    background: transparent !important;
+  }
+
+  /* Scoped print override for landscape mode */
+  body.landscape-active {
+    width: 297mm !important;
+    max-width: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.landscape-active .app-root,
+  body.landscape-active .app-main {
+    width: 297mm !important;
+    max-width: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
     background: transparent !important;
   }
 

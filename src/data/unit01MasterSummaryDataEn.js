@@ -54,41 +54,53 @@ export const unit01MasterSummaryDataEn = {
       title: 'Evolution of Information Technology & Social Transformation',
       bookPages: 'Ministry Textbook: pp. 4 - 11',
 
-      // Five Eras Timeline
+      // Official IT Definition (Textbook p. 4)
+      itDefinition: {
+        title: 'Official IT Definition (Ministry Approved):',
+        def: 'The use of hardware, software, networks, and systems to process, store, and transmit information (Collect, Store, Process, Transmit, and Use).'
+      },
+
+      // Five Main Eras of IT Evolution (Textbook p. 4 Table)
       eras: [
         { 
           period: '1940s - 1960s', 
-          event: 'First electronic mainframes (like ENIAC) powered by Vacuum Tubes; giant machines taking up entire rooms and consuming massive power.', 
-          impact: 'Used strictly for government military ballistic calculations and big scientific research; completely out of reach for regular people.' 
+          title: 'Electronic Mainframes & Vacuum Tubes',
+          tech: 'First electronic mainframes (ENIAC) using Vacuum Tubes; room-sized machines consuming massive electric power.', 
+          impact: 'Used strictly for military ballistic calculations and big scientific research; completely out of reach for regular people or private firms.' 
         },
         { 
           period: '1970s - 1980s', 
-          event: 'Invention of the Transistor (1946 at Bell Labs), Integrated Circuits (ICs), and microprocessors leading to Personal Computers (PCs).', 
-          impact: 'Computers exited military labs into offices and homes, sparking widespread individual computing for regular citizens and small businesses.' 
+          title: 'Rise of Personal Computers (PCs)',
+          tech: 'Widespread Personal Computers (PCs); Transistor invention (1946 Bell Labs), Integrated Circuits (ICs), and microprocessors shrinking hardware size.', 
+          impact: 'Beginning of individual personal computing in homes and offices; computing exited military labs into business and civil society.' 
         },
         { 
           period: '1990s', 
-          event: 'Commercialization of the Internet, birth of the World Wide Web (WWW), Electronic Mail (Email), and early E-commerce (Amazon 1994).', 
-          impact: 'Globalization of knowledge and instant cross-border communication, transforming the computer from a math tool into a social network.' 
+          title: 'Commercial Internet & The Web',
+          tech: 'Commercial Internet access; launch of World Wide Web (WWW), Electronic Mail (Email), and early E-commerce (Amazon 1994).', 
+          impact: 'Global information access and email adoption; instant cross-border digital communication, transforming PCs into trade and communication tools.' 
         },
         { 
           period: '2000s (1st Decade)', 
-          event: 'Smartphone revolution (iPhone) with mobile broadband, GPS navigation, and built-in digital cameras.', 
-          impact: 'Internet shifted into every user’s pocket on the move (Mobility), turning digital access into a portable 24/7 service.' 
+          title: 'Rise of Smartphones',
+          tech: 'Launch of Smartphones (iPhone 2007) with touchscreens, high-speed mobile wireless networks, GPS navigation, and built-in cameras.', 
+          impact: 'Rapid and widespread mobile internet adoption; internet became an omnipresent service in every user’s pocket on the move (Mobility).' 
         },
         { 
           period: '2010s & Beyond', 
-          event: 'Cloud Computing, Big Data analytics, IT as a Service (ITaaS), and Generative AI foundational models (like ChatGPT).', 
-          impact: 'Companies shifted from buying local servers to renting computing on-demand, enabling AI training on millions of records without local data centers.' 
+          title: 'Cloud Computing & Generative AI',
+          tech: 'Cloud Computing expansion, Big Data analytics, IT as a Service (ITaaS), and Generative AI foundational models (ChatGPT & LLMs).', 
+          impact: 'Big data analytics and AI; IT resources delivered as online services on-demand, enabling training of massive AI models without local servers.' 
         }
       ],
 
       // 1995 vs 2026 Comparison Table (Textbook p. 5)
       timelineHookComparison: [
-        { field: 'Knowledge Search', year1995: 'Physical library visits, paper card catalogs, took days or weeks.', year2026: 'Instant AI assistants and smart search in a fraction of a second.' },
-        { field: 'Money & Banking', year1995: 'Long bank lines, paper checkbooks, and cash-only payments.', year2026: 'Instant mobile payments, e-wallets, and contactless QR codes.' },
-        { field: 'Communication', year1995: 'Mailed paper letters taking weeks, or coin-operated payphones.', year2026: 'Crystal-clear HD video calls, instant and free across the globe.' },
-        { field: 'Travel & Mobility', year1995: 'Visiting travel agencies, folding paper maps, asking pedestrians.', year2026: 'Live GPS navigation, real-time traffic alerts, instant app bookings.' }
+        { field: 'Knowledge Search', year1995: 'Physical library visits, paper card catalogs; took days.', year2026: 'Instant AI assistants & smart search in a second.' },
+        { field: 'Money & Banking', year1995: 'Long bank lines, paper checkbooks, and cash payments.', year2026: 'Instant mobile payments, e-wallets, contactless QR.' },
+        { field: 'Communication & Work', year1995: 'Mailed paper letters taking weeks, or coin payphones.', year2026: 'Free HD video calls, remote collaboration & meetings.' },
+        { field: 'Travel & Mobility', year1995: 'Visiting travel agencies, paper maps, asking pedestrians.', year2026: 'Real-time GPS navigation, live traffic alerts, app bookings.' },
+        { field: 'Healthcare & Records', year1995: 'Paper physical hospital archives, slow manual X-rays.', year2026: 'Encrypted cloud EHRs, AI medical vision diagnosis assistance.' }
       ],
 
       // Stakeholder Analysis Matrix & Cashless Fairness (Textbook pp. 10-11)
@@ -111,11 +123,34 @@ export const unit01MasterSummaryDataEn = {
         examTip: 'Exam Alert: Cloud computing CANNOT be used for emergency braking due to latency and signal loss risks! Cloud is strictly for weekly trip logs and map updates.'
       },
 
-      // Official Textbook Analogy: Classical Car vs Quantum Bicycle
-      quantumAnalogy: {
-        title: 'Official Textbook Analogy: Classical Car vs Quantum Bicycle',
-        classicalCar: 'The Car (Classical PC): Fast and perfect on open highways for everyday tasks and office software.',
-        quantumBike: 'The Bicycle (Quantum Computer): Expertly maneuvers through ultra-narrow winding alleys (impossible math like cryptography and molecular modeling); does not replace the car on highways!'
+      // Quantum Computing, Qubit & Math Problems (Textbook p. 6)
+      quantumComputing: {
+        title: 'Quantum Computing, Qubit & Math Problems Hub (Textbook p. 6)',
+        coreLaw: 'Superposition Math Law: An n-qubit quantum register represents and processes (2^n) states simultaneously.',
+        bitVsQubit: {
+          bit: 'Classical Bit: Strictly binary deterministic value (either 0 or 1); 3 bits represent only 1 of 8 states at any single instant.',
+          qubit: 'Quantum Qubit: Harnesses Superposition to exist as a probability mixture of 0 and 1 simultaneously.'
+        },
+        mathProblems: [
+          { qubits: '1 Qubit', states: '2^1 = 2 states simultaneously (0 and 1 at the same split-second).' },
+          { qubits: '2 Qubits', states: '2^2 = 4 states simultaneously (00, 01, 10, 11).' },
+          { qubits: '3 Qubits', states: '2^3 = 8 states simultaneously (Crucial Exam Question!).' },
+          { qubits: 'n Qubits', states: '2^n simultaneous states in parallel.' }
+        ],
+        applications: [
+          { domain: 'Cryptographic Ciphers (Cryptography)', desc: 'Factoring astronomical prime numbers and cracking RSA encryption in minutes (Shor’s algorithm).' },
+          { domain: 'Molecular Simulation & Drug Discovery', desc: 'Simulating quantum molecular bonds and complex proteins to engineer breakthrough medications.' },
+          { domain: 'Massive Optimization Problems', desc: 'Analyzing billions of flight logistics, power grid distributions, and routing combinations in seconds.' },
+          { domain: 'Superconductors & Materials Science', desc: 'Designing room-temperature lossless energy conductors.' }
+        ],
+        analogy: {
+          classicalCar: 'The Car (Classical PC): Fast and perfect on open highways for everyday tasks and office software.',
+          quantumBike: 'The Bicycle (Quantum Computer): Expertly maneuvers through winding alleys (cryptography and molecular modeling).'
+        },
+        examTraps: [
+          'A quantum computer is NOT a general PC replacement; it requires cryogenic cooling near absolute zero (-273°C).',
+          'Quantum computers do NOT accelerate daily web browsing or video gaming; advantage is strictly for specific quantum algorithms.'
+        ]
       },
 
       // Key Concepts with Deep Explanations & Embedded Exam Tips
@@ -274,42 +309,42 @@ export const unit01MasterSummaryDataEn = {
 
     // Confusion Matrix (The Most Critical Part of the Exam!)
     confusionMatrix: {
-      title: 'The Official Disambiguation Matrix (Never Confuse These Similar Concepts in the Exam!)',
+      title: 'Official Disambiguation Matrix (Crucial Distinctions in Ministry Exams):',
       pairs: [
         {
           conceptA: 'Quality Inspection',
-          roleA: 'Computer vision cameras inspect finished products on the conveyor belt to catch CURRENT defects.',
+          roleA: 'Vision cameras on conveyor belt inspect finished products to catch CURRENT defects.',
           conceptB: 'Predictive Maintenance',
-          roleB: 'Vibration & thermal sensors on machinery analyze telemetry to predict FUTURE failure before breakdown.',
-          examTrigger: 'Exam Trigger: Camera + finished product = Quality | Sensors + machinery + future breakdown = Predictive'
+          roleB: 'Vibration & thermal sensors on machinery predict FUTURE breakdown before it stops.',
+          examTrigger: 'Camera + finished product = Quality | Sensors + machinery = Predictive'
         },
         {
           conceptA: 'Transparency',
-          roleA: 'Public upfront disclosure alerting users that an AI system is operating, stating its goals and general limits.',
+          roleA: 'Upfront public disclosure that an AI system is operating and its limits (alone ≠ fairness).',
           conceptB: 'Explainable AI (XAI)',
-          roleB: 'Disclosing the specific logical weights and factors behind an individual decision (e.g. why a loan was denied).',
-          examTrigger: 'Exam Trigger: Alerting user that AI is active = Transparency | Disclosing factor weights for a person = XAI'
+          roleB: 'Disclosing specific feature weights behind an individual decision for human appeal.',
+          examTrigger: 'Alerting user to AI = Transparency | Revealing decision weights = XAI'
         },
         {
           conceptA: 'Responsibility',
-          roleA: 'Ethical and professional duties distributed during system development and operation (engineers build safely, operators monitor).',
+          roleA: 'Duty & Role distribution: Who has which duty? (Developer, Company, User).',
           conceptB: 'Accountability',
-          roleB: 'The official 4th pillar; determines who is legally answerable to pay damages and face penalties in court (strictly human).',
-          examTrigger: 'Exam Trigger: Professional duties during build = Responsibility | Who is legally penalized in court = Accountability'
+          roleB: 'Legal liability & damages: Who gets penalized in court when harm occurs? (Strictly human).',
+          examTrigger: 'Who has duty = Responsibility | Who is penalized & pays = Accountability'
         },
         {
           conceptA: 'Privacy',
-          roleA: 'A person’s fundamental human right to keep personal records and private life confidential without unauthorized tracking.',
+          roleA: 'Fundamental human right to confidentiality and freedom from unauthorized tracking.',
           conceptB: 'Data Protection',
-          roleB: 'Technical security controls implemented to safeguard that privacy (encryption, firewalls, data minimization).',
-          examTrigger: 'Exam Trigger: Human right to confidentiality = Privacy | Technical encryption & access controls = Data Protection'
+          roleB: 'Technical security controls enforcing confidentiality (encryption, minimization).',
+          examTrigger: 'Right to confidentiality = Privacy | Technical encryption = Data Protection'
         },
         {
           conceptA: 'Probabilistic Inference',
-          roleA: 'Statistical estimations based on historical patterns (the nature of recommenders and AI predictions).',
+          roleA: 'Estimates most likely outcomes from past data; AI does NOT guarantee 100% certainty.',
           conceptB: 'Deterministic (100% Guarantee)',
-          roleB: 'A common false exam distractor ("100% certainty"); strictly incorrect in AI and rejected by the Ministry.',
-          examTrigger: 'Exam Trigger: AI outputs are probabilistic; any exam choice claiming "100% deterministic certainty" is FALSE!'
+          roleB: 'A common false exam distractor ("100% certainty"); strictly incorrect in AI.',
+          examTrigger: 'AI is probabilistic; any choice claiming "100% certainty" is FALSE!'
         }
       ]
     },
@@ -320,14 +355,14 @@ export const unit01MasterSummaryDataEn = {
       title: 'Artificial Intelligence in Daily Life & Industry',
       bookPages: 'Ministry Textbook: pp. 18 - 23',
 
-      // Daily Services & Industrial Sectors
+      // Daily Life Services & Industrial Matrix
       dailyAndIndustryMatrix: [
         { 
           item: 'Recommender Systems', 
           domain: 'Daily Life', 
           tech: 'ML + DL',
-          logic: 'Probabilistic inference based on past user behavior and similar viewer trends; NOT a 100% deterministic guarantee.',
-          examTip: 'Exam Alert: Recommendations are probabilistic predictions; exam options claiming "100% guaranteed certainty" are false distractors!'
+          logic: 'Probabilistic inference based on "Past Behavior Data" (videos you watched, items you bought before); NOT 100% certainty.',
+          examTip: 'In the exam: YouTube/Amazon recommendations are probabilistic estimates; "100% certainty" is a false distractor!'
         },
         { 
           item: 'Voice Assistants (Siri/Alexa)', 
@@ -414,80 +449,118 @@ export const unit01MasterSummaryDataEn = {
       title: 'Ethical Issues Surrounding Artificial Intelligence',
       bookPages: 'Ministry Textbook: pp. 24 - 30',
 
-      // Official Algorithmic Bias Definition
-      algorithmicBiasDef: 'A systematic deviation or pattern in AI outputs that leads to unfair or discriminatory outcomes against a specific group, stemming from training data, system design, or human deployment.',
+      // Official Algorithmic Bias Definition (Exam Q1)
+      algorithmicBiasDef: 'A systematic pattern or deviation in AI outputs that leads to unfair or discriminatory outcomes against specific groups, arising from training data, system design, usage, or human/social context.',
 
-      // 3 Root Causes of Bias
+      // The 4 Root Sources of Bias (Exam Q4)
       biasCauses: [
         { 
-          source: '1. Training Data Skew (Data Bias)', 
-          subtypes: 'Data Imbalance or mirroring historical societal discrimination.',
-          desc: 'Training on unbalanced samples (e.g. 85% white male face datasets), or training on 30 years of male-only managerial resumes so the AI assumes maleness is a prerequisite for hiring!',
-          examKey: 'Insufficient data on protected groups or perpetuating past societal injustices.'
+          source: '1. Training Data Skew (Data Skew)', 
+          subtypes: 'Lack of demographic representation or mirroring past historical discrimination.',
+          desc: 'Lack of group data lowers accuracy and increases bias (e.g. face recognition); or training on historical hiring records that excluded women leads the AI to repeat the same bias!',
+          examKey: 'Q2 & Q3: Lack of data on a group increases bias, and past human bias is repeated by the AI.'
         },
         { 
-          source: '2. Proxy Variables Flaws', 
-          subtypes: 'Flaws in system input design.',
-          desc: 'Removing protected attributes (gender/race) explicitly, but picking a neutral proxy variable (e.g. Zip Code, high school name, women’s sports team) that secretly correlates with the protected trait!',
-          examKey: 'A neutral feature that indirectly proxies for a legally protected attribute.'
+          source: '2. System Design & Proxy Variables', 
+          subtypes: 'Flaws in choosing input features and proxy variables.',
+          desc: 'Removing protected traits (gender/race) explicitly, but picking a neutral proxy variable (e.g. Zip Code, high school, club) that secretly correlates with the protected trait!',
+          examKey: 'Q4: A neutral feature that indirectly stands in for a legally protected attribute.'
         },
         { 
-          source: '3. Deployment Context Misalignment', 
-          subtypes: 'Deploying the model in an incompatible environment.',
-          desc: 'Using an AI grading system trained in a wealthy Western nation on rural or developing school students without local cultural calibration.',
-          examKey: 'Deploying in a cultural/social context differing from the original training baseline.'
+          source: '3. System Usage & Blind Trust', 
+          subtypes: 'Blind trust and delegating high-stakes decisions without human review.',
+          desc: 'Deploying the system for tasks or high-stakes contexts different from what it was originally designed for, or trusting its outputs blindly without human verification.',
+          examKey: 'Q4: Deploying outside original design scope without proper human oversight.'
+        },
+        { 
+          source: '4. Human & Social Context', 
+          subtypes: 'Cultural and societal differences without local calibration.',
+          desc: 'Using a model trained in one culture/society in a completely different social environment without local calibration and consideration of social norms.',
+          examKey: 'Q4: Applying the system in a social context that differs from the original baseline.'
         }
       ],
 
-      // Speed Trap Alert
-      speedTrapAlert: 'Exam Alert: Computer processing speed, slow processors, or Moore’s Law are NEVER causes of algorithmic bias; speed only affects execution latency!',
-
-      // Black Box vs XAI
-      blackBoxVsXai: {
-        title: 'The Black Box vs. Explainable AI (XAI)',
-        blackBox: 'The Black Box: Opaque deep neural networks that output decisions without revealing internal logic, preventing doctors and judges from trusting the model.',
-        xai: 'Explainable AI (XAI): Techniques that reveal the relative weight of each factor (e.g. loan rejected 70% due to debt-to-income and 30% credit score) enabling human review and appeal.',
-        goldenRule: 'In life-critical decisions (medical, legal, financial), accuracy alone is NEVER enough without Explainability (XAI)!'
+      // Privacy Issues in AI (Exam Q6, 7, 8)
+      privacyIssues: {
+        title: 'Privacy Issues in AI (Exam Q6, Q7, Q8)',
+        definition: 'Protecting personal data and private life from unauthorized access, collection, use, or surveillance (Exam Q6).',
+        facialRecognitionPublic: 'Using public facial recognition to identify individuals and track their movements across places without prior consent is an ethical violation (Exam Q7).',
+        massDataCollection: 'Gathering and analyzing vast amounts of online behavior, search history, visited pages, and digital interactions to discover patterns (Exam Q8).'
       },
 
-      // 4 Ethical Principles
+      // Speed Trap Alert (Exam Q2)
+      speedTrapAlert: 'Crucial Exam Alert: Computer processing speed, slow processors, or Moore’s Law are NEVER causes of algorithmic bias; speed only affects latency!',
+
+      // Black Box vs XAI (Exam Q9 & 10)
+      blackBoxVsXai: {
+        title: 'The Black Box vs. Explainable AI (XAI)',
+        blackBox: 'The Black Box Problem (Q10): When decision logic is hidden and opaque, it is hard to detect errors, bias, or verify fairness; strictly unacceptable in high-stakes decisions.',
+        xai: 'Explainable AI - XAI (Q9): Methods that enable humans to understand WHY an AI made a particular decision, clarifying the decisive factors behind the outcome.',
+        goldenRule: 'In life-critical decisions (medical, legal, hiring), accuracy alone is NEVER enough without Explainability (XAI); rejecting an applicant without explaining violates Transparency & XAI (Q19)!'
+      },
+
+      // The 4 Core Ethical Principles & Prompting Questions (Exam Q14-Q18)
       theFourPrinciples: [
         { 
           name: '1. Fairness', 
-          def: 'Treating all individuals and groups equitably without unfair discrimination, ensuring equal opportunities in jobs, loans, and services across all demographics.',
-          examTip: 'Guarantees equal opportunity and prevents discrimination against protected classes.'
+          def: 'No unfair discrimination against any person or group, ensuring equal opportunities in jobs and services for all (Q15 & 18).',
+          promptQuestion: 'Core Prompt Question: Does the system treat everyone fairly and equally without bias?',
+          examTip: 'Guarantees equal opportunity and evaluates applicants fairly regardless of gender or background.'
         },
         { 
           name: '2. Transparency', 
-          def: 'Providing clear, accessible disclosure to users that an AI system is operating, stating its goals, mechanisms, and boundaries.',
-          examTip: 'Explicitly alerting the user that they are interacting with an AI (does NOT resolve bias on its own!).'
+          def: 'Providing clear and appropriate information about how the system works, its decision process, and its limits (Q14).',
+          promptQuestion: 'Core Prompt Question: Is the decision logic and system mechanism clear and accessible?',
+          examTip: 'Disclosing AI usage and limits; rejecting an applicant without explanation violates Transparency & XAI (Q19).'
         },
         { 
           name: '3. Privacy Protection', 
-          def: 'Safeguarding personal data confidentiality, banning unauthorized tracking and mass surveillance, and enforcing encryption and explicit user consent.',
-          examTip: 'Enforces individual data confidentiality, encryption, and Data Minimization.'
+          def: 'Proper handling of personal data and protecting it from unauthorized collection, tracking, or surveillance (Q16).',
+          promptQuestion: 'Core Prompt Question: Is personal data protected from unauthorized collection and tracking?',
+          examTip: 'Protects personal records; bans unauthorized tracking of people in public places.'
         },
         { 
           name: '4. Accountability', 
-          def: 'Identifying the human and organizational entities responsible for the system’s decisions and harms, subjecting them to legal sanctions and compensation.',
-          examTip: 'The 4th official principle is "Accountability" (NOT Responsibility); it determines who is legally punished!'
+          def: 'Identifying the human/organizational entities responsible for the system, its decisions, and legal penalties (Q12 & 17).',
+          promptQuestion: 'Core Prompt Question: Who is held legally responsible and penalized for the outcome? (Q13)',
+          examTip: 'The 4th official principle is "Accountability" (NOT Responsibility); it determines who is penalized!'
         }
       ],
 
-      // 3 Stakeholders Duties
-      stakeholderDuties: [
-        { role: 'Developer', duty: 'Code quality, auditing training data for skew, and building safety mechanisms and XAI explanations.' },
-        { role: 'Company / Operator', duty: 'Formulating fair usage policies, training staff, and maintaining continuous human oversight.' },
-        { role: 'End User', duty: 'Verifying outputs before acting on them, and refraining from delegating critical decisions blindly.' }
-      ],
+      // Responsibility vs Accountability vs XAI (Exam Q11, 12, 13)
+      disambiguationMatrixLesson14: {
+        responsibility: 'Responsibility (Q11): Defines roles and duties of parties: Developer, Operator, User (duty allocation).',
+        accountability: 'Accountability (Q12 & 13): Determines WHO is legally blamed, penalized, and pays damages (Q: Who is held responsible?).',
+        xai: 'Explainable AI - XAI (Q9): Explains WHY the AI reached this judgment (Q: Why was this decision made?).'
+      },
 
-      // Traps Box
+      // 3 Stakeholders Roles (Exam Q11)
+      stakeholderDuties: [
+        { role: 'Developer', duty: 'Proper system design, programming, auditing training data for bias, and building safety & XAI mechanisms.' },
+        { role: 'Company / Operator', duty: 'Proper system deployment, training staff, and maintaining continuous human oversight with appeal fallbacks.' },
+        { role: 'End User', duty: 'Using the system according to guidelines, verifying outputs, and refraining from blind delegation.' }
+      ],
+      goldenRuleResponsibility: 'Golden Rule: No single responsibility split fits all cases; it varies by system type, usage context, and applicable laws.',
+
+      // Responsible AI Concept (Exam Q20)
+      responsibleAiDefinition: {
+        concept: 'Responsible AI (Exam Q20)',
+        pillars: [
+          '1. Checking for bias and auditing training datasets to ensure fairness.',
+          '2. Explaining decisions and understanding the reasoning factors (Explainable AI - XAI).',
+          '3. Knowing who is accountable and identifying legal liability (Accountability).'
+        ]
+      },
+
+      // Traps Box (Covers all 20 Exam Questions)
       traps: [
-        'The official 4th ethical pillar in the Egyptian curriculum is "Accountability", NOT "Responsibility".',
-        'Accountability does NOT mean "explaining how the decision was reached" (that is XAI); it means "who faces legal liability and pays damages".',
-        'Computing speed and Moore’s Law are NEVER causes of algorithmic bias; bias arises from skewed data, proxy variables, and deployment context.',
-        'Cleaning training datasets alone does NOT guarantee fairness; bias can still enter through sneaky proxy variables or poor deployment.',
-        'Facial recognition cameras are acceptable for real-time safety, but violate privacy if facial biometrics and movement histories are stored without consent.'
+        'The official 4th ethical principle is "Accountability", NOT "Responsibility".',
+        'Accountability does NOT mean "explaining how the decision was made" (that is XAI); it means "who is held responsible and penalized" (Q13).',
+        'Computer processing speed, slow chips, and Moore’s Law are NEVER causes of algorithmic bias; speed only affects execution latency (Q2).',
+        'Lack of data on a demographic group lowers accuracy and increases the probability of biased outputs for that group (Q3).',
+        'Failing to explain why an applicant was rejected for a job violates Transparency and Explainable AI (XAI) (Q19).',
+        'Responsible AI combines: Checking for bias + Explaining decisions (XAI) + Knowing who is accountable (Q20).',
+        'Public facial recognition tracking individuals without consent is a direct privacy violation (Q7).'
       ]
     },
 

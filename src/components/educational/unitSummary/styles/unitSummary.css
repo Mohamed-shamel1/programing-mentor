@@ -1,0 +1,159 @@
+/* ==========================================================================
+   Unit Master Summary Landscape Poster CSS
+   Egyptian Thanawya Amma Grade 11 AI Curriculum — Eng. Mohamed Shamel
+   Typography: Cairo (Arabic) & Outfit (Latin/Numbers)
+   Canvas: A4 Landscape (297mm × 210mm / 1240px × 830px)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+.unit-master-summary-page {
+  min-height: 100vh;
+  background-color: #090d16;
+  padding-bottom: 50px;
+  font-family: 'Cairo', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Strict A4 Landscape Named Page & Defaults */
+@page {
+  size: A4 landscape;
+  margin: 0;
+}
+
+@page landscape-sheet {
+  size: A4 landscape;
+  margin: 0;
+}
+
+@media print {
+  /* Hide all interactive screen controls & toolbars */
+  .screen-only-controls,
+  .screen-only,
+  .no-print,
+  .web-toolbar {
+    display: none !important;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  @page landscape-sheet {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  html,
+  body,
+  body.landscape-active {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 297mm !important;
+    max-width: 297mm !important;
+    height: auto !important;
+    min-height: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.landscape-active .app-root,
+  body.landscape-active .app-main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 297mm !important;
+    max-width: 297mm !important;
+    background: transparent !important;
+  }
+
+  .unit-master-summary-page {
+    background-color: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: auto !important;
+    height: auto !important;
+    width: 297mm !important;
+    max-width: 297mm !important;
+    display: block !important;
+  }
+
+  /* Reset the sheets flex wrapper to a clean block flow for deterministic page breaks */
+  .sheets-print-container {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    width: 297mm !important;
+    max-width: 297mm !important;
+  }
+
+  /* Exact A4 Landscape Sheet Boundaries: 297mm x 208mm with 2mm safety margin to prevent blank page spill */
+  .landscape-sheet {
+    page: landscape-sheet !important;
+    width: 297mm !important;
+    height: 208mm !important;
+    max-width: 297mm !important;
+    max-height: 208mm !important;
+    min-height: 208mm !important;
+    box-sizing: border-box !important;
+    margin: 0 auto !important;
+    padding: 3mm 5mm !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    transform: none !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+
+  /* Critical: Never create an empty trailing page after the final sheet */
+  .landscape-sheet:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+}
+
+/* Card Transitions & Hover Feedback */
+.landscape-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.landscape-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Badge & Tag Styling */
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border-radius: 3px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+/* Subtle Custom Scrollbar for Previews */
+.unit-master-summary-page::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.unit-master-summary-page::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+.unit-master-summary-page::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+.unit-master-summary-page::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
