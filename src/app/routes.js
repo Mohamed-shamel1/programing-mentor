@@ -50,6 +50,8 @@ export const VIEWS = {
   LESSON_1_4_PAGE3: 'LESSON_1_4_PAGE3',
   LESSON_1_4_EXAM: 'LESSON_1_4_EXAM',
   LESSON_1_4_BOOKLET: 'LESSON_1_4_BOOKLET',
+  // Unit 1 Master Summary (A4 Landscape 2-Page Spread)
+  UNIT_01_MASTER_SUMMARY: 'UNIT_01_MASTER_SUMMARY',
 };
 
 export const NAVIGATION_SECTIONS = [
@@ -75,6 +77,7 @@ export const NAVIGATION_SECTIONS = [
       { id: VIEWS.TRACKER_PAGE2, label: 'خطة ومسار تقدم الطالب', labelEn: 'Student Progress Tracker', badge: '02', badgeEn: '02', icon: 'trending_up', elementId: 'fm-tracker' },
       { id: VIEWS.PEDAGOGY_PAGE3, label: 'دورة الإتقان وفلسفة التعلم', labelEn: 'Mastery Pedagogy', badge: '03', badgeEn: '03', icon: 'psychology', elementId: 'fm-pedagogy' },
       { id: VIEWS.BOOKLET_TRILOGY, label: 'طباعة الافتتاحية كاملاً', labelEn: 'Print Opening Booklet', badge: 'A4', badgeEn: 'A4', icon: 'print', isPrint: true },
+      { id: VIEWS.UNIT_01_MASTER_SUMMARY, label: 'مخطط إتقان الوحدة الأولى (A4 أفقي)', labelEn: 'Unit 1 Master Blueprint (A4 Land)', badge: 'A4 أفقي', badgeEn: 'A4 Land', icon: 'dashboard', isPrint: true },
     ],
   },
   {

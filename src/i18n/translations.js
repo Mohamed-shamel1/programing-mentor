@@ -29,8 +29,9 @@ export const translations = {
     cheatSheetPrintAction: 'طباعة المخطط الشامل (A4)',
     exploreCoverBtn: '📖 تصفح افتتاحية المنهج والغلاف الرسمي',
     exploreLessonBtn: '🚀 استكشف الدرس 1-1 (تطور تكنولوجيا المعلومات)',
-    exploreCheatSheetBtn: '⚡ مخطط الإتقان والمراجعة الشاملة (A4 أفقي)',
-    exploreExamBtn: '📝 بدء الامتحان التفاعلي للدرس 1-1 (موبايل)',
+    exploreCheatSheetBtn: 'مخطط الدرس 1-1 (A4 أفقي)',
+    exploreUnitMasterSummaryBtn: 'مخطط إتقان الوحدة الأولى الشامل وتركات الامتحان (A4 أفقي - وش وضهر)',
+    exploreExamBtn: 'بدء الامتحان التفاعلي للدرس 1-1 (موبايل)',
 
     // Header & Footer
     defaultUnitTitle: 'الوحدة الأولى: تكنولوجيا المعلومات والمجتمع — البكالوريا المصرية (2026–2027)',
@@ -102,8 +103,9 @@ export const translations = {
     cheatSheetPrintAction: 'Print Master Sheet (A4)',
     exploreCoverBtn: '📖 View Curriculum Cover & Opening',
     exploreLessonBtn: '🚀 Explore Lesson 1-1 (Evolution of IT)',
-    exploreCheatSheetBtn: '⚡ Master Revision Poster (A4 Landscape)',
-    exploreExamBtn: '📝 Launch Lesson 1-1 Exam (Mobile)',
+    exploreCheatSheetBtn: 'Lesson 1-1 Poster (A4 Landscape)',
+    exploreUnitMasterSummaryBtn: 'Unit 1 Master Blueprint & Exam Traps (A4 Landscape - 2 Pages)',
+    exploreExamBtn: 'Launch Lesson 1-1 Exam (Mobile)',
 
     // Header & Footer
     defaultUnitTitle: 'Unit 1: Computing & AI Fundamentals — Egyptian Baccalaureate (2026–2027)',

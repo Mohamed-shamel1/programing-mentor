@@ -105,6 +105,24 @@ export default function HomePage({ onNavigate }) {
                 </button>
                 <button
                   type="button"
+                  onClick={() => onNavigate(VIEWS.UNIT_01_MASTER_SUMMARY)}
+                  style={{
+                    backgroundColor: 'var(--color-navy-900, #0f172a)',
+                    color: '#fbbf24',
+                    border: '1px solid #f59e0b',
+                    padding: '8px 16px',
+                    borderRadius: 'var(--radius-xs)',
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: 'var(--font-size-sm)',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 8px rgba(245, 158, 11, 0.25)',
+                  }}
+                >
+                  {t('exploreUnitMasterSummaryBtn')}
+                </button>
+                <button
+                  type="button"
                   onClick={() => onNavigate(VIEWS.LESSON_1_1_CHEAT_SHEET)}
                   style={{
                     backgroundColor: 'var(--color-amber-600)',

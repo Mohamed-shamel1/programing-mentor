@@ -10,11 +10,12 @@ import { CURRICULUM_LESSONS } from '../../data/curriculumRegistry.js';
  * Features a sleek lessons dropdown, clean brand identity, and language switcher.
  */
 export default function InstructorHeader({
-  activeNavTab, // 'HOME' | 'FRONT_MATTER' | 'LESSON'
+  activeNavTab, // 'HOME' | 'FRONT_MATTER' | 'LESSON' | 'UNIT_SUMMARY'
   activeLessonId,
   onSelectHome,
   onSelectFrontMatter,
   onSelectLesson,
+  onSelectUnitSummary,
 }) {
   const { language, t } = useLanguage();
   const isEn = language === 'en';
@@ -323,6 +324,37 @@ export default function InstructorHeader({
             </div>
           )}
         </div>
+
+        {/* Master Blueprint Button (A4 Landscape 2-Page Spread) */}
+        {onSelectUnitSummary && (
+          <button
+            type="button"
+            onClick={onSelectUnitSummary}
+            title={isEn ? 'Unit 1 Master Blueprint (A4 Landscape 2-Page Spread)' : 'مخطط إتقان الوحدة الأولى الشامل وتركات الامتحانات (A4 أفقي)'}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '6px 14px',
+              fontSize: '12.5px',
+              fontFamily: 'var(--font-heading)',
+              fontWeight: activeNavTab === 'UNIT_SUMMARY' ? 'bold' : '600',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              backgroundColor:
+                activeNavTab === 'UNIT_SUMMARY'
+                  ? 'var(--color-amber-600, #d97706)'
+                  : 'rgba(245, 158, 11, 0.12)',
+              color: activeNavTab === 'UNIT_SUMMARY' ? '#ffffff' : '#fbbf24',
+              border: activeNavTab === 'UNIT_SUMMARY' ? 'none' : '1px solid rgba(245, 158, 11, 0.3)',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <Icon name="dashboard" size={15} color={activeNavTab === 'UNIT_SUMMARY' ? '#ffffff' : '#fbbf24'} />
+            <span>{isEn ? 'Unit 1 Blueprint (A4)' : 'مخطط الوحدة الأولى (A4 أفقي)'}</span>
+          </button>
+        )}
       </nav>
 
       {/* 3. Language Switcher & Direct Print */}

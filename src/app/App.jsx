@@ -7,6 +7,7 @@ import ProgressTrackerPage from '../components/educational/frontmatter/ProgressT
 import MasteryPedagogyPage from '../components/educational/frontmatter/MasteryPedagogyPage.jsx';
 import LessonRenderer from '../renderer/LessonRenderer.jsx';
 import LessonMasterCheatSheet from '../components/educational/LessonMasterCheatSheet.jsx';
+import UnitMasterSummaryLandscape from '../components/educational/UnitMasterSummaryLandscape.jsx';
 import LessonExamPage from '../components/educational/exam/LessonExamPage.jsx';
 import InstructorHeader from '../components/layout/InstructorHeader.jsx';
 import LessonPager from '../components/layout/LessonPager.jsx';
@@ -53,11 +54,26 @@ function AppContent() {
 
   useEffect(() => {
     const handleHashChange = () => {
+      if (
+        window.location.hash === '#unit-summary' ||
+        window.location.hash === '#unit-01-summary' ||
+        window.location.hash === '#summary'
+      ) {
+        setCurrentView(VIEWS.UNIT_01_MASTER_SUMMARY);
+      }
       const isExam =
         window.location.hash.startsWith('#exam') ||
         window.location.search.includes('exam=');
       setIsStandaloneExam(isExam);
     };
+    if (
+      typeof window !== 'undefined' &&
+      (window.location.hash === '#unit-summary' ||
+        window.location.hash === '#unit-01-summary' ||
+        window.location.hash === '#summary')
+    ) {
+      setCurrentView(VIEWS.UNIT_01_MASTER_SUMMARY);
+    }
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
@@ -136,6 +152,8 @@ function AppContent() {
         currentView === VIEWS.PEDAGOGY_PAGE3 ||
         currentView === VIEWS.BOOKLET_TRILOGY
       ? 'FRONT_MATTER'
+      : currentView === VIEWS.UNIT_01_MASTER_SUMMARY
+      ? 'UNIT_SUMMARY'
       : 'LESSON';
 
   const [currentLessonPageId, setCurrentLessonPageId] = useState('page-00');
@@ -255,6 +273,11 @@ function AppContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleSelectUnitSummary = () => {
+    setCurrentView(VIEWS.UNIT_01_MASTER_SUMMARY);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleSelectLesson = (lessonId) => {
     const targetLessonId = lessonId || 'lesson-1-1';
     setSelectedLessonId(targetLessonId);
@@ -321,6 +344,11 @@ function AppContent() {
     switch (currentView) {
       case VIEWS.HOME:
         return <HomePage onNavigate={setCurrentView} />;
+
+      case VIEWS.UNIT_01_MASTER_SUMMARY:
+        return (
+          <UnitMasterSummaryLandscape onBack={() => setCurrentView(VIEWS.HOME)} />
+        );
 
       // Front Matter Pages (Continuous Document Feed)
       case VIEWS.CURRICULUM_COVER:
@@ -782,6 +810,7 @@ function AppContent() {
         onSelectHome={handleSelectHome}
         onSelectFrontMatter={handleSelectFrontMatter}
         onSelectLesson={handleSelectLesson}
+        onSelectUnitSummary={handleSelectUnitSummary}
       />
 
       {/* Contextual Tier 2: Dedicated Lesson Pager when inside a lesson */}
