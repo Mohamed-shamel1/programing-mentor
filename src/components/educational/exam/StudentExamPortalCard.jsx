@@ -18,7 +18,7 @@ export default function StudentExamPortalCard({
   const isEn = language === 'en';
 
   const enableDual =
-    isDual !== null ? isDual : lessonCode === '1-2' || lessonCode === '1-3';
+    isDual !== null ? isDual : lessonCode === '1-2' || lessonCode === '1-3' || lessonCode === '1-4' || lessonCode === '2-1';
 
   const [copiedAr, setCopiedAr] = useState(false);
   const [copiedEn, setCopiedEn] = useState(false);

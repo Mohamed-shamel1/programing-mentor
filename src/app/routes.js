@@ -50,6 +50,12 @@ export const VIEWS = {
   LESSON_1_4_PAGE3: 'LESSON_1_4_PAGE3',
   LESSON_1_4_EXAM: 'LESSON_1_4_EXAM',
   LESSON_1_4_BOOKLET: 'LESSON_1_4_BOOKLET',
+  // Lesson 2-1 (Unit 2: Cybersecurity)
+  LESSON_2_1_PAGE1: 'LESSON_2_1_PAGE1',
+  LESSON_2_1_PAGE2: 'LESSON_2_1_PAGE2',
+  LESSON_2_1_PAGE3: 'LESSON_2_1_PAGE3',
+  LESSON_2_1_EXAM: 'LESSON_2_1_EXAM',
+  LESSON_2_1_BOOKLET: 'LESSON_2_1_BOOKLET',
   // Unit 1 Master Summary (A4 Landscape 2-Page Spread)
   UNIT_01_MASTER_SUMMARY: 'UNIT_01_MASTER_SUMMARY',
 };
@@ -144,6 +150,19 @@ export const NAVIGATION_SECTIONS = [
       { id: VIEWS.LESSON_1_4_PAGE2, label: 'مخاطر الخصوصية ولغز الصندوق الأسود', labelEn: 'Privacy & The Black Box (XAI)', badge: '02', badgeEn: '02', icon: 'visibility' },
       { id: VIEWS.LESSON_1_4_PAGE3, label: 'المبادئ الأربعة الأخلاقية وبوابة الاختبار', labelEn: '4 Ethical Pillars & Exam Portal', badge: '03', badgeEn: '03', icon: 'gavel' },
       { id: VIEWS.LESSON_1_4_BOOKLET, label: 'معاينة وطباعة كتيب الدرس (A4)', labelEn: 'Preview & Print Booklet (A4)', badge: 'A4', badgeEn: 'A4', icon: 'print', isPrint: true },
+    ],
+  },
+  {
+    id: 'LESSON_2_1',
+    title: 'الدرس 2-1: تقنيات التشفير والمصادقة',
+    titleEn: 'Lesson 2-1: Encryption & Authentication Techniques',
+    icon: 'shield',
+    defaultView: VIEWS.LESSON_2_1_PAGE1,
+    pages: [
+      { id: VIEWS.LESSON_2_1_PAGE1, label: 'أسرار HTTPS ومصافحة TLS', labelEn: 'HTTPS & TLS Handshake', badge: '01', badgeEn: '01', icon: 'lock' },
+      { id: VIEWS.LESSON_2_1_PAGE2, label: 'أسلحة المصادقة ودروع 2FA و MFA', labelEn: '2FA, MFA & The 3 Factors', badge: '02', badgeEn: '02', icon: 'fingerprint' },
+      { id: VIEWS.LESSON_2_1_PAGE3, label: 'دفاع الطبقات ومختبر المهندس وبوابة الاختبار', labelEn: 'Layered Defense & School Lab', badge: '03', badgeEn: '03', icon: 'shield' },
+      { id: VIEWS.LESSON_2_1_BOOKLET, label: 'معاينة وطباعة كتيب الدرس (A4)', labelEn: 'Preview & Print Booklet (A4)', badge: 'A4', badgeEn: 'A4', icon: 'print', isPrint: true },
     ],
   },
 ];

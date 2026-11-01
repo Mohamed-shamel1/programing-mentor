@@ -22,6 +22,10 @@ import { lesson04Data } from './lesson04Data.js';
 import { lesson04DataEn } from './lesson04DataEn.js';
 import { lesson04ExamData } from './lesson04ExamData.js';
 import { lesson04ExamDataEn } from './lesson04ExamDataEn.js';
+import { lesson21Data } from './lesson21Data.js';
+import { lesson21DataEn } from './lesson21DataEn.js';
+import { lesson21ExamData } from './lesson21ExamData.js';
+import { lesson21ExamDataEn } from './lesson21ExamDataEn.js';
 
 export const CURRICULUM_LESSONS = [
   {
@@ -97,6 +101,24 @@ export const CURRICULUM_LESSONS = [
     examAr: lesson04ExamData,
     examEn: lesson04ExamDataEn,
     examHash: '#exam-1-4',
+  },
+  {
+    id: 'lesson-2-1',
+    code: '2-1',
+    unitNumber: 2,
+    unitTitleAr: 'الوحدة الثانية: الأمن السيبراني',
+    unitTitleEn: 'Unit 2: Cybersecurity Defense',
+    titleAr: 'الدرس 2-1: تقنيات التشفير والمصادقة',
+    titleEn: 'Lesson 2-1: Encryption & Authentication Techniques',
+    shortTitleAr: 'الدرس 2-1: التشفير والمصادقة',
+    shortTitleEn: 'Lesson 2-1: Encryption & 2FA',
+    icon: 'shield',
+    status: 'ready',
+    dataAr: lesson21Data,
+    dataEn: lesson21DataEn,
+    examAr: lesson21ExamData,
+    examEn: lesson21ExamDataEn,
+    examHash: '#exam-2-1',
   },
 ];
 

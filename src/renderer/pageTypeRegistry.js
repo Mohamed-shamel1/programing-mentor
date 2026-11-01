@@ -26,6 +26,9 @@ import AiStrengthsAndRisksPage from '../components/educational/AiStrengthsAndRis
 import AlgorithmicBiasPage from '../components/educational/AlgorithmicBiasPage.jsx';
 import PrivacyAndBlackBoxPage from '../components/educational/PrivacyAndBlackBoxPage.jsx';
 import AiEthicsPrinciplesPage from '../components/educational/AiEthicsPrinciplesPage.jsx';
+import HttpsHandshakeFlowPage from '../components/educational/unit02/HttpsHandshakeFlowPage.jsx';
+import AuthenticationFactorsPage from '../components/educational/unit02/AuthenticationFactorsPage.jsx';
+import LayeredDefenseLabPage from '../components/educational/unit02/LayeredDefenseLabPage.jsx';
 import GlobalRoadmapPage from '../components/educational/frontmatter/GlobalRoadmapPage.jsx';
 import ProgressTrackerPage from '../components/educational/frontmatter/ProgressTrackerPage.jsx';
 import MasteryPedagogyPage from '../components/educational/frontmatter/MasteryPedagogyPage.jsx';
@@ -72,6 +75,11 @@ export const PAGE_TYPES = {
   PRIVACY_AND_BLACK_BOX: 'PRIVACY_AND_BLACK_BOX',
   AI_ETHICS_PRINCIPLES: 'AI_ETHICS_PRINCIPLES',
 
+  // Lesson 2-1 Dedicated Page Types (Unit 2: Cybersecurity)
+  HTTPS_HANDSHAKE_FLOW: 'HTTPS_HANDSHAKE_FLOW',
+  AUTHENTICATION_FACTORS: 'AUTHENTICATION_FACTORS',
+  LAYERED_DEFENSE_LAB: 'LAYERED_DEFENSE_LAB',
+
   // Front-Matter Opening Trilogy Page Types
   GLOBAL_ROADMAP: 'GLOBAL_ROADMAP',
   PROGRESS_TRACKER: 'PROGRESS_TRACKER',
@@ -113,6 +121,11 @@ const registry = {
   [PAGE_TYPES.ALGORITHMIC_BIAS]: AlgorithmicBiasPage,
   [PAGE_TYPES.PRIVACY_AND_BLACK_BOX]: PrivacyAndBlackBoxPage,
   [PAGE_TYPES.AI_ETHICS_PRINCIPLES]: AiEthicsPrinciplesPage,
+
+  // Lesson 2-1 Pages
+  [PAGE_TYPES.HTTPS_HANDSHAKE_FLOW]: HttpsHandshakeFlowPage,
+  [PAGE_TYPES.AUTHENTICATION_FACTORS]: AuthenticationFactorsPage,
+  [PAGE_TYPES.LAYERED_DEFENSE_LAB]: LayeredDefenseLabPage,
 
   // Front-matter registrations
   [PAGE_TYPES.GLOBAL_ROADMAP]: GlobalRoadmapPage,
