@@ -13,9 +13,14 @@ export default function HttpsHandshakeFlowPage({
   subtitle,
   dailyHumorNote,
   grandQuestion,
+  protocolFoundation,
+  threeProtections = [],
+  padlockWarning,
   definitionCard,
   stagesTitle,
   stages = [],
+  keyExchangeNote,
+  divisionOfRoles,
   comparisonBox,
   quickCheck
 }) {
@@ -23,11 +28,12 @@ export default function HttpsHandshakeFlowPage({
   const isEn = language === 'en';
 
   const [showPlainDef, setShowPlainDef] = useState(false);
+  const [showDivisionAnswer, setShowDivisionAnswer] = useState(false);
   const [quickCheckAnswer, setQuickCheckAnswer] = useState(null);
   const [showCheckFeedback, setShowCheckFeedback] = useState(false);
 
   return (
-    <div className="https-handshake-flow-page" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', height: '100%' }}>
+    <div className="educational-page https-handshake-flow-page" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', height: '100%' }}>
       {/* Station Header */}
       <div className="station-header-compact" style={{ borderBottom: '1px solid #a7f3d0', paddingBottom: 'var(--space-2)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
@@ -88,6 +94,100 @@ export default function HttpsHandshakeFlowPage({
           <span style={{ fontSize: '12px', fontWeight: 600, lineHeight: 1.4 }}>
             {grandQuestion}
           </span>
+        </div>
+      )}
+
+      {/* 1. Protocol Foundation & Formula (HTTP + TLS = HTTPS) */}
+      {protocolFoundation && (
+        <div style={{
+          backgroundColor: '#f8fafc',
+          border: '1.5px solid #cbd5e1',
+          borderRadius: '8px',
+          padding: '8px 12px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '6px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
+            <strong style={{ fontSize: '12px', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Icon name="functions" size={16} style={{ color: '#059669' }} />
+              {protocolFoundation.title}
+            </strong>
+            <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ecfdf5', padding: '1px 8px', borderRadius: '4px', border: '1px solid #a7f3d0' }}>
+              {protocolFoundation.formula}
+            </span>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', fontSize: '10.5px' }}>
+            <div style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '4px', padding: '4px 6px', color: '#475569' }}>
+              • <strong style={{ color: '#b91c1c' }}>HTTP:</strong> {protocolFoundation.httpNote}
+            </div>
+            <div style={{ backgroundColor: '#ffffff', border: '1px solid #bae6fd', borderRadius: '4px', padding: '4px 6px', color: '#0369a1' }}>
+              • <strong style={{ color: '#0284c7' }}>TLS:</strong> {protocolFoundation.tlsNote}
+            </div>
+          </div>
+
+          {/* The 3 Protections & Threats (Book p. 55) */}
+          {threeProtections && threeProtections.length > 0 && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px', marginTop: '2px' }}>
+              {threeProtections.map((p, idx) => (
+                <div key={idx} style={{
+                  backgroundColor: '#ffffff',
+                  border: '1px solid #a7f3d0',
+                  borderRadius: '6px',
+                  padding: '5px 7px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '2px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <strong style={{ fontSize: '10.5px', color: '#065f46' }}>
+                      {isEn ? p.featureEn : p.featureAr}
+                    </strong>
+                    <span style={{ fontSize: '9px', color: '#b91c1c', fontWeight: 700, backgroundColor: '#fef2f2', padding: '1px 4px', borderRadius: '3px' }}>
+                      {isEn ? p.threatAr.split('(')[1]?.replace(')', '') || p.threatAr : p.threatAr}
+                    </span>
+                  </div>
+                  <p style={{ margin: 0, fontSize: '9.5px', color: '#334155', lineHeight: 1.3 }}>
+                    {p.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div style={{ fontSize: '10px', color: '#b91c1c', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Icon name="warning" size={13} style={{ color: '#dc2626', flexShrink: 0 }} />
+            <span>{protocolFoundation.withoutProtection}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Official Exam Padlock Warning (Book Note p. 55) */}
+      {padlockWarning && (
+        <div style={{
+          backgroundColor: '#fffbeb',
+          border: '1.5px solid #fde68a',
+          borderRadius: '6px',
+          padding: '6px 10px',
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: '8px'
+        }}>
+          <Icon name="lock" size={16} style={{ color: '#d97706', flexShrink: 0, marginTop: '2px' }} />
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ fontSize: '9.5px', fontWeight: 800, color: '#92400e', backgroundColor: '#fef3c7', padding: '1px 6px', borderRadius: '3px' }}>
+                {padlockWarning.badge}
+              </span>
+              <strong style={{ fontSize: '11px', color: '#92400e' }}>
+                {padlockWarning.title}
+              </strong>
+            </div>
+            <p style={{ margin: '2px 0 0 0', fontSize: '10px', color: '#78350f', lineHeight: 1.35 }}>
+              {padlockWarning.text}
+            </p>
+          </div>
         </div>
       )}
 
@@ -328,14 +428,14 @@ export default function HttpsHandshakeFlowPage({
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span style={{ backgroundColor: '#0d9488', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px' }}>
-                  {isEn ? '2. TLS Handshake' : '2. مصافحة TLS'}
+                  {isEn ? '2. Key Exchange' : '2. تبادل المفاتيح'}
                 </span>
                 <strong style={{ fontSize: '11px', color: '#022c22' }}>
-                  {isEn ? 'Key Exchange & Session Key Math' : 'تبادل معاملات تبادل المفاتيح واشتقاق مفاتيح الجلسة'}
+                  {isEn ? 'Browser Creates Common Key ➔ Server Decrypts via Private Key' : 'المتصفح ينشئ المفتاح المشترك ➔ الخادم يفكه بمفتاحه الخاص'}
                 </strong>
               </div>
               <span style={{ fontSize: '9.5px', color: '#0d9488', fontWeight: 700, backgroundColor: '#f0fdfa', padding: '1px 6px', borderRadius: '4px' }}>
-                {isEn ? 'Public-Key Math' : 'التشفير بالمفتاح العام'}
+                {isEn ? 'Public-Key Cryptography' : 'التشفير بالمفتاح العام'}
               </span>
             </div>
 
@@ -350,7 +450,7 @@ export default function HttpsHandshakeFlowPage({
               gap: '6px'
             }}>
               <span style={{ fontSize: '9.5px', color: '#0d9488', fontWeight: 700, flexShrink: 0 }}>
-                ⇄ {isEn ? 'Client' : 'المتصفح'}
+                {isRTL ? 'ينشئ ويشفر بالعام ←' : 'Creates & Encrypts ←'}
               </span>
               <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{
@@ -365,20 +465,20 @@ export default function HttpsHandshakeFlowPage({
                   alignItems: 'center',
                   gap: '5px'
                 }}>
-                  <Icon name="swap_horiz" size={14} style={{ color: '#0d9488' }} />
-                  <span>{isEn ? 'Secret Math Exchange — Key is NEVER sent over wire!' : 'معاملات رياضية — المفتاح لا يمر في السلك أبداً!'}</span>
+                  <Icon name="vpn_key" size={13} style={{ color: '#0d9488' }} />
+                  <span>{isEn ? 'Common Key (Encrypted with Server Public Key)' : 'المفتاح المشترك (مشفر بالمفتاح العام)'}</span>
                   <Icon name="lock" size={12} style={{ color: '#d97706' }} />
                 </div>
               </div>
               <span style={{ fontSize: '9.5px', color: '#0d9488', fontWeight: 700, flexShrink: 0 }}>
-                {isEn ? 'Server' : 'الخادم'} ⇄
+                {isRTL ? '← يفكه بالمفتاح الخاص 🔐' : '← Decrypts via Private Key 🔐'}
               </span>
             </div>
 
             <p style={{ margin: 0, fontSize: '10px', color: '#475569', lineHeight: 1.35 }}>
               {isEn
-                ? 'Both sides exchange math parameters and compute the shared Session Key locally without transmitting the key itself.'
-                : 'يتبادل الطرفان معاملات تبادل المفاتيح، ويشتق كل طرف مفتاح الجلسة لديه دون إرسال المفتاح نفسه عبر الشبكة.'}
+                ? 'The browser creates a common key, encrypts it with the server public key, and sends it. The server decrypts it with its secret Private Key to obtain the common key.'
+                : 'يُنشئ المتصفح مفتاحاً مشتركاً للاتصال، ويشفّره بمفتاح الخادم العام ويرسله. يقوم الخادم بفك تشفيره باستخدام مفتاحه الخاص السري (Private Key) للحصول على المفتاح المشترك بأمان تام.'}
             </p>
           </div>
 
@@ -395,14 +495,14 @@ export default function HttpsHandshakeFlowPage({
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span style={{ backgroundColor: '#0284c7', color: '#ffffff', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px' }}>
-                  {isEn ? '3. Data Exchange' : '3. تبادل البيانات'}
+                  {isEn ? '3. Data Communication' : '3. تبادل البيانات'}
                 </span>
                 <strong style={{ fontSize: '11px', color: '#022c22' }}>
-                  {isEn ? 'Fast Encrypted Session Data Exchange' : 'تبادل بيانات الجلسة المحمية بمفاتيح الجلسة'}
+                  {isEn ? 'Fast Session Data Exchange via Common Key' : 'تبادل جميع بيانات الجلسة بالمفتاح المشترك'}
                 </strong>
               </div>
               <span style={{ fontSize: '9.5px', color: '#0284c7', fontWeight: 700, backgroundColor: '#f0f9ff', padding: '1px 6px', borderRadius: '4px' }}>
-                {isEn ? 'Symmetric' : 'التشفير المتماثل'}
+                {isEn ? 'Common-Key Cryptography' : 'تشفير المفتاح المشترك'}
               </span>
             </div>
 
@@ -433,7 +533,7 @@ export default function HttpsHandshakeFlowPage({
                   gap: '5px'
                 }}>
                   <Icon name="bolt" size={13} style={{ color: '#d97706' }} />
-                  <span>{isEn ? 'Protected Web Traffic (Passwords, Payments, Data)' : 'بيانات الجلسة مشفرة بمفتاح الجلسة المشترك'}</span>
+                  <span>{isEn ? 'All Web Pages, Passwords & Data (Encrypted via Common-Key)' : 'جميع الصفحات، وكلمات المرور، وبيانات الشراء (مشفرة بالمفتاح المشترك)'}</span>
                   <Icon name="lock" size={12} style={{ color: '#0284c7' }} />
                 </div>
               </div>
@@ -444,11 +544,29 @@ export default function HttpsHandshakeFlowPage({
 
             <p style={{ margin: 0, fontSize: '10px', color: '#475569', lineHeight: 1.35 }}>
               {isEn
-                ? 'Session data is protected by fast symmetric encryption and integrity checks for smooth, high-speed browsing.'
-                : 'تُحمى بيانات الجلسة بالتشفير المتماثل وآليات سلامة البيانات بسرعة وكفاءة لنقل حجم البيانات الضخم.'}
+                ? 'Data is encrypted and exchanged using the shared common key for high-speed transmission of large amounts of data.'
+                : 'يتم تشفير وتبادل جميع بيانات الجلسة باستخدام المفتاح المشترك فائق السرعة والخفيف على المعالج والبطارية لنقل كميات البيانات الكبيرة.'}
             </p>
           </div>
         </div>
+
+        {/* Modern vs Classic Note (p. 56) */}
+        {keyExchangeNote && (
+          <div style={{
+            backgroundColor: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            borderRadius: '4px',
+            padding: '4px 8px',
+            fontSize: '9.5px',
+            color: '#64748b',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px'
+          }}>
+            <Icon name="info" size={14} style={{ color: '#0284c7', flexShrink: 0 }} />
+            <span>{keyExchangeNote}</span>
+          </div>
+        )}
 
         {/* Bottom Key Takeaway Bar */}
         <div style={{
@@ -467,7 +585,7 @@ export default function HttpsHandshakeFlowPage({
             <Icon name="vpn_key" size={14} style={{ color: '#059669' }} />
             <strong>{isEn ? 'Public-Key:' : 'المفتاح العام:'}</strong>
             <span style={{ color: '#1f2937' }}>
-              {isEn ? 'For Authentication & Safe Agreement' : 'للمصادقة والاتفاق الآمن على مفاتيح الجلسة'}
+              {isEn ? 'To share keys safely and authenticate' : 'لمشاركة المفاتيح بأمان (Share keys safely) والمصادقة'}
             </span>
           </div>
 
@@ -475,13 +593,77 @@ export default function HttpsHandshakeFlowPage({
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#0369a1' }}>
             <Icon name="bolt" size={14} style={{ color: '#d97706' }} />
-            <strong>{isEn ? 'Symmetric:' : 'التشفير المتماثل:'}</strong>
+            <strong>{isEn ? 'Common-Key:' : 'المفتاح المشترك:'}</strong>
             <span style={{ color: '#1f2937' }}>
-              {isEn ? 'To protect session data fast' : 'لحماية بيانات الجلسة بسرعة وكفاءة'}
+              {isEn ? 'To exchange large amounts of data quickly' : 'لتبادل كميات البيانات الضخمة بسرعة فائقة (Quickly)'}
             </span>
           </div>
         </div>
       </div>
+
+      {/* Official 6-Mark Essay Question Box: Division of Roles (Book p. 56 & p. 60) */}
+      {divisionOfRoles && (
+        <div style={{
+          backgroundColor: '#ecfdf5',
+          border: '1.5px solid #059669',
+          borderRadius: '8px',
+          padding: '8px 12px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '5px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ backgroundColor: '#065f46', color: '#34d399', fontSize: '9px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px' }}>
+                {divisionOfRoles.badge}
+              </span>
+              <strong style={{ fontSize: '11.5px', color: '#022c22' }}>
+                {divisionOfRoles.title}
+              </strong>
+            </div>
+
+            <button
+              onClick={() => setShowDivisionAnswer(!showDivisionAnswer)}
+              style={{
+                fontSize: '10px',
+                padding: '2px 8px',
+                backgroundColor: showDivisionAnswer ? '#065f46' : '#ffffff',
+                color: showDivisionAnswer ? '#ffffff' : '#065f46',
+                border: '1px solid #065f46',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontWeight: 700
+              }}
+            >
+              {showDivisionAnswer ? (isEn ? 'Hide Model Answer' : 'إخفاء الإجابة النموذجية') : (isEn ? 'Reveal Model Answer' : 'عرض الإجابة النموذجية')}
+            </button>
+          </div>
+
+          <p style={{ margin: 0, fontSize: '11px', color: '#065f46', fontWeight: 700, lineHeight: 1.35 }}>
+            ❓ {divisionOfRoles.question}
+          </p>
+
+          {showDivisionAnswer && (
+            <div style={{
+              backgroundColor: '#ffffff',
+              border: '1px solid #a7f3d0',
+              borderRadius: '6px',
+              padding: '6px 10px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '3px',
+              fontSize: '10.5px',
+              lineHeight: 1.4,
+              color: '#1f2937'
+            }}>
+              <strong style={{ color: '#059669' }}>{divisionOfRoles.coreReason}</strong>
+              <div>{divisionOfRoles.publicKeyPart}</div>
+              <div>{divisionOfRoles.commonKeyPart}</div>
+              <div style={{ color: '#047857', fontWeight: 600, marginTop: '2px' }}>💡 {divisionOfRoles.summarySentence}</div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Symmetric vs Asymmetric Comparison Duel Box */}
       {comparisonBox && (

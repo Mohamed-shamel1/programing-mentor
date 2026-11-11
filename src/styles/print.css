@@ -1,6 +1,6 @@
 /**
  * ====================================================================
- * The Mentor — المُرشد الذكي
+ * The Mentor â€” Ø§Ù„Ù…ÙØ±Ø´Ø¯ Ø§Ù„Ø°ÙƒÙŠ
  * Print Architecture (A4 Portrait, RTL, Deterministic 1-to-1 Page Match)
  * ====================================================================
  */
@@ -251,7 +251,10 @@
   .stakeholder-policy-page,
   .critical-thinking-page,
   .lesson-summary-diagram-page,
-  .final-assessment-page {
+  .final-assessment-page,
+  .https-handshake-flow-page,
+  .authentication-factors-page,
+  .layered-defense-lab-page {
     gap: 1.8mm !important;
     height: 100% !important;
     min-height: 0 !important;
@@ -473,4 +476,290 @@
     color: inherit !important;
     text-decoration: none !important;
   }
+
+  /* ====================================================================
+   * Unit 02 - Lesson 2-1: Encryption & Authentication Print Rules
+   * Pages: HttpsHandshakeFlowPage, AuthenticationFactorsPage, LayeredDefenseLabPage
+   * ==================================================================== */
+
+  /* 11.1 Shared Unit02 Station Header Print Compact */
+  .https-handshake-flow-page .station-header-compact,
+  .authentication-factors-page .station-header-compact,
+  .layered-defense-lab-page .station-header-compact,
+  .firewall-vpn-dmz-page .station-header-compact,
+  .defense-in-depth-layers-page .station-header-compact,
+  .zero-trust-architecture-page .station-header-compact {
+    padding-bottom: 1mm !important;
+    margin-bottom: 0 !important;
+    border-bottom: 1pt solid #a7f3d0 !important;
+  }
+
+  .https-handshake-flow-page .station-header-compact h2,
+  .authentication-factors-page .station-header-compact h2,
+  .layered-defense-lab-page .station-header-compact h2,
+  .firewall-vpn-dmz-page .station-header-compact h2,
+  .defense-in-depth-layers-page .station-header-compact h2,
+  .zero-trust-architecture-page .station-header-compact h2 {
+    font-size: 11pt !important;
+    line-height: 1.2 !important;
+  }
+
+  .https-handshake-flow-page .station-pill,
+  .authentication-factors-page .station-pill,
+  .layered-defense-lab-page .station-pill,
+  .firewall-vpn-dmz-page .station-pill,
+  .defense-in-depth-layers-page .station-pill,
+  .zero-trust-architecture-page .station-pill {
+    font-size: 7.5pt !important;
+    padding: 0.5mm 2mm !important;
+  }
+
+  /* 11.2 Humor Banner - compact in print */
+  .https-handshake-flow-page .humor-banner,
+  .authentication-factors-page .humor-banner,
+  .layered-defense-lab-page .humor-banner,
+  .firewall-vpn-dmz-page .humor-banner,
+  .defense-in-depth-layers-page .humor-banner,
+  .zero-trust-architecture-page .humor-banner {
+    padding: 1mm 2.5mm !important;
+    margin-top: 1mm !important;
+    font-size: 8pt !important;
+    line-height: 1.25 !important;
+    border: 0.5pt dashed #059669 !important;
+  }
+
+  /* 11.3 Hide interactive buttons in print */
+  .https-handshake-flow-page button,
+  .authentication-factors-page button,
+  .layered-defense-lab-page button,
+  .firewall-vpn-dmz-page button,
+  .defense-in-depth-layers-page button,
+  .zero-trust-architecture-page button {
+    display: none !important;
+  }
+
+  /* ---- Page 01: HTTPS Handshake Flow ---- */
+
+  .https-handshake-flow-page {
+    gap: 1.2mm !important;
+  }
+
+  .https-handshake-flow-page > div {
+    padding: 1.5mm 2.5mm !important;
+    gap: 1mm !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    box-shadow: none !important;
+  }
+
+  /* Entity nodes and flow stages inside diagram */
+  .https-handshake-flow-page [style*="gridTemplateColumns"] {
+    gap: 1.5mm !important;
+  }
+
+  .https-handshake-flow-page p,
+  .https-handshake-flow-page span {
+    font-size: 8pt !important;
+    line-height: 1.2 !important;
+  }
+
+  .https-handshake-flow-page strong {
+    font-size: 8.5pt !important;
+    line-height: 1.2 !important;
+  }
+
+  .https-handshake-flow-page h3 {
+    font-size: 9pt !important;
+    line-height: 1.2 !important;
+  }
+
+  /* ---- Page 02: Authentication Factors ---- */
+
+  .authentication-factors-page {
+    gap: 1.5mm !important;
+  }
+
+  .authentication-factors-page > div:nth-child(2) {
+    gap: 2mm !important;
+  }
+
+  .authentication-factors-page > div:nth-child(2) > div {
+    padding: 2mm 2.5mm !important;
+    gap: 1.5mm !important;
+    border: 0.5pt solid #a7f3d0 !important;
+  }
+
+  .authentication-factors-page > div:nth-child(3) {
+    gap: 2mm !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .authentication-factors-page > div:nth-child(3) > div {
+    padding: 2mm 2.5mm !important;
+    gap: 1mm !important;
+    border: 0.5pt solid #cbd5e1 !important;
+    cursor: default !important;
+  }
+
+  .authentication-factors-page > div:nth-child(4) {
+    padding: 2mm 2.5mm !important;
+    gap: 1.5mm !important;
+    border: 0.5pt solid #e5e7eb !important;
+    overflow: visible !important;
+  }
+
+  .authentication-factors-page > div:nth-child(4) > div {
+    overflow: visible !important;
+  }
+
+  .authentication-factors-page table {
+    font-size: 8pt !important;
+    width: 100% !important;
+  }
+
+  .authentication-factors-page th,
+  .authentication-factors-page td {
+    padding: 1.5mm 2mm !important;
+    font-size: 8pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .authentication-factors-page > div:nth-child(5) {
+    gap: 2mm !important;
+  }
+
+  .authentication-factors-page > div:nth-child(5) > div {
+    padding: 2mm 2.5mm !important;
+    gap: 1mm !important;
+    border: 0.5pt solid #cbd5e1 !important;
+  }
+
+  .authentication-factors-page p,
+  .authentication-factors-page span {
+    font-size: 8.5pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .authentication-factors-page strong {
+    font-size: 9pt !important;
+  }
+
+  /* ---- Page 03: Layered Defense Lab ---- */
+
+  .layered-defense-lab-page {
+    gap: 1.5mm !important;
+  }
+
+  .layered-defense-lab-page > div:nth-child(2) {
+    padding: 1.5mm 2.5mm !important;
+  }
+
+  .layered-defense-lab-page > div:nth-child(3) {
+    gap: 2mm !important;
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .layered-defense-lab-page > div:nth-child(3) > div {
+    padding: 2mm 2.5mm !important;
+    gap: 1.5mm !important;
+    border: 0.5pt solid #e5e7eb !important;
+  }
+
+  .layered-defense-lab-page > div:nth-child(3) > div:first-child > div:nth-child(2) > div {
+    padding: 1mm 2mm !important;
+    gap: 0.5mm !important;
+    border: 0.5pt solid #e2e8f0 !important;
+  }
+
+  .layered-defense-lab-page > div:nth-child(3) > div:last-child > div:nth-child(2) > div {
+    padding: 1mm 2mm !important;
+    gap: 1mm !important;
+    border: 0.5pt solid #bae6fd !important;
+  }
+
+  .layered-defense-lab-page > div:nth-child(4) {
+    padding: 2mm 2.5mm !important;
+    gap: 1.5mm !important;
+    border: 1pt solid #a7f3d0 !important;
+  }
+
+  .layered-defense-lab-page > div:nth-child(4) > div:nth-child(3) {
+    gap: 1.5mm !important;
+  }
+
+  .layered-defense-lab-page > div:nth-child(4) > div:nth-child(3) > div {
+    padding: 1.5mm 2mm !important;
+    cursor: default !important;
+    border: 0.5pt solid #cbd5e1 !important;
+  }
+
+  .layered-defense-lab-page > div:nth-child(4) > div:nth-child(4) {
+    gap: 1.5mm !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .layered-defense-lab-page > div:nth-child(4) > div:nth-child(4) > div {
+    padding: 1.5mm 2mm !important;
+    border: 0.5pt solid #cbd5e1 !important;
+    font-size: 8pt !important;
+  }
+
+  .layered-defense-lab-page > div:nth-child(5) {
+    padding: 1.5mm 2.5mm !important;
+    border: 0.5pt solid #a7f3d0 !important;
+  }
+
+  .layered-defense-lab-page > div:last-child {
+    padding: 1.5mm 2.5mm !important;
+  }
+
+  .layered-defense-lab-page p,
+  .layered-defense-lab-page span {
+    font-size: 8.5pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .layered-defense-lab-page strong {
+    font-size: 9pt !important;
+  }
+
+  /* 11.5 Unit02 page-break avoidance and shadow cleanup */
+  .https-handshake-flow-page > div,
+  .authentication-factors-page > div,
+  .layered-defense-lab-page > div,
+  .firewall-vpn-dmz-page > div,
+  .defense-in-depth-layers-page > div,
+  .zero-trust-architecture-page > div {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    box-shadow: none !important;
+  }
+
+  /* ====================================================================
+   * Unit 02 - Lesson 2-2: Network Security Design Print Rules
+   * Pages: FirewallVpnDmzPage, DefenseInDepthLayersPage, ZeroTrustArchitecturePage
+   * ==================================================================== */
+
+  .firewall-vpn-dmz-page,
+  .defense-in-depth-layers-page,
+  .zero-trust-architecture-page {
+    gap: 1.2mm !important;
+  }
+
+  .firewall-vpn-dmz-page p,
+  .firewall-vpn-dmz-page span,
+  .defense-in-depth-layers-page p,
+  .defense-in-depth-layers-page span,
+  .zero-trust-architecture-page p,
+  .zero-trust-architecture-page span {
+    font-size: 8pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .firewall-vpn-dmz-page strong,
+  .defense-in-depth-layers-page strong,
+  .zero-trust-architecture-page strong {
+    font-size: 8.5pt !important;
+  }
+
 }

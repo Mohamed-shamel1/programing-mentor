@@ -21,16 +21,21 @@ export const lesson21DataEn = {
     'Judge and choose the best login method for a real situation (like a school grades portal), balancing safety and easy access.'
   ],
   glossary: [
-    { acronym: 'HTTPS', fullEn: 'Hypertext Transfer Protocol Secure', termAr: 'بروتوكول نقل النص الفائق الآمن', desc: 'A safe way to browse websites using encryption and identity checks.' },
-    { acronym: 'HTTP', fullEn: 'Hypertext Transfer Protocol', termAr: 'بروتوكول نقل النص الفائق', desc: 'Old, unsafe web traffic where anyone on the network can read your messages.' },
-    { acronym: 'TLS', fullEn: 'Transport Layer Security', termAr: 'أمان طبقة النقل', desc: 'The modern security system that locks and encrypts HTTPS connections.' },
-    { acronym: 'SSL', fullEn: 'Secure Sockets Layer', termAr: 'طبقة المنافذ الآمنة', desc: 'The older version of TLS that was used in the past.' },
-    { acronym: '2FA', fullEn: 'Two-Factor Authentication', termAr: 'المصادقة الثنائية', desc: 'Using two different types of proof to log in (like your password + a phone code).' },
-    { acronym: 'MFA', fullEn: 'Multi-Factor Authentication', termAr: 'المصادقة متعددة العوامل', desc: 'Using two or more different proofs to log in (Knowledge, Possession, Biometrics).' },
-    { acronym: 'OTP', fullEn: 'One-Time Password', termAr: 'كلمة المرور لمرة واحدة', desc: 'A temporary code that works once and expires in a minute.' },
-    { acronym: 'SMS', fullEn: 'Short Message Service', termAr: 'خدمة الرسائل القصيرة', desc: 'Standard mobile text messages often used to send login codes.' },
-    { acronym: 'IC Card', fullEn: 'Integrated Circuit Card', termAr: 'بطاقة الدائرة المتكاملة', desc: 'A smart card with a computer chip inside that stores digital keys.' },
-    { acronym: 'CA', fullEn: 'Certificate Authority', termAr: 'هيئة الشهادات الرقمية', desc: 'A trusted global organization that checks and gives out website certificates.' }
+    { acronym: 'HTTPS', fullEn: 'Hypertext Transfer Protocol Secure', termAr: 'بروتوكول نقل النص الفائق الآمن', desc: 'A safe way to browse websites using encryption and server identity checks.' },
+    { acronym: 'HTTP', fullEn: 'Hypertext Transfer Protocol', termAr: 'بروتوكول نقل النص الفائق', desc: 'Old, unencrypted web traffic where anyone on the network can eavesdrop and read messages.' },
+    { acronym: 'TLS', fullEn: 'Transport Layer Security', termAr: 'أمان طبقة النقل', desc: 'The modern security system that encrypts HTTPS connections between browser and server.' },
+    { acronym: 'SSL', fullEn: 'Secure Sockets Layer', termAr: 'طبقة المنافذ الآمنة', desc: 'The older historical version of TLS that was used in the past.' },
+    { acronym: 'Common-Key', fullEn: 'Common-key Cryptography (Symmetric)', termAr: 'تشفير المفتاح المشترك (المتماثل)', desc: 'Uses one single shared secret key for encryption and decryption; used to exchange large amounts of data quickly.' },
+    { acronym: 'Public-Key', fullEn: 'Public-key Cryptography (Asymmetric)', termAr: 'التشفير بالمفتاح العام (غير المتماثل)', desc: 'Uses a pair of related keys: a public key and a private key; used to share keys safely and authenticate.' },
+    { acronym: 'Cert', fullEn: 'Digital Certificate', termAr: 'الشهادة الرقمية', desc: 'An official electronic certificate that verifies a website server is genuine and authentic, linking domain name to public key.' },
+    { acronym: 'CA', fullEn: 'Certificate Authority', termAr: 'هيئة الشهادات الرقمية', desc: 'A trusted global organization that issues digital certificates; browsers verify server certificates through CAs.' },
+    { acronym: 'DS', fullEn: 'Digital Signature', termAr: 'التوقيع الرقمي', desc: 'A security mechanism that detects data tampering and sender impersonation, supporting non-repudiation.' },
+    { acronym: 'Non-Rep', fullEn: 'Non-repudiation', termAr: 'عدم التنصل (عدم الإنكار)', desc: 'A security principle ensuring the sender cannot deny having sent the communication or transaction.' },
+    { acronym: '2FA', fullEn: 'Two-Factor Authentication', termAr: 'المصادقة الثنائية', desc: 'Using two independent factors from two different categories to verify a user identity.' },
+    { acronym: 'MFA', fullEn: 'Multi-Factor Authentication', termAr: 'المصادقة متعددة العوامل', desc: 'Using two or more different factor categories together (Knowledge, Possession, Biometrics).' },
+    { acronym: 'OTP', fullEn: 'One-Time Password', termAr: 'كلمة المرور لمرة واحدة', desc: 'A temporary code that works once and expires after a short period (possession factor).' },
+    { acronym: 'SMS', fullEn: 'Short Message Service', termAr: 'خدمة الرسائل القصيرة', desc: 'Mobile text messages used to send verification codes (possession factor).' },
+    { acronym: 'IC Card', fullEn: 'Integrated Circuit Card', termAr: 'بطاقة الدائرة المتكاملة', desc: 'A smart card with an embedded chip storing keys and identity data (possession factor).' }
   ],
   pages: [
     {
@@ -48,64 +53,116 @@ export const lesson21DataEn = {
         subtitle: 'The Smart Combo: Public-Key Encryption (for safety) + Symmetric Encryption (for speed)',
         dailyHumorNote: 'The green padlock in your browser does NOT mean the website owner is an angel! It just means nobody sitting in the coffee shop Wi-Fi can spy on what you type!',
         grandQuestion: 'How do encryption and authentication work together to protect online connections and services?',
+
+        // 1. Foundation: HTTP + TLS = HTTPS & The 3 Protections
+        protocolFoundation: {
+          title: 'The Security Formula: How was HTTPS born?',
+          formula: 'HTTP (Plain Web Traffic) + TLS (Security Technology) = HTTPS (Secure Web Communications)',
+          httpNote: 'HTTP is the traditional way to browse; all data travels as plain readable text that is easy to eavesdrop on.',
+          tlsNote: 'TLS is the security technology that encrypts and protects the connection between your device and the web server.',
+          withoutProtection: 'Without these protections, passwords could be stolen and private information read by unauthorized people.'
+        },
+
+        // The 3 Specific Protections & Threats (Book p. 55)
+        threeProtections: [
+          {
+            featureAr: 'التشفير (Encryption)',
+            featureEn: 'Encryption',
+            threatAr: 'التنصت (Eavesdropping)',
+            desc: 'Scrambles messages during transit so no third party on the network can read them.'
+          },
+          {
+            featureAr: 'اكتشاف التلاعب (Tamper Detection)',
+            featureEn: 'Detection of Tampering',
+            threatAr: 'التلاعب بالبيانات (Tampering)',
+            desc: 'Detects any attempt to modify or alter web pages and data during communication.'
+          },
+          {
+            featureAr: 'التحقق من الطرف المقابل (Partner Verification)',
+            featureEn: 'Verification of Partner',
+            threatAr: 'انتحال الشخصية (Impersonation)',
+            desc: 'Helps the browser verify the web server is genuine and authentic, not an imposter site.'
+          }
+        ],
+
+        // Official Exam Padlock Warning (Book Note p. 55)
+        padlockWarning: {
+          badge: 'Important Exam Warning (Al-Faez p. 55 Note):',
+          title: 'The Padlock Fallacy',
+          text: 'A site might indeed use HTTPS, yet still be a fraudulent site or display malicious content! HTTPS only proves transit encryption and domain ownership; it does NOT guarantee the site owner is honest or trustworthy.'
+        },
         
         definitionCard: {
           termAr: 'اتصال HTTPS ومصافحة TLS',
           termEn: 'HTTPS Connection & TLS Handshake',
           icon: 'lock',
-          officialExamDefinition: 'HTTPS is regular HTTP running inside a safe TLS connection. TLS keeps data private and untampered during transit, and helps your browser make sure it is talking to the real website server. The steps to start this connection are called the "TLS Handshake".',
+          officialExamDefinition: 'HTTPS is regular HTTP running inside a safe TLS connection. TLS keeps data private and untampered during transit, and helps your browser make sure it is talking to the real website server via a Certificate Authority (CA). The steps to start this connection are called the "TLS Handshake".',
           plainExplanation: 'Imagine sending a secret letter in an iron box. If you send the key with the box, the mailman could open it! So the website sends you an open padlock (its Public Key). You put a temporary secret inside and snap the lock shut. Only the server has the secret Private Key to open it. After that, you both use that shared secret to chat super fast!',
-          engineerGoldenRule: 'Golden Exam Rule: "Use Public-Key encryption to safely shake hands and agree on keys. Then use Symmetric encryption to send all real data fast."'
+          engineerGoldenRule: 'Golden Exam Rule: "Use Public-Key encryption to safely share keys and authenticate (Safely).. Then use Common-Key encryption to move large amounts of data fast (Quickly)."'
         },
 
-        stagesTitle: 'The 3 Simple Steps of the TLS Handshake',
+        stagesTitle: 'The 3 Simple Steps of the TLS Handshake (Textbook Table p. 56)',
         stages: [
           {
             stepNumber: '01',
             nameAr: 'التحقق من الشهادة الرقمية',
-            nameEn: 'Step 1: Check the Certificate',
-            actionAr: 'The web server sends its Digital Certificate and Public Key. Your browser checks that the certificate is valid, matches the website domain, and is signed by a trusted Certificate Authority (CA).',
-            protectionMechanism: 'Public-Key Cryptography',
+            nameEn: 'Stage 1: Connection & Certificate Verification',
+            actionAr: 'The web server sends a digital certificate and a public key to the browser. The browser verifies the server authenticity through a Certificate Authority (CA) to confirm the site is genuine.',
+            protectionMechanism: 'Public-key cryptography',
             icon: 'verified_user',
             badgeColor: '#059669',
-            examNote: 'Prevents fake website clones (Impersonation)'
+            examNote: 'Browser verifies via CA that the destination website is genuine'
           },
           {
             stepNumber: '02',
-            nameAr: 'اشتقاق مفاتيح الجلسة',
-            nameEn: 'Step 2: Create the Session Key',
-            actionAr: 'Both sides safely exchange secret mathematical numbers. Each side calculates the shared Session Key on its own, without EVER sending the key across the wire!',
-            protectionMechanism: 'Public-Key Cryptography',
+            nameAr: 'اشتقاق مفاتيح الجلسة وفك التشفير',
+            nameEn: 'Stage 2: Key Exchange & Private Key Decryption',
+            actionAr: 'The browser creates a common key for communication, encrypts it with the server public key, and sends it. The server decrypts it with its secret Private Key to obtain the common key.',
+            protectionMechanism: 'Public-key cryptography',
             icon: 'vpn_key',
             badgeColor: '#0d9488',
-            examNote: 'The key is never sent over the wire'
+            examNote: 'Exam Fact (Q8): The server decrypts the common key using its secret Private Key'
           },
           {
             stepNumber: '03',
-            nameAr: 'تبادل البيانات المشفرة بسرعة',
-            nameEn: 'Step 3: Fast Data Exchange',
-            actionAr: 'Now both sides chat, browse, and send data using fast Symmetric Encryption with the agreed Session Key.',
-            protectionMechanism: 'Symmetric Cryptography',
+            nameAr: 'تبادل البيانات المشفرة بالمفتاح المشترك',
+            nameEn: 'Stage 3: Data Communication via Common-Key',
+            actionAr: 'Data is encrypted and exchanged between browser and server using the shared common key agreed upon.',
+            protectionMechanism: 'Common-key cryptography',
             icon: 'bolt',
             badgeColor: '#0284c7',
-            examNote: 'Provides maximum speed for heavy data traffic'
+            examNote: 'Used to exchange large amounts of data quickly and efficiently'
           }
         ],
 
+        // Modern vs Classic Note
+        keyExchangeNote: 'Textbook Note (p. 56): The exchange above shows one classic way a common key can be shared (RSA). Current versions of TLS use Diffie-Hellman key agreement instead.',
+
+        // Official 6-Mark Essay Question Box: Division of Roles (Book p. 56 & p. 60)
+        divisionOfRoles: {
+          badge: 'Official 6-Mark Exam Essay Question (Al-Faez p. 60)',
+          title: 'Division of Roles in HTTPS Communication:',
+          question: 'Explain why HTTPS uses public-key cryptography to share the key but common-key cryptography to exchange the data. Refer to: security and speed.',
+          coreReason: 'This division of roles makes it possible to achieve both security and communication speed:',
+          publicKeyPart: '• Public-key cryptography: Used to "share keys safely" and authenticate at the beginning without sending the secret key over the wire.',
+          commonKeyPart: '• Common-key cryptography: Used to "exchange large amounts of data quickly" because it is lightweight and fast on computer processors.',
+          summarySentence: 'This clever division of roles allows online services to achieve bulletproof security and lightning-fast speed at the same time.'
+        },
+
         comparisonBox: {
-          title: 'Why not use Public-Key encryption for everything?',
+          title: 'Exam Comparison: Common-Key Cryptography vs. Public-Key Cryptography',
           symmetric: {
-            title: 'Symmetric Encryption',
+            title: 'Common-Key (Symmetric) Cryptography',
             keyInfo: 'Uses ONE shared secret key for locking and unlocking',
-            pros: 'Super fast and light on computer processors and mobile batteries',
-            cons: 'Hard to share the secret key safely at the beginning',
-            roleInHttps: 'Protects all actual browsing and streaming data'
+            pros: 'Exchanges large amounts of data quickly with high efficiency',
+            cons: 'Hard to share the secret key safely over the Internet initially',
+            roleInHttps: 'Protects all actual browsing and streaming session data'
           },
           asymmetric: {
-            title: 'Public-Key (Asymmetric) Encryption',
+            title: 'Public-Key (Asymmetric) Cryptography',
             keyInfo: 'Uses TWO linked keys: a Public Key (for everyone) and a Private Key (secret to server)',
-            pros: 'Extremely safe; you can share the public key openly without fear',
-            cons: 'Very slow and takes 1,000 times more math power',
+            pros: 'Shares keys safely and authenticates without sending the secret key',
+            cons: 'Very slow and takes 1,000 times more processing power',
             roleInHttps: 'Used ONLY at the beginning to shake hands and agree on keys'
           }
         },
@@ -239,28 +296,84 @@ export const lesson21DataEn = {
 
         techMatrix: [
           {
-            techName: 'Encryption (Symmetric & Public-Key)',
-            techNameEn: 'Encryption',
-            effect: 'Stops third parties from reading your private messages and passwords.',
-            threatAddressed: 'Eavesdropping & wiretapping on the network'
+            techName: 'Encryption (Common-Key & Public-Key)',
+            techNameEn: 'Encryption (Common-Key & Public-Key)',
+            effect: 'Keeps communication content private and stops eavesdropping on the network.',
+            threatAddressed: 'Eavesdropping & wiretapping on data in transit'
           },
           {
-            techName: 'Digital Certificate',
-            techNameEn: 'Digital Certificate',
-            effect: 'Helps your browser verify the real identity and domain name of the web server.',
-            threatAddressed: 'Fake imposter websites and phishing clones'
+            techName: 'Digital Certificate (via CA)',
+            techNameEn: 'Digital Certificate (via CA)',
+            effect: 'Helps browser confirm via trusted CA that the communication partner is authentic and genuine.',
+            threatAddressed: 'Fake imposter websites and scam clones'
           },
           {
             techName: 'Two-Factor Authentication (2FA)',
-            techNameEn: 'Two-Factor Authentication',
-            effect: 'Cuts down unauthorized logins by requiring two separate proofs of identity.',
-            threatAddressed: 'Stolen passwords and hacked credentials'
+            techNameEn: 'Two-Factor Authentication (2FA)',
+            effect: 'Prevents unauthorized logins even if a password is compromised using a 2nd independent factor.',
+            threatAddressed: 'Unauthorized logins and stolen passwords'
           },
           {
             techName: 'Digital Signature',
             techNameEn: 'Digital Signature',
-            effect: 'Checks that data was not altered and proves who signed it (supports Non-Repudiation).',
-            threatAddressed: 'Message tampering and denying transactions ("Non-Repudiation")'
+            effect: 'Detects data tampering or sender impersonation, and guarantees Non-repudiation (sender cannot deny).',
+            threatAddressed: 'Message tampering, impersonation & denying sent data'
+          }
+        ],
+
+        examTraps: [
+          {
+            trapTitle: 'True/False Exam Trap: Does HTTPS guarantee content is never fraudulent? (TF Q20)',
+            trapText: '❌ False! HTTPS only encrypts the connection and proves server domain ownership. It does NOT guarantee that the owner is honest or that the content cannot be a scam!'
+          },
+          {
+            trapTitle: 'True/False Exam Trap: Does a Digital Signature guarantee a site is trustworthy? (TF Q18)',
+            trapText: '❌ False! A digital signature verifies data integrity and signer identity; it does NOT guarantee the website is trustworthy or that its content is always correct.'
+          }
+        ],
+
+        scientificConcepts: [
+          {
+            id: 'sc-1',
+            termEn: 'HTTPS',
+            termAr: 'بروتوكول نقل النص الفائق الآمن (HTTPS)',
+            definitionEn: 'A protocol that uses HTTP over a secure TLS connection to provide secure web communications.',
+            definitionAr: 'بروتوكول يستخدم HTTP عبر اتصال TLS آمن لتوفير اتصالات ويب محمية.'
+          },
+          {
+            id: 'sc-2',
+            termEn: 'TLS Handshake',
+            termAr: 'مصافحة TLS',
+            definitionEn: 'The sequence of steps and procedure used to establish a secure communication connection between browser and server using TLS.',
+            definitionAr: 'سلسلة الخطوات والإجراءات المتبعة لإنشاء اتصال آمن بين المتصفح والخادم باستخدام TLS.'
+          },
+          {
+            id: 'sc-3',
+            termEn: 'Digital Certificate',
+            termAr: 'الشهادة الرقمية',
+            definitionEn: 'A certificate that helps the browser verify the identity of the server and its association with the domain name to ensure it is genuine.',
+            definitionAr: 'شهادة تساعد المتصفح على التحقق من هوية الخادم وارتباطه باسم النطاق للتأكد من أن الموقع أصلي.'
+          },
+          {
+            id: 'sc-4',
+            termEn: 'Public-Key Cryptography',
+            termAr: 'التشفير بالمفتاح العام (غير المتماثل)',
+            definitionEn: 'A type of cryptography that uses a pair of related keys: a public key and a private key (used to share keys safely).',
+            definitionAr: 'نوع تشفير يستخدم زوجاً من المفاتيح المترابطة: مفتاح عام ومفتاح خاص (يُستخدم لمشاركة المفاتيح بأمان).'
+          },
+          {
+            id: 'sc-5',
+            termEn: 'Common-Key Cryptography',
+            termAr: 'تشفير المفتاح المشترك (المتماثل)',
+            definitionEn: 'A type of cryptography used to protect communication data quickly and efficiently after session keys are established (used to exchange large amounts of data quickly).',
+            definitionAr: 'نوع تشفير يُستخدم لحماية بيانات الاتصال بسرعة وكفاءة بعد إنشاء مفاتيح الجلسة (لتبادل كميات ضخمة من البيانات بسرعة).'
+          },
+          {
+            id: 'sc-6',
+            termEn: 'Two-Factor Authentication (2FA)',
+            termAr: 'المصادقة الثنائية (2FA)',
+            definitionEn: 'The use of two independent factors from two different categories to verify a user\'s identity.',
+            definitionAr: 'استخدام عاملين مستقلين من فئتين مختلفتين تماماً للتحقق من هوية المستخدم.'
           }
         ],
 

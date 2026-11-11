@@ -18,16 +18,19 @@ export default function LayeredDefenseLabPage({
   ecommerceFlowTitle,
   ecommerceSteps = [],
   engineerLab,
-  grandSummary
+  grandSummary,
+  examTraps = [],
+  scientificConcepts = []
 }) {
   const { isRTL, language } = useLanguage();
   const isEn = language === 'en';
 
   const [selectedOptionId, setSelectedOptionId] = useState('opt-2fa-phone');
   const [showRecommendation, setShowRecommendation] = useState(false);
+  const [showScientificModal, setShowScientificModal] = useState(false);
 
   return (
-    <div className="layered-defense-lab-page" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', height: '100%' }}>
+    <div className="educational-page layered-defense-lab-page" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', height: '100%' }}>
       {/* Station Header */}
       <div className="station-header-compact" style={{ borderBottom: '1px solid #a7f3d0', paddingBottom: 'var(--space-2)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
@@ -47,9 +50,33 @@ export default function LayeredDefenseLabPage({
               {title}
             </h2>
           </div>
-          <span style={{ fontSize: '11.5px', color: '#065f46', fontWeight: 600 }}>
-            {subtitle}
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '11.5px', color: '#065f46', fontWeight: 600 }}>
+              {subtitle}
+            </span>
+            {scientificConcepts && scientificConcepts.length > 0 && (
+              <button
+                className="no-print"
+                onClick={() => setShowScientificModal(!showScientificModal)}
+                style={{
+                  fontSize: '10.5px',
+                  padding: '2px 8px',
+                  backgroundColor: showScientificModal ? '#065f46' : '#ecfdf5',
+                  color: showScientificModal ? '#ffffff' : '#065f46',
+                  border: '1px solid #059669',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontWeight: 700,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
+              >
+                <Icon name="verified" size={13} style={{ color: showScientificModal ? '#34d399' : '#059669' }} />
+                <span>{showScientificModal ? (isEn ? 'Hide Concepts Bank' : 'إخفاء بنك المصطلحات') : (isEn ? 'Official Scientific Concepts (6)' : 'المصطلحات العلمية للامتحان (6)')}</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {dailyHumorNote && (
@@ -70,6 +97,55 @@ export default function LayeredDefenseLabPage({
           </div>
         )}
       </div>
+
+      {/* Scientific Concepts Modal / Drawer */}
+      {showScientificModal && scientificConcepts && scientificConcepts.length > 0 && (
+        <div className="no-print" style={{
+          backgroundColor: '#f0fdf4',
+          border: '1.5px solid #059669',
+          borderRadius: '8px',
+          padding: '10px 12px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '6px',
+          boxShadow: '0 4px 12px rgba(5, 150, 105, 0.12)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <strong style={{ fontSize: '12px', color: '#065f46', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Icon name="verified" size={16} style={{ color: '#059669' }} />
+              {isEn ? 'Official Exam Scientific Concepts (Direct from Ministry Textbook p. 31-35)' : 'بنك المصطلحات العلمية الرسمي (مطابق لأسئلة اكتب المصطلح العلمي في الامتحان)'}
+            </strong>
+            <span style={{ fontSize: '10.5px', color: '#059669', fontWeight: 600 }}>
+              {isEn ? '6 Key Definitions' : '6 مصطلحات أساسية'}
+            </span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px' }}>
+            {scientificConcepts.map((sc) => (
+              <div key={sc.id} style={{
+                backgroundColor: '#ffffff',
+                border: '1px solid #a7f3d0',
+                borderRadius: '6px',
+                padding: '6px 8px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '2px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <strong style={{ fontSize: '11px', color: '#065f46' }}>
+                    {isEn ? sc.termEn : sc.termAr}
+                  </strong>
+                  <span style={{ fontSize: '9px', color: '#0284c7', backgroundColor: '#e0f2fe', padding: '1px 4px', borderRadius: '3px' }}>
+                    {sc.termEn}
+                  </span>
+                </div>
+                <p style={{ margin: 0, fontSize: '9.5px', color: '#334155', lineHeight: 1.35 }}>
+                  {isEn ? sc.definitionEn : sc.definitionAr}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Core Idea Banner (Defense in Depth) */}
       {coreIdea && (
@@ -135,6 +211,22 @@ export default function LayeredDefenseLabPage({
               </div>
             ))}
           </div>
+
+          {/* Key Direction Rule (p. 57) */}
+          <div style={{
+            backgroundColor: '#fef3c7',
+            border: '1px dashed #d97706',
+            borderRadius: '4px',
+            padding: '3px 6px',
+            fontSize: '9.5px',
+            color: '#78350f',
+            lineHeight: 1.3
+          }}>
+            <strong>🔑 {isEn ? 'Key Direction Rule (p. 57):' : 'قاعدة حركة المفاتيح (ص 57):'}</strong>{' '}
+            {isEn
+              ? 'In encryption, Public-key locks and Private-key unlocks. In a Digital Signature, the direction reverses: Private-key signs, and Public-key verifies!'
+              : 'في التشفير: المفتاح العام يقفل والخاص يفتح. وفي التوقيع الرقمي تنعكس الحركة: المفتاح الخاص يُوقّع والمفتاح العام يتحقق من التوقيع!'}
+          </div>
         </div>
 
         {/* E-Commerce Flow */}
@@ -197,6 +289,33 @@ export default function LayeredDefenseLabPage({
           </div>
         </div>
       </div>
+
+      {/* Exam Traps: The Trustworthiness Fallacies (TF Q18 & Q20) */}
+      {examTraps && examTraps.length > 0 && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          {examTraps.map((trap, idx) => (
+            <div key={idx} style={{
+              backgroundColor: '#fff1f2',
+              border: '1px solid #fecdd3',
+              borderRadius: '6px',
+              padding: '6px 8px',
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '6px'
+            }}>
+              <Icon name="warning" size={16} style={{ color: '#e11d48', flexShrink: 0, marginTop: '1px' }} />
+              <div>
+                <strong style={{ fontSize: '10.5px', color: '#9f1239', display: 'block', lineHeight: 1.2 }}>
+                  {trap.trapTitle}
+                </strong>
+                <p style={{ margin: '2px 0 0 0', fontSize: '10px', color: '#881337', lineHeight: 1.35 }}>
+                  {trap.trapText}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Engineer Decision Lab: School Portal Case Study */}
       {engineerLab && (

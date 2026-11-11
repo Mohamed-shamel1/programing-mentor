@@ -56,6 +56,12 @@ export const VIEWS = {
   LESSON_2_1_PAGE3: 'LESSON_2_1_PAGE3',
   LESSON_2_1_EXAM: 'LESSON_2_1_EXAM',
   LESSON_2_1_BOOKLET: 'LESSON_2_1_BOOKLET',
+  // Lesson 2-2 (Unit 2: Cybersecurity)
+  LESSON_2_2_PAGE1: 'LESSON_2_2_PAGE1',
+  LESSON_2_2_PAGE2: 'LESSON_2_2_PAGE2',
+  LESSON_2_2_PAGE3: 'LESSON_2_2_PAGE3',
+  LESSON_2_2_EXAM: 'LESSON_2_2_EXAM',
+  LESSON_2_2_BOOKLET: 'LESSON_2_2_BOOKLET',
   // Unit 1 Master Summary (A4 Landscape 2-Page Spread)
   UNIT_01_MASTER_SUMMARY: 'UNIT_01_MASTER_SUMMARY',
 };
@@ -163,6 +169,19 @@ export const NAVIGATION_SECTIONS = [
       { id: VIEWS.LESSON_2_1_PAGE2, label: 'أسلحة المصادقة ودروع 2FA و MFA', labelEn: '2FA, MFA & The 3 Factors', badge: '02', badgeEn: '02', icon: 'fingerprint' },
       { id: VIEWS.LESSON_2_1_PAGE3, label: 'دفاع الطبقات ومختبر المهندس وبوابة الاختبار', labelEn: 'Layered Defense & School Lab', badge: '03', badgeEn: '03', icon: 'shield' },
       { id: VIEWS.LESSON_2_1_BOOKLET, label: 'معاينة وطباعة كتيب الدرس (A4)', labelEn: 'Preview & Print Booklet (A4)', badge: 'A4', badgeEn: 'A4', icon: 'print', isPrint: true },
+    ],
+  },
+  {
+    id: 'LESSON_2_2',
+    title: 'الدرس 2-2: تصميم أمان الشبكة',
+    titleEn: 'Lesson 2-2: Network Security Design',
+    icon: 'hub',
+    defaultView: VIEWS.LESSON_2_2_PAGE1,
+    pages: [
+      { id: VIEWS.LESSON_2_2_PAGE1, label: 'أسلحة أمان الشبكة (Firewall, VPN, DMZ)', labelEn: 'Firewall, VPN & DMZ', badge: '01', badgeEn: '01', icon: 'security' },
+      { id: VIEWS.LESSON_2_2_PAGE2, label: 'طبقات الدفاع في العمق وسؤال الـ 6 درجات', labelEn: 'Defense in Depth (4 Layers)', badge: '02', badgeEn: '02', icon: 'layers' },
+      { id: VIEWS.LESSON_2_2_PAGE3, label: 'انعدام الثقة (Zero Trust) وبوابة الاختبار', labelEn: 'Zero Trust & Exam Portal', badge: '03', badgeEn: '03', icon: 'verified_user' },
+      { id: VIEWS.LESSON_2_2_BOOKLET, label: 'معاينة وطباعة كتيب الدرس (A4)', labelEn: 'Preview & Print Booklet (A4)', badge: 'A4', badgeEn: 'A4', icon: 'print', isPrint: true },
     ],
   },
 ];

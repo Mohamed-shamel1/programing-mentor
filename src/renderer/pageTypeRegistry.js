@@ -29,6 +29,9 @@ import AiEthicsPrinciplesPage from '../components/educational/AiEthicsPrinciples
 import HttpsHandshakeFlowPage from '../components/educational/unit02/HttpsHandshakeFlowPage.jsx';
 import AuthenticationFactorsPage from '../components/educational/unit02/AuthenticationFactorsPage.jsx';
 import LayeredDefenseLabPage from '../components/educational/unit02/LayeredDefenseLabPage.jsx';
+import FirewallVpnDmzPage from '../components/educational/unit02/FirewallVpnDmzPage.jsx';
+import DefenseInDepthLayersPage from '../components/educational/unit02/DefenseInDepthLayersPage.jsx';
+import ZeroTrustArchitecturePage from '../components/educational/unit02/ZeroTrustArchitecturePage.jsx';
 import GlobalRoadmapPage from '../components/educational/frontmatter/GlobalRoadmapPage.jsx';
 import ProgressTrackerPage from '../components/educational/frontmatter/ProgressTrackerPage.jsx';
 import MasteryPedagogyPage from '../components/educational/frontmatter/MasteryPedagogyPage.jsx';
@@ -80,6 +83,11 @@ export const PAGE_TYPES = {
   AUTHENTICATION_FACTORS: 'AUTHENTICATION_FACTORS',
   LAYERED_DEFENSE_LAB: 'LAYERED_DEFENSE_LAB',
 
+  // Lesson 2-2 Dedicated Page Types (Unit 2: Cybersecurity)
+  NETWORK_SECURITY_CORE: 'NETWORK_SECURITY_CORE',
+  DEFENSE_IN_DEPTH_LAYERS: 'DEFENSE_IN_DEPTH_LAYERS',
+  ZERO_TRUST_LAB: 'ZERO_TRUST_LAB',
+
   // Front-Matter Opening Trilogy Page Types
   GLOBAL_ROADMAP: 'GLOBAL_ROADMAP',
   PROGRESS_TRACKER: 'PROGRESS_TRACKER',
@@ -126,6 +134,11 @@ const registry = {
   [PAGE_TYPES.HTTPS_HANDSHAKE_FLOW]: HttpsHandshakeFlowPage,
   [PAGE_TYPES.AUTHENTICATION_FACTORS]: AuthenticationFactorsPage,
   [PAGE_TYPES.LAYERED_DEFENSE_LAB]: LayeredDefenseLabPage,
+
+  // Lesson 2-2 Pages
+  [PAGE_TYPES.NETWORK_SECURITY_CORE]: FirewallVpnDmzPage,
+  [PAGE_TYPES.DEFENSE_IN_DEPTH_LAYERS]: DefenseInDepthLayersPage,
+  [PAGE_TYPES.ZERO_TRUST_LAB]: ZeroTrustArchitecturePage,
 
   // Front-matter registrations
   [PAGE_TYPES.GLOBAL_ROADMAP]: GlobalRoadmapPage,

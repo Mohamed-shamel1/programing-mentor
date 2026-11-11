@@ -26,7 +26,7 @@ export default function AuthenticationFactorsPage({
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   return (
-    <div className="authentication-factors-page" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', height: '100%' }}>
+    <div className="educational-page authentication-factors-page" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', height: '100%' }}>
       {/* Station Header */}
       <div className="station-header-compact" style={{ borderBottom: '1px solid #a7f3d0', paddingBottom: 'var(--space-2)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--space-2)' }}>

@@ -27,12 +27,17 @@ export const lesson21Data = {
     { acronym: 'HTTP', fullEn: 'Hypertext Transfer Protocol', termAr: 'بروتوكول نقل النص الفائق', desc: 'بروتوكول الويب التقليدي غير المشفر؛ تنتقل فيه البيانات كنص صريح يسهل التنصت عليه.' },
     { acronym: 'TLS', fullEn: 'Transport Layer Security', termAr: 'أمان طبقة النقل', desc: 'بروتوكول التشفير القياسي الحديث الذي يؤمن اتصال HTTPS بين المتصفح والخادم.' },
     { acronym: 'SSL', fullEn: 'Secure Sockets Layer', termAr: 'طبقة المنافذ الآمنة', desc: 'الجيل القديم التاريخي لبروتوكول التشفير الذي تم استبداله وتطويره إلى TLS.' },
+    { acronym: 'Common-Key', fullEn: 'Common-key Cryptography (Symmetric)', termAr: 'تشفير المفتاح المشترك (المتماثل)', desc: 'نوع التشفير الذي يستخدم مفتاحاً واحداً سرياً مشتركاً؛ يُستخدم لتبادل كميات ضخمة من البيانات بسرعة فائقة (Quickly).' },
+    { acronym: 'Public-Key', fullEn: 'Public-key Cryptography (Asymmetric)', termAr: 'التشفير بالمفتاح العام (غير المتماثل)', desc: 'نوع تشفير يستخدم زوجاً من المفاتيح المترابطة (مفتاح عام ومفتاح خاص)؛ يُستخدم لمشاركة المفاتيح بأمان والمصادقة (Safely).' },
+    { acronym: 'Cert', fullEn: 'Digital Certificate', termAr: 'الشهادة الرقمية', desc: 'وثيقة إلكترونية رسمية تثبت أن خادم الموقع أصلي وحقيقي (Genuine) وتربط بين هوية الخادم واسم النطاق.' },
+    { acronym: 'CA', fullEn: 'Certificate Authority', termAr: 'هيئة الشهادات الرقمية', desc: 'جهة عالمية موثوقة تصدر الشهادات الرقمية، ويتحقق المتصفح من خلالها من أصالة الموقع وهوية الخادم.' },
+    { acronym: 'DS', fullEn: 'Digital Signature', termAr: 'التوقيع الرقمي', desc: 'آلية أمنية لكشف التلاعب بالبيانات (Data Tampering) وانتحال صفة المرسل، وتوفر دليلاً يدعم عدم التنصل (Non-repudiation).' },
+    { acronym: 'Non-Rep', fullEn: 'Non-repudiation', termAr: 'عدم التنصل (عدم الإنكار)', desc: 'خاصية أمنية تضمن أن مرسل البيانات لا يمكنه بأي شكل إنكار إرسالها (The sender cannot deny having sent the data).' },
     { acronym: '2FA', fullEn: 'Two-Factor Authentication', termAr: 'المصادقة الثنائية', desc: 'استخدام عاملين مستقلين من فئتين مختلفتين تماماً لإثبات هوية المستخدم.' },
-    { acronym: 'MFA', fullEn: 'Multi-Factor Authentication', termAr: 'المصادقة متعددة العوامل', desc: 'استخدام عاملين أو أكثر من فئات مختلفة (معرفة، حيازة، سمات حيوية).' },
-    { acronym: 'OTP', fullEn: 'One-Time Password', termAr: 'كلمة المرور لمرة واحدة', desc: 'رمز أمان مؤقت وصالح للاستخدام مرة واحدة فقط ينتهي بعد فترة وجيزة (دقيقة أو ثوانٍ).' },
+    { acronym: 'MFA', fullEn: 'Multi-Factor Authentication', termAr: 'المصادقة متعددة العوامل', desc: 'استخدام عاملين أو أكثر من فئات مختلفة (معرفة، حيازة، سمات حيوية Biometrics).' },
+    { acronym: 'OTP', fullEn: 'One-Time Password', termAr: 'كلمة المرور لمرة واحدة', desc: 'رمز أمان مؤقت وصالح للاستخدام مرة واحدة فقط ينتهي بعد فترة وجيزة (عامل حيازة).' },
     { acronym: 'SMS', fullEn: 'Short Message Service', termAr: 'خدمة الرسائل القصيرة', desc: 'رسائل نصية ترسل للهاتف المحمول وتُستخدم كعامل حيازة لإرسال رموز التحقق.' },
-    { acronym: 'IC Card', fullEn: 'Integrated Circuit Card', termAr: 'بطاقة الدائرة المتكاملة (البطاقة الذكية)', desc: 'بطاقة إلكترونية تحمل شريحة مدمجة تخزن مفاتيح التشفير وبيانات الهوية.' },
-    { acronym: 'CA', fullEn: 'Certificate Authority', termAr: 'هيئة الشهادات الرقمية', desc: 'جهة عالمية موثوقة تصدر الشهادات الرقمية وتضمن صحة ارتباط الموقع بالخادم.' }
+    { acronym: 'IC Card', fullEn: 'Integrated Circuit Card', termAr: 'بطاقة الدائرة المتكاملة (البطاقة الذكية)', desc: 'بطاقة إلكترونية تحمل شريحة مدمجة تخزن مفاتيح التشفير وبيانات الهوية (عامل حيازة).' }
   ],
   pages: [
     {
@@ -50,68 +55,120 @@ export const lesson21Data = {
         subtitle: 'التوليفة العبقرية بين التشفير بالمفتاح العام (للأمان) والتشفير المتماثل (للسرعة القصوى)',
         dailyHumorNote: 'علامة القفل الخضراء في المتصفح مش معناها إن صاحب الموقع ملاك ومش هينصب عليك! دي معناها بس إن مفيش حد في الشارع يقدر يتجسس على كلمة سرك وهي ماشية في السلك!',
         grandQuestion: 'كيف تعمل تقنيات التشفير والمصادقة معاً للحفاظ على أمان الاتصال والخدمات عبر الإنترنت؟',
+
+        // 1. Foundation: HTTP + TLS = HTTPS & The 3 Protections
+        protocolFoundation: {
+          title: 'معادلة الأمان الأساسية: كيف وُلد بروتوكول HTTPS؟',
+          formula: 'HTTP (بروتوكول الويب العادي) + TLS (تقنية التشفير) = HTTPS (بروتوكول الويب الآمن)',
+          httpNote: 'HTTP هو وسيلة التواصل التقليدية؛ تنتقل فيه البيانات كنص صريح يسهل التنصت عليه وسرقته.',
+          tlsNote: 'TLS هو تقنية الأمان التي تقوم بتشفير وحماية الاتصال بين جهازك وخادم موقع الويب.',
+          withoutProtection: 'بدون هذه الحماية: قد تُسرق كلمات المرور والبيانات البنكية الخاصة، وتُقرأ من قِبل أي متلصص على الشبكة.'
+        },
+
+        // The 3 Specific Protections & Threats (Book p. 55)
+        threeProtections: [
+          {
+            featureAr: 'التشفير (Encryption)',
+            featureEn: 'Encryption',
+            threatAr: 'التنصت (Eavesdropping)',
+            desc: 'تشفير الرسائل أثناء انتقالها بحيث يتعذر على أي شخص آخر قراءتها.'
+          },
+          {
+            featureAr: 'اكتشاف التلاعب (Tamper Detection)',
+            featureEn: 'Tamper Detection',
+            threatAr: 'التلاعب بالبيانات (Tampering)',
+            desc: 'كشف أي محاولة لتعديل أو تغيير البيانات والصفحات أثناء النقل.'
+          },
+          {
+            featureAr: 'التحقق من الطرف المقابل (Partner Verification)',
+            featureEn: 'Partner Verification',
+            threatAr: 'انتحال الشخصية (Impersonation)',
+            desc: 'تأكيد المتصفح أن الموقع المتصل به هو الموقع الأصلي الحقيقي (Genuine).'
+          }
+        ],
+
+        // Official Exam Padlock Warning (Book Note p. 55)
+        padlockWarning: {
+          badge: 'تنبيه امتحاني هام (كتاب الفائز ص 55):',
+          title: 'فخ علامة القفل (The Padlock Fallacy)',
+          text: 'قد يكون الموقع يستخدم HTTPS فعلاً، ولكن الموقع نفسه قد يكون موقعاً احتيالياً (Fraudulent site) أو يعرض محتوى ضاراً! HTTPS يضمن فقط تشفير البيانات في السلك وهوية النطاق، لكنه لا يضمن أمانة أو صدق صاحب الموقع.'
+        },
         
         // Definition Card
         definitionCard: {
           termAr: 'اتصال HTTPS ومصافحة TLS',
           termEn: 'HTTPS & TLS Handshake Flow',
           icon: 'lock',
-          officialExamDefinition: 'HTTPS هو بروتوكول HTTP منقول عبر اتصال TLS مؤمّن. يوفر TLS سرية البيانات وسلامتها أثناء النقل، ويساعد المتصفح على التحقق من هوية الخادم واسم النطاق. وتسمى خطوات إنشاء الاتصال الآمن "مصافحة TLS".',
+          officialExamDefinition: 'HTTPS هو بروتوكول HTTP منقول عبر اتصال TLS مؤمّن. يوفر TLS سرية البيانات وسلامتها أثناء النقل، ويساعد المتصفح على التحقق من هوية الخادم واسم النطاق عبر هيئة الشهادات (CA). وتسمى خطوات إنشاء الاتصال الآمن "مصافحة TLS".',
           plainExplanation: 'تخيل إنك بتبعت جواب في صندوق حديد مقفول.. لو بعت المفتاح مع الصندوق، الساعي ممكن يفتحه ويسرقه! الحل؟ السيرفر بيبعتلك قفل مفتوح (مفتاح عام)، أنت تحط فيه سر الجلسة وتقفله بالقفل، ومحدش يقدر يفتحه غير السيرفر بمفتاحه الخاص السري. بعدها بنشفر كلامنا كله بسرعة بمفتاح الجلسة المشترك!',
-          engineerGoldenRule: 'قاعدة الامتحان الذهبية: "المفتاح العام للمصادقة والاتفاق على الأسرار بأمان.. والتشفير المتماثل لنقل بيانات الجلسة بسرعة وكفاءة."'
+          engineerGoldenRule: 'قاعدة الامتحان الذهبية: "المفتاح العام (Public-Key) لمشاركة المفاتيح بأمان والمصادقة (Safely).. والمفتاح المشترك (Common-Key / Symmetric) لنقل كميات البيانات الضخمة بسرعة فائقة (Quickly)."'
         },
 
-        // TLS Handshake Stages
-        stagesTitle: 'مراحل مصافحة TLS الثلاث لإنشاء اتصال آمن',
+        // TLS Handshake Stages (Detailed from Book Table p. 56)
+        stagesTitle: 'مراحل مصافحة TLS الثلاث لإنشاء اتصال آمن (جدول كتاب الوزارة والفائز ص 56)',
         stages: [
           {
             stepNumber: '01',
-            nameAr: 'التحقق من الشهادة الرقمية',
-            nameEn: 'Certificate Verification',
-            actionAr: 'أثناء المصافحة، يرسل خادم الويب شهادته الرقمية مع مفتاحه العام. يتحقق المتصفح من صلاحيتها وسلسلة الثقة (CA) وملاءمتها لاسم النطاق (Domain Name).',
-            protectionMechanism: 'التشفير بالمفتاح العام (Public-Key Cryptography)',
+            nameAr: '1. مرحلة الاتصال (Connection)',
+            nameEn: 'Stage 1: Connection & Certificate Verification',
+            actionAr: 'يرسل خادم الويب شهادته الرقمية ومفتاحه العام إلى المتصفح. يتحقق المتصفح من صلاحية وأصالة الخادم من خلال هيئة إصدار الشهادات (CA) ليتأكد أنه الموقع الأصلي الحقيقي (Genuine).',
+            protectionMechanism: 'التشفير بالمفتاح العام (Public-key cryptography)',
             icon: 'verified_user',
             badgeColor: '#059669',
-            examNote: 'تحمي من انتحال صفة الموقع (Website Impersonation)'
+            examNote: 'المتصفح عبر الـ CA يتحقق من أصالة الموقع (Genuine Site) لمنع الانتحال'
           },
           {
             stepNumber: '02',
-            nameAr: 'اشتقاق مفاتيح الجلسة (تبادل المفاتيح)',
-            nameEn: 'Session Key Derivation & Key Exchange',
-            actionAr: 'في المصافحة نفسها، يتفاوض الطرفان على أسرار مشتركة، ويشتق كل طرف مفتاح الجلسة لديه دون إرسال المفتاح نفسه عبر الشبكة إطلاقاً!',
-            protectionMechanism: 'التشفير بالمفتاح العام (Public-Key Cryptography)',
+            nameAr: '2. مرحلة تبادل المفاتيح (Key Exchange)',
+            nameEn: 'Stage 2: Key Exchange & Private Key Decryption',
+            actionAr: 'يُنشئ المتصفح مفتاحاً مشتركاً للاتصال، ويشفّره باستخدام المفتاح العام للخادم، ثم يرسله للخادم. يقوم الخادم بفك تشفيره باستخدام مفتاحه الخاص السري (Private Key) للحصول على المفتاح المشترك.',
+            protectionMechanism: 'التشفير بالمفتاح العام (Public-key cryptography)',
             icon: 'vpn_key',
             badgeColor: '#0d9488',
-            examNote: 'تحمي من اعتراض المفتاح أثناء النقل (No Key Over Wire)'
+            examNote: 'سؤال الامتحان Q8: الخادم يستخدم حصراً "المفتاح الخاص (Private Key)" لفك تشفير المفتاح المشترك'
           },
           {
             stepNumber: '03',
-            nameAr: 'تبادل البيانات المحمية',
-            nameEn: 'Secure Data Exchange',
-            actionAr: 'تُحمى جميع بيانات الجلسة (صفحات الويب، رسائل الشات، بيانات الشراء) بالتشفير المتماثل فائق السرعة وآليات سلامة البيانات.',
-            protectionMechanism: 'التشفير المتماثل (Symmetric Cryptography)',
+            nameAr: '3. مرحلة تبادل البيانات (Data Communication)',
+            nameEn: 'Stage 3: Fast Data Exchange via Common-Key',
+            actionAr: 'يتم تشفير جميع بيانات الجلسة (صفحات الويب، كلمات المرور، الشراء) وتبادلها بين المتصفح والخادم باستخدام المفتاح المشترك (Common-key).',
+            protectionMechanism: 'تشفير المفتاح المشترك (Common-key cryptography)',
             icon: 'bolt',
             badgeColor: '#0284c7',
-            examNote: 'يوفر السرعة والكفاءة العالية لحجم البيانات الضخم'
+            examNote: 'يُستخدم لنقل كميات البيانات الكبيرة بسرعة وكفاءة فائقة (Quickly & Efficiently)'
           }
         ],
 
+        // Modern vs Classic Note
+        keyExchangeNote: 'ملاحظة تعليمية (ص 56): تُظهر عملية التبادل المذكورة أعلاه إحدى الطرق الكلاسيكية لمشاركة المفتاح المشترك (RSA)، غير أن الإصدارات الحالية من بروتوكول TLS تستخدم بدلاً من ذلك آلية "ديفي-هيلمان (Diffie-Hellman)" للاتفاق على المفتاح.',
+
+        // Official 6-Mark Essay Question Box: Division of Roles (Book p. 56 & p. 60)
+        divisionOfRoles: {
+          badge: 'سؤال مقالي رسمي (6 درجات) — كتاب الفائز ص 60',
+          title: 'مبدأ تقسيم الأدوار (Division of Roles) في بروتوكول HTTPS:',
+          question: 'اشرح لماذا يستخدم بروتوكول HTTPS التشفير بالمفتاح العام لتبادل المفتاح، بينما يستخدم تشفير المفتاح المشترك لنقل البيانات؟ [أشر إلى: الأمان والسرعة]',
+          coreReason: 'تقسيم الأدوار يجمع بين ميزتي الأمان الفائق وسرعة الاتصال معاً:',
+          publicKeyPart: '• التشفير بالمفتاح العام (Public-key): يُستخدم لـ "مشاركة وتبادل المفاتيح بأمان (Share keys safely)" والمصادقة في البداية دون إرسال السر عبر الشبكة.',
+          commonKeyPart: '• تشفير المفتاح المشترك (Common-key): يُستخدم لـ "تبادل ونقل كميات البيانات الكبيرة بسرعة فائقة (Exchange large amounts of data quickly)" لخفة وزنه على المعالج.',
+          summarySentence: 'هذا التقسيم الذكي للأدوار يجعل من الممكن تحقيق أمان الاتصال وسرعته العالية في آن واحد.'
+        },
+
         // Dual Keys Comparison Box
         comparisonBox: {
-          title: 'لماذا لا نستخدم التشفير بالمفتاح العام طوال الوقت؟',
+          title: 'المقارنة الامتحانية: تشفير المفتاح المشترك مقابل المفتاح العام',
           symmetric: {
-            title: 'التشفير المتماثل (Symmetric)',
+            title: 'المفتاح المشترك / المتماثل (Common-Key / Symmetric)',
             keyInfo: 'مفتاح سري واحد مشترك للتشفير وفك التشفير',
-            pros: 'فائق السرعة وخفيف جداً على المعالج والبطارية',
-            cons: 'معضلة تبادل المفتاح بأمان في البداية',
-            roleInHttps: 'حماية كل بيانات الجلسة بعد الاتفاق'
+            pros: 'فائق السرعة (Quickly) وخفيف جداً لتبادل البيانات الضخمة',
+            cons: 'معضلة تبادل المفتاح بأمان في البداية عبر الإنترنت',
+            roleInHttps: 'حماية كل بيانات الجلسة بعد انتهاء المصافحة'
           },
           asymmetric: {
-            title: 'التشفير بالمفتاح العام (Asymmetric)',
-            keyInfo: 'زوج مفاتيح مرتبط: مفتاح عام (للجميع) ومفتاح خاص (سري للخادم فقط)',
-            pros: 'أمان فائق ولا يحتاج لإرسال المفتاح السري',
+            title: 'المفتاح العام / غير المتماثل (Public-Key / Asymmetric)',
+            keyInfo: 'زوج مفاتيح مرتبط: مفتاح عام (للجميع) ومفتاح خاص (سري للخادم)',
+            pros: 'أمان فائق لمشاركة وتبادل المفاتيح بأمان (Safely) دون إرسال السر',
             cons: 'بطيء حسابياً ويستهلك طاقة معالجة أكبر بألف مرة',
-            roleInHttps: 'مصافحة البداية فقط (المصادقة والاتفاق على مفتاح الجلسة)'
+            roleInHttps: 'مصافحة البداية فقط (المصادقة والاتفاق الآمن على مفتاح الجلسة)'
           }
         },
 
@@ -178,8 +235,8 @@ export const lesson21Data = {
           },
           {
             id: 'cat-inherence',
-            title: '3. السمات الحيوية (Inherence)',
-            subtitle: 'ما أنت عليه في جسدك (Something you are)',
+            title: '3. السمات الحيوية (Inherence / Biometrics)',
+            subtitle: 'ما أنت عليه في جسدك (Something you are / Biometrics)',
             icon: 'fingerprint',
             color: '#7c3aed',
             bgColor: '#f5f3ff',
@@ -252,28 +309,86 @@ export const lesson21Data = {
         // Technologies Matrix
         techMatrix: [
           {
-            techName: 'التشفير (المتماثل / المفتاح العام)',
-            techNameEn: 'Encryption (Symmetric & Public-Key)',
-            effect: 'يمنع قراءة محتوى الاتصال والتنصت من قِبل أي طرف ثالث.',
-            threatAddressed: 'التنصت وسرقة البيانات أثناء النقل (Eavesdropping)'
+            techName: 'التشفير (المشترك / المفتاح العام)',
+            techNameEn: 'Encryption (Common-Key & Public-Key)',
+            effect: 'يحافظ على خصوصية وسرية محتوى الاتصال (Keep communication private) ويمنع التنصت من أي طرف ثالث.',
+            threatAddressed: 'التنصت وسرقة خصوصية البيانات (Eavesdropping)'
           },
           {
-            techName: 'الشهادة الرقمية',
-            techNameEn: 'Digital Certificate',
-            effect: 'تساعد المتصفح على التحقق من هوية الخادم واسم النطاق الذي يتصل به.',
-            threatAddressed: 'انتحال شخصية المواقع والمواقع المزيفة (Impersonation)'
+            techName: 'الشهادة الرقمية (عبر الـ CA)',
+            techNameEn: 'Digital Certificate (via CA)',
+            effect: 'تساعد المتصفح عبر هيئة الشهادات على التأكد من أن موقع الويب أصلي وحقيقي (Genuine Partner) ومطابق للنطاق.',
+            threatAddressed: 'انتحال صفة الموقع والمواقع المزيفة (Impersonation)'
           },
           {
             techName: 'المصادقة الثنائية (2FA)',
-            techNameEn: 'Two-Factor Authentication',
-            effect: 'تقلل احتمال تسجيل الدخول غير المصرح به باستخدام عاملين مستقلين.',
-            threatAddressed: 'اختراق الحسابات عند تسرب كلمات المرور (Unauthorized Login)'
+            techNameEn: 'Two-Factor Authentication (2FA)',
+            effect: 'تمنع تسجيل الدخول غير المصرح به عند تسرب أو اختراق كلمة المرور بواسطة عامل ثانٍ مستقل.',
+            threatAddressed: 'اختراق الحسابات والدخول غير المصرح به (Unauthorized Logins)'
           },
           {
             techName: 'التوقيع الرقمي',
             techNameEn: 'Digital Signature',
-            effect: 'يدعم التحقق من سلامة البيانات وهوية الموقّع، ويوفر دليلاً يدعم عدم التنصل (Non-repudiation).',
-            threatAddressed: 'التلاعب بالرسائل وإنكار تنفيذ المعاملات (Tampering & Repudiation)'
+            effect: 'يكتشف التلاعب بالبيانات (Data Tampering) وانتحال المرسل، ويدعم عدم التنصل (Non-repudiation: المرسل لا يمكنه إنكار الإرسال).',
+            threatAddressed: 'التلاعب بالرسائل وإنكار المعاملات (Tampering & Repudiation)'
+          }
+        ],
+
+        // Exam Traps Box (The Trustworthiness Fallacies)
+        examTraps: [
+          {
+            trapTitle: 'فخ صح وخطأ: هل HTTPS يضمن أن الموقع غير احتيالي؟ (TF Q20)',
+            trapText: '❌ خطأ! استخدام HTTPS لا يضمن أبداً أن الموقع صادق أو أن محتواه خالٍ من الاحتيال! HTTPS يضمن فقط تشفير البيانات أثناء النقل وهوية النطاق.'
+          },
+          {
+            trapTitle: 'فخ صح وخطأ: هل التوقيع الرقمي يضمن مصداقية الموقع وصحة معلوماته؟ (TF Q18)',
+            trapText: '❌ خطأ! التوقيع الرقمي يضمن فقط سلامة البيانات وهوية الموقّع وعدم الإنكار، لكنه لا يضمن أن الموقع موثوق أخلاقياً أو أن المحتوى صحيح دائماً.'
+          }
+        ],
+
+        // Official Scientific Concepts Bank (Direct from Ministry & Al-Faez Exam p.65)
+        scientificConcepts: [
+          {
+            id: 'sc-1',
+            termEn: 'HTTPS',
+            termAr: 'بروتوكول نقل النص الفائق الآمن (HTTPS)',
+            definitionEn: 'A protocol that uses HTTP over a secure TLS connection to provide secure web communications.',
+            definitionAr: 'بروتوكول يستخدم HTTP عبر اتصال TLS آمن لتوفير اتصالات ويب محمية.'
+          },
+          {
+            id: 'sc-2',
+            termEn: 'TLS Handshake',
+            termAr: 'مصافحة TLS',
+            definitionEn: 'The sequence of steps and procedure used to establish a secure communication connection between browser and server using TLS.',
+            definitionAr: 'سلسلة الخطوات والإجراءات المتبعة لإنشاء اتصال آمن بين المتصفح والخادم باستخدام TLS.'
+          },
+          {
+            id: 'sc-3',
+            termEn: 'Digital Certificate',
+            termAr: 'الشهادة الرقمية',
+            definitionEn: 'A certificate that helps the browser verify the identity of the server and its association with the domain name to ensure it is genuine.',
+            definitionAr: 'شهادة تساعد المتصفح على التحقق من هوية الخادم وارتباطه باسم النطاق للتأكد من أن الموقع أصلي.'
+          },
+          {
+            id: 'sc-4',
+            termEn: 'Public-Key Cryptography',
+            termAr: 'التشفير بالمفتاح العام (غير المتماثل)',
+            definitionEn: 'A type of cryptography that uses a pair of related keys: a public key and a private key (used to share keys safely).',
+            definitionAr: 'نوع تشفير يستخدم زوجاً من المفاتيح المترابطة: مفتاح عام ومفتاح خاص (يُستخدم لمشاركة المفاتيح بأمان).'
+          },
+          {
+            id: 'sc-5',
+            termEn: 'Common-Key Cryptography',
+            termAr: 'تشفير المفتاح المشترك (المتماثل)',
+            definitionEn: 'A type of cryptography used to protect communication data quickly and efficiently after session keys are established (used to exchange large amounts of data quickly).',
+            definitionAr: 'نوع تشفير يُستخدم لحماية بيانات الاتصال بسرعة وكفاءة بعد إنشاء مفاتيح الجلسة (لتبادل كميات ضخمة من البيانات بسرعة).'
+          },
+          {
+            id: 'sc-6',
+            termEn: 'Two-Factor Authentication (2FA)',
+            termAr: 'المصادقة الثنائية (2FA)',
+            definitionEn: 'The use of two independent factors from two different categories to verify a user\'s identity.',
+            definitionAr: 'استخدام عاملين مستقلين من فئتين مختلفتين تماماً للتحقق من هوية المستخدم.'
           }
         ],
 

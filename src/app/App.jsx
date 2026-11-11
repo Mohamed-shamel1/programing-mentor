@@ -32,6 +32,10 @@ import { lesson21Data } from '../data/lesson21Data.js';
 import { lesson21DataEn } from '../data/lesson21DataEn.js';
 import { lesson21ExamData } from '../data/lesson21ExamData.js';
 import { lesson21ExamDataEn } from '../data/lesson21ExamDataEn.js';
+import { lesson22Data } from '../data/lesson22Data.js';
+import { lesson22DataEn } from '../data/lesson22DataEn.js';
+import { lesson22ExamData } from '../data/lesson22ExamData.js';
+import { lesson22ExamDataEn } from '../data/lesson22ExamDataEn.js';
 import { lesson01CheatSheetData } from '../data/lesson01CheatSheetData.js';
 import { lesson01CheatSheetDataEn } from '../data/lesson01CheatSheetDataEn.js';
 import { globalRoadmapData, progressTrackerData, masteryPedagogyData } from '../data/frontMatterData.js';
@@ -42,7 +46,17 @@ import { useLanguage } from '../i18n/LanguageContext.js';
 import { LanguageProvider } from '../i18n/LanguageProvider.jsx';
 
 function AppContent() {
-  const [currentView, setCurrentView] = useState(VIEWS.CURRICULUM_COVER);
+  const [currentView, setCurrentView] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      if (hash === '#unit-summary' || hash === '#unit-01-summary' || hash === '#summary') return VIEWS.UNIT_01_MASTER_SUMMARY;
+      if (hash === '#booklet-2-2' || hash === '#print-2-2') return VIEWS.LESSON_2_2_BOOKLET;
+      if (hash === '#lesson-2-2' || hash === '#lesson22') return VIEWS.LESSON_2_2_PAGE1;
+      if (hash === '#booklet-2-1' || hash === '#print-2-1') return VIEWS.LESSON_2_1_BOOKLET;
+      if (hash === '#lesson-2-1' || hash === '#lesson21') return VIEWS.LESSON_2_1_PAGE1;
+    }
+    return VIEWS.CURRICULUM_COVER;
+  });
   const { language, t } = useLanguage();
 
   // Standalone Student Exam Mode triggered by hash #exam-1-1 or #exam-1-2 or query param
@@ -83,14 +97,24 @@ function AppContent() {
   }, []);
 
   // Active curriculum data resolved by current language
-  const [selectedLessonId, setSelectedLessonId] = useState('lesson-1-1');
+  const [selectedLessonId, setSelectedLessonId] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      if (hash.includes('2-2') || hash.includes('22')) return 'lesson-2-2';
+      if (hash.includes('2-1') || hash.includes('21')) return 'lesson-2-1';
+    }
+    return 'lesson-1-1';
+  });
   const activeLesson01 = language === 'en' ? lesson01DataEn : lesson01Data;
   const activeLesson02 = language === 'en' ? lesson02DataEn : lesson02Data;
   const activeLesson03 = language === 'en' ? lesson03DataEn : lesson03Data;
   const activeLesson04 = language === 'en' ? lesson04DataEn : lesson04Data;
   const activeLesson21 = language === 'en' ? lesson21DataEn : lesson21Data;
-  const currentActiveLesson =
-    selectedLessonId === 'lesson-2-1'
+  const activeLesson22 = language === 'en' ? lesson22DataEn : lesson22Data;
+    const currentActiveLesson =
+    selectedLessonId === 'lesson-2-2'
+      ? activeLesson22
+      : selectedLessonId === 'lesson-2-1'
       ? activeLesson21
       : selectedLessonId === 'lesson-1-4'
       ? activeLesson04
@@ -104,6 +128,7 @@ function AppContent() {
   const activeLesson03Exam = language === 'en' ? lesson03ExamDataEn : lesson03ExamData;
   const activeLesson04Exam = language === 'en' ? lesson04ExamDataEn : lesson04ExamData;
   const activeLesson21Exam = language === 'en' ? lesson21ExamDataEn : lesson21ExamData;
+  const activeLesson22Exam = language === 'en' ? lesson22ExamDataEn : lesson22ExamData;
   const activeRoadmap = language === 'en' ? globalRoadmapDataEn : globalRoadmapData;
   const activeTracker = language === 'en' ? progressTrackerDataEn : progressTrackerData;
   const activePedagogy = language === 'en' ? masteryPedagogyDataEn : masteryPedagogyData;
@@ -293,7 +318,10 @@ function AppContent() {
   const handleSelectLesson = (lessonId) => {
     const targetLessonId = lessonId || 'lesson-1-1';
     setSelectedLessonId(targetLessonId);
-    if (targetLessonId === 'lesson-2-1') {
+    if (targetLessonId === 'lesson-2-2') {
+      setCurrentView(VIEWS.LESSON_2_2_PAGE1);
+      setCurrentLessonPageId('page-01');
+    } else if (targetLessonId === 'lesson-2-1') {
       setCurrentView(VIEWS.LESSON_2_1_PAGE1);
       setCurrentLessonPageId('page-01');
     } else if (targetLessonId === 'lesson-1-4') {
@@ -317,7 +345,9 @@ function AppContent() {
     const targetEntry = Object.entries(lessonPageIdMap).find(
       ([view, id]) =>
         id === pageId &&
-        (selectedLessonId === 'lesson-2-1'
+        (selectedLessonId === 'lesson-2-2'
+          ? view.startsWith('LESSON_2_2')
+          : selectedLessonId === 'lesson-2-1'
           ? view.startsWith('LESSON_2_1')
           : selectedLessonId === 'lesson-1-4'
           ? view.startsWith('LESSON_1_4')
@@ -520,6 +550,9 @@ function AppContent() {
 
       case VIEWS.LESSON_2_1_EXAM:
         return <LessonExamPage customData={activeLesson21Exam} />;
+
+      case VIEWS.LESSON_2_2_EXAM:
+        return <LessonExamPage customData={activeLesson22Exam} />;
 
       case VIEWS.LESSON_1_2_BOOKLET:
         return (
@@ -753,6 +786,64 @@ function AppContent() {
           </div>
         );
 
+      case VIEWS.LESSON_2_2_BOOKLET:
+        return (
+          <div className="booklet-lesson-container">
+            <div
+              className="screen-only"
+              style={{
+                 maxWidth: 'var(--a4-preview-width)',
+                 margin: '0 auto var(--space-4)',
+                 padding: 'var(--space-3) var(--space-4)',
+                 backgroundColor: 'var(--color-navy-50)',
+                 border: '1px solid var(--color-navy-100)',
+                 borderRadius: 'var(--radius-sm)',
+                 display: 'flex',
+                 alignItems: 'center',
+                 justifyContent: 'space-between',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--font-size-xs)', color: 'var(--color-navy-900)' }}>
+                <span
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--color-success-600)',
+                    display: 'inline-block',
+                  }}
+                />
+                <strong>{t('lessonBookletPreviewNote')}</strong>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => window.print()}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: 'var(--color-cobalt-600)',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: 'var(--radius-sm)',
+                  padding: '6px 14px',
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: 'var(--font-size-xs)',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  boxShadow: 'var(--shadow-sm)',
+                }}
+              >
+                <Icon name="print" size={16} color="#ffffff" />
+                <span>{t('printBookletAction')}</span>
+              </button>
+            </div>
+
+            <LessonRenderer lesson={activeLesson22} />
+          </div>
+        );
+
       default: {
         return (
           <div className="lesson-continuous-feed">
@@ -763,6 +854,11 @@ function AppContent() {
     }
   };
 
+  const isExam22 =
+    selectedLessonId === 'lesson-2-2' ||
+    (typeof window !== 'undefined' &&
+      (window.location.hash.startsWith('#exam-2-2') ||
+        window.location.search.includes('exam=2-2')));
   const isExam21 =
     selectedLessonId === 'lesson-2-1' ||
     (typeof window !== 'undefined' &&
@@ -783,7 +879,9 @@ function AppContent() {
     (typeof window !== 'undefined' &&
       (window.location.hash.startsWith('#exam-1-2') ||
         window.location.search.includes('exam=1-2')));
-  const currentActiveExam = isExam21
+  const currentActiveExam = isExam22
+    ? activeLesson22Exam
+    : isExam21
     ? activeLesson21Exam
     : isExam14
     ? activeLesson04Exam
@@ -799,7 +897,8 @@ function AppContent() {
     currentView === VIEWS.LESSON_1_2_EXAM ||
     currentView === VIEWS.LESSON_1_3_EXAM ||
     currentView === VIEWS.LESSON_1_4_EXAM ||
-    currentView === VIEWS.LESSON_2_1_EXAM
+    currentView === VIEWS.LESSON_2_1_EXAM ||
+    currentView === VIEWS.LESSON_2_2_EXAM
   ) {
     return (
       <div
@@ -907,7 +1006,9 @@ function AppContent() {
           onSelectPageId={handleSelectLessonPageId}
           onOpenBooklet={() =>
             setCurrentView(
-              selectedLessonId === 'lesson-2-1'
+              selectedLessonId === 'lesson-2-2'
+                ? VIEWS.LESSON_2_2_BOOKLET
+                : selectedLessonId === 'lesson-2-1'
                 ? VIEWS.LESSON_2_1_BOOKLET
                 : selectedLessonId === 'lesson-1-4'
                 ? VIEWS.LESSON_1_4_BOOKLET
@@ -920,7 +1021,9 @@ function AppContent() {
           }
           onOpenCheatSheet={() =>
             setCurrentView(
-              selectedLessonId === 'lesson-2-1'
+              selectedLessonId === 'lesson-2-2'
+                ? VIEWS.LESSON_2_2_PAGE3
+                : selectedLessonId === 'lesson-2-1'
                 ? VIEWS.LESSON_2_1_PAGE3
                 : selectedLessonId === 'lesson-1-4'
                 ? VIEWS.LESSON_1_4_PAGE3
@@ -933,7 +1036,9 @@ function AppContent() {
           }
           onOpenExam={() =>
             setCurrentView(
-              selectedLessonId === 'lesson-2-1'
+              selectedLessonId === 'lesson-2-2'
+                ? VIEWS.LESSON_2_2_EXAM
+                : selectedLessonId === 'lesson-2-1'
                 ? VIEWS.LESSON_2_1_EXAM
                 : selectedLessonId === 'lesson-1-4'
                 ? VIEWS.LESSON_1_4_EXAM

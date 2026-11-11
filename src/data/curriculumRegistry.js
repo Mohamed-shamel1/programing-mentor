@@ -26,6 +26,10 @@ import { lesson21Data } from './lesson21Data.js';
 import { lesson21DataEn } from './lesson21DataEn.js';
 import { lesson21ExamData } from './lesson21ExamData.js';
 import { lesson21ExamDataEn } from './lesson21ExamDataEn.js';
+import { lesson22Data } from './lesson22Data.js';
+import { lesson22DataEn } from './lesson22DataEn.js';
+import { lesson22ExamData } from './lesson22ExamData.js';
+import { lesson22ExamDataEn } from './lesson22ExamDataEn.js';
 
 export const CURRICULUM_LESSONS = [
   {
@@ -119,6 +123,24 @@ export const CURRICULUM_LESSONS = [
     examAr: lesson21ExamData,
     examEn: lesson21ExamDataEn,
     examHash: '#exam-2-1',
+  },
+  {
+    id: 'lesson-2-2',
+    code: '2-2',
+    unitNumber: 2,
+    unitTitleAr: 'الوحدة الثانية: الأمن السيبراني',
+    unitTitleEn: 'Unit 2: Cybersecurity Defense',
+    titleAr: 'الدرس 2-2: تصميم أمان الشبكة',
+    titleEn: 'Lesson 2-2: Network Security Design',
+    shortTitleAr: 'الدرس 2-2: تصميم أمان الشبكة',
+    shortTitleEn: 'Lesson 2-2: Network Security Design',
+    icon: 'hub',
+    status: 'ready',
+    dataAr: lesson22Data,
+    dataEn: lesson22DataEn,
+    examAr: lesson22ExamData,
+    examEn: lesson22ExamDataEn,
+    examHash: '#exam-2-2',
   },
 ];
 
