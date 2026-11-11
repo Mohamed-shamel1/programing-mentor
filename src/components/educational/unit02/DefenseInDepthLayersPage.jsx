@@ -156,18 +156,19 @@ export default function DefenseInDepthLayersPage({
       >
         <div
           style={{
-            backgroundColor: '#0f172a',
-            color: '#f8fafc',
+            backgroundColor: '#ecfdf5',
+            borderBottom: '1.5px solid #a7f3d0',
+            color: '#065f46',
             padding: '6px 12px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between'
           }}
         >
-          <strong style={{ fontSize: '11px' }}>
+          <strong style={{ fontSize: '11px', color: '#065f46' }}>
             {layersTableTitle || (isEn ? 'The 4 Network Security Layers Table (Textbook p. 70)' : 'جدول طبقات أمان الشبكة الأربعة وتدابير الحماية')}
           </strong>
-          <span style={{ fontSize: '9.5px', color: '#94a3b8' }}>
+          <span style={{ fontSize: '9.5px', color: '#059669', fontWeight: 600 }}>
             {isEn ? 'Layer 1 to Layer 4 progression' : 'التسلسل من مدخل الشبكة إلى الجهاز الطرفي'}
           </span>
         </div>

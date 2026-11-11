@@ -30,6 +30,10 @@ import { lesson22Data } from './lesson22Data.js';
 import { lesson22DataEn } from './lesson22DataEn.js';
 import { lesson22ExamData } from './lesson22ExamData.js';
 import { lesson22ExamDataEn } from './lesson22ExamDataEn.js';
+import { lesson23Data } from './lesson23Data.js';
+import { lesson23DataEn } from './lesson23DataEn.js';
+import { lesson23ExamData } from './lesson23ExamData.js';
+import { lesson23ExamDataEn } from './lesson23ExamDataEn.js';
 
 export const CURRICULUM_LESSONS = [
   {
@@ -141,6 +145,24 @@ export const CURRICULUM_LESSONS = [
     examAr: lesson22ExamData,
     examEn: lesson22ExamDataEn,
     examHash: '#exam-2-2',
+  },
+  {
+    id: 'lesson-2-3',
+    code: '2-3',
+    unitNumber: 2,
+    unitTitleAr: 'الوحدة الثانية: الأمن السيبراني',
+    unitTitleEn: 'Unit 2: Cybersecurity Defense',
+    titleAr: 'الدرس 2-3: الاستجابة للحوادث وإدارة المخاطر',
+    titleEn: 'Lesson 2-3: Incident Response and Risk Management',
+    shortTitleAr: 'الدرس 2-3: الاستجابة للحوادث والمخاطر',
+    shortTitleEn: 'Lesson 2-3: Incident Response',
+    icon: 'security_update_warning',
+    status: 'ready',
+    dataAr: lesson23Data,
+    dataEn: lesson23DataEn,
+    examAr: lesson23ExamData,
+    examEn: lesson23ExamDataEn,
+    examHash: '#exam-2-3',
   },
 ];
 

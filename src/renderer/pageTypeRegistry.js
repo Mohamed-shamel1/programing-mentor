@@ -32,6 +32,9 @@ import LayeredDefenseLabPage from '../components/educational/unit02/LayeredDefen
 import FirewallVpnDmzPage from '../components/educational/unit02/FirewallVpnDmzPage.jsx';
 import DefenseInDepthLayersPage from '../components/educational/unit02/DefenseInDepthLayersPage.jsx';
 import ZeroTrustArchitecturePage from '../components/educational/unit02/ZeroTrustArchitecturePage.jsx';
+import IncidentResponseFlowPage from '../components/educational/unit02/IncidentResponseFlowPage.jsx';
+import OrderMattersCaseStudyPage from '../components/educational/unit02/OrderMattersCaseStudyPage.jsx';
+import RiskAssessmentMatrixPage from '../components/educational/unit02/RiskAssessmentMatrixPage.jsx';
 import GlobalRoadmapPage from '../components/educational/frontmatter/GlobalRoadmapPage.jsx';
 import ProgressTrackerPage from '../components/educational/frontmatter/ProgressTrackerPage.jsx';
 import MasteryPedagogyPage from '../components/educational/frontmatter/MasteryPedagogyPage.jsx';
@@ -88,6 +91,11 @@ export const PAGE_TYPES = {
   DEFENSE_IN_DEPTH_LAYERS: 'DEFENSE_IN_DEPTH_LAYERS',
   ZERO_TRUST_LAB: 'ZERO_TRUST_LAB',
 
+  // Lesson 2-3 Dedicated Page Types (Unit 2: Cybersecurity)
+  INCIDENT_RESPONSE_FLOW: 'INCIDENT_RESPONSE_FLOW',
+  ORDER_MATTERS_CASE_STUDY: 'ORDER_MATTERS_CASE_STUDY',
+  RISK_ASSESSMENT_MATRIX: 'RISK_ASSESSMENT_MATRIX',
+
   // Front-Matter Opening Trilogy Page Types
   GLOBAL_ROADMAP: 'GLOBAL_ROADMAP',
   PROGRESS_TRACKER: 'PROGRESS_TRACKER',
@@ -139,6 +147,11 @@ const registry = {
   [PAGE_TYPES.NETWORK_SECURITY_CORE]: FirewallVpnDmzPage,
   [PAGE_TYPES.DEFENSE_IN_DEPTH_LAYERS]: DefenseInDepthLayersPage,
   [PAGE_TYPES.ZERO_TRUST_LAB]: ZeroTrustArchitecturePage,
+
+  // Lesson 2-3 Pages
+  [PAGE_TYPES.INCIDENT_RESPONSE_FLOW]: IncidentResponseFlowPage,
+  [PAGE_TYPES.ORDER_MATTERS_CASE_STUDY]: OrderMattersCaseStudyPage,
+  [PAGE_TYPES.RISK_ASSESSMENT_MATRIX]: RiskAssessmentMatrixPage,
 
   // Front-matter registrations
   [PAGE_TYPES.GLOBAL_ROADMAP]: GlobalRoadmapPage,

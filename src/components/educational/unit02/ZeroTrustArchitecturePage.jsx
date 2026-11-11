@@ -107,18 +107,19 @@ export default function ZeroTrustArchitecturePage({
         >
           <div
             style={{
-              backgroundColor: '#0f172a',
-              color: '#f8fafc',
+              backgroundColor: '#ecfdf5',
+              borderBottom: '1.5px solid #a7f3d0',
+              color: '#065f46',
               padding: '6px 12px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between'
             }}
           >
-            <strong style={{ fontSize: '11px' }}>
+            <strong style={{ fontSize: '11px', color: '#065f46' }}>
               {paradigmShift.title}
             </strong>
-            <span style={{ fontSize: '9.5px', color: '#94a3b8' }}>
+            <span style={{ fontSize: '9.5px', color: '#059669', fontWeight: 600 }}>
               {isEn ? 'Old Castle Model vs Modern Verification' : 'نموذج القلعة القديم مقابل التحقق المستمر'}
             </span>
           </div>

@@ -235,8 +235,8 @@ export default function AiEthicsPrinciplesPage({
         {/* Protocol Card */}
         {engineerProtocol && (
           <div style={{
-            backgroundColor: '#0f172a',
-            color: '#f8fafc',
+            backgroundColor: '#f8fafc',
+            border: '1.5px solid #bae6fd',
             borderRadius: '8px',
             padding: '8px 12px',
             display: 'flex',
@@ -244,8 +244,8 @@ export default function AiEthicsPrinciplesPage({
             gap: '6px'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Icon name="engineering" size={16} style={{ color: '#38bdf8' }} />
-              <h4 style={{ fontSize: '11px', fontWeight: 800, margin: 0, color: '#ffffff' }}>
+              <Icon name="engineering" size={16} style={{ color: '#0284c7' }} />
+              <h4 style={{ fontSize: '11px', fontWeight: 800, margin: 0, color: '#0369a1' }}>
                 {engineerProtocol.title}
               </h4>
             </div>
@@ -265,7 +265,7 @@ export default function AiEthicsPrinciplesPage({
                   </span>
                   <div>
                     <strong style={{ color: '#7dd3fc' }}>{st.title}: </strong>
-                    <span style={{ color: '#cbd5e1' }}>{st.desc}</span>
+                    <span style={{ color: '#334155' }}>{st.desc}</span>
                   </div>
                 </div>
               ))}

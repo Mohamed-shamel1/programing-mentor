@@ -238,26 +238,27 @@ export default function FirewallVpnDmzPage({
         })}
       </div>
 
-      {/* 5. Visual Topology Flow Diagram */}
+      {/* 5. Visual Topology Flow Diagram (Clean Light Theme) */}
       <div
         style={{
-          backgroundColor: '#0f172a',
-          color: '#ffffff',
-          borderRadius: '8px',
+          backgroundColor: '#ffffff',
+          border: '1.5px solid #a7f3d0',
+          borderRadius: '10px',
           padding: '8px 12px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '6px'
+          gap: '6px',
+          boxShadow: '0 2px 8px rgba(5, 150, 105, 0.06)'
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '4px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <Icon name="alt_route" size={16} style={{ color: '#34d399' }} />
-            <strong style={{ fontSize: '11px', color: '#f1f5f9' }}>
+            <Icon name="alt_route" size={16} style={{ color: '#059669' }} />
+            <strong style={{ fontSize: '11px', color: '#022c22' }}>
               {topologyTitle || (isEn ? 'Secure Network Topology Architecture' : 'مخطط طبولوجيا الشبكة الآمنة')}
             </strong>
           </div>
-          <span style={{ fontSize: '9.5px', color: '#94a3b8' }}>
+          <span style={{ fontSize: '9.5px', color: '#059669', fontWeight: 600 }}>
             {isEn ? 'Click any stage to inspect traffic boundary' : 'اضغط على أي مرحلة لفحص حدود الترافيك'}
           </span>
         </div>
@@ -267,10 +268,10 @@ export default function FirewallVpnDmzPage({
           {topologySteps.map((step, idx) => {
             const isStepActive = selectedStepIdx === idx;
             const stepColors = {
-              external: { border: '#ef4444', text: '#fca5a5', bg: 'rgba(239, 68, 68, 0.15)' },
-              firewall: { border: '#f59e0b', text: '#fcd34d', bg: 'rgba(245, 158, 11, 0.15)' },
-              dmz: { border: '#10b981', text: '#6ee7b7', bg: 'rgba(16, 185, 129, 0.15)' },
-              internal: { border: '#3b82f6', text: '#93c5fd', bg: 'rgba(59, 130, 246, 0.15)' }
+              external: { border: '#f87171', text: '#991b1b', bg: '#fef2f2', activeBg: '#fee2e2' },
+              firewall: { border: '#fbbf24', text: '#92400e', bg: '#fffbeb', activeBg: '#fef3c7' },
+              dmz: { border: '#34d399', text: '#065f46', bg: '#ecfdf5', activeBg: '#d1fae5' },
+              internal: { border: '#60a5fa', text: '#1e40af', bg: '#eff6ff', activeBg: '#dbeafe' }
             };
             const theme = stepColors[step.type] || stepColors.firewall;
 
@@ -279,15 +280,16 @@ export default function FirewallVpnDmzPage({
                 key={idx}
                 onClick={() => setSelectedStepIdx(isStepActive ? null : idx)}
                 style={{
-                  backgroundColor: isStepActive ? theme.bg : 'rgba(255, 255, 255, 0.05)',
-                  border: `1.5px solid ${isStepActive ? theme.border : 'rgba(255, 255, 255, 0.15)'}`,
+                  backgroundColor: isStepActive ? theme.activeBg : theme.bg,
+                  border: `1.5px solid ${isStepActive ? theme.border : '#e2e8f0'}`,
                   borderRadius: '6px',
                   padding: '6px 8px',
                   cursor: 'pointer',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '3px',
-                  transition: 'all 0.2s ease'
+                  transition: 'all 0.2s ease',
+                  boxShadow: isStepActive ? `0 2px 6px ${theme.border}40` : 'none'
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
@@ -296,7 +298,7 @@ export default function FirewallVpnDmzPage({
                     {step.label}
                   </span>
                 </div>
-                <span style={{ fontSize: '9.5px', color: '#cbd5e1', lineHeight: 1.3 }}>
+                <span style={{ fontSize: '9.5px', color: '#475569', lineHeight: 1.3 }}>
                   {step.desc}
                 </span>
               </div>

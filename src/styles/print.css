@@ -488,7 +488,10 @@
   .layered-defense-lab-page .station-header-compact,
   .firewall-vpn-dmz-page .station-header-compact,
   .defense-in-depth-layers-page .station-header-compact,
-  .zero-trust-architecture-page .station-header-compact {
+  .zero-trust-architecture-page .station-header-compact,
+  .incident-response-flow-page .station-header-compact,
+  .order-matters-case-study-page .station-header-compact,
+  .risk-assessment-matrix-page .station-header-compact {
     padding-bottom: 1mm !important;
     margin-bottom: 0 !important;
     border-bottom: 1pt solid #a7f3d0 !important;
@@ -499,7 +502,10 @@
   .layered-defense-lab-page .station-header-compact h2,
   .firewall-vpn-dmz-page .station-header-compact h2,
   .defense-in-depth-layers-page .station-header-compact h2,
-  .zero-trust-architecture-page .station-header-compact h2 {
+  .zero-trust-architecture-page .station-header-compact h2,
+  .incident-response-flow-page .station-header-compact h2,
+  .order-matters-case-study-page .station-header-compact h2,
+  .risk-assessment-matrix-page .station-header-compact h2 {
     font-size: 11pt !important;
     line-height: 1.2 !important;
   }
@@ -509,7 +515,10 @@
   .layered-defense-lab-page .station-pill,
   .firewall-vpn-dmz-page .station-pill,
   .defense-in-depth-layers-page .station-pill,
-  .zero-trust-architecture-page .station-pill {
+  .zero-trust-architecture-page .station-pill,
+  .incident-response-flow-page .station-pill,
+  .order-matters-case-study-page .station-pill,
+  .risk-assessment-matrix-page .station-pill {
     font-size: 7.5pt !important;
     padding: 0.5mm 2mm !important;
   }
@@ -520,7 +529,10 @@
   .layered-defense-lab-page .humor-banner,
   .firewall-vpn-dmz-page .humor-banner,
   .defense-in-depth-layers-page .humor-banner,
-  .zero-trust-architecture-page .humor-banner {
+  .zero-trust-architecture-page .humor-banner,
+  .incident-response-flow-page .humor-banner,
+  .order-matters-case-study-page .humor-banner,
+  .risk-assessment-matrix-page .humor-banner {
     padding: 1mm 2.5mm !important;
     margin-top: 1mm !important;
     font-size: 8pt !important;
@@ -534,7 +546,10 @@
   .layered-defense-lab-page button,
   .firewall-vpn-dmz-page button,
   .defense-in-depth-layers-page button,
-  .zero-trust-architecture-page button {
+  .zero-trust-architecture-page button,
+  .incident-response-flow-page button,
+  .order-matters-case-study-page button,
+  .risk-assessment-matrix-page button {
     display: none !important;
   }
 
@@ -729,7 +744,10 @@
   .layered-defense-lab-page > div,
   .firewall-vpn-dmz-page > div,
   .defense-in-depth-layers-page > div,
-  .zero-trust-architecture-page > div {
+  .zero-trust-architecture-page > div,
+  .incident-response-flow-page > div,
+  .order-matters-case-study-page > div,
+  .risk-assessment-matrix-page > div {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     box-shadow: none !important;
@@ -759,6 +777,33 @@
   .firewall-vpn-dmz-page strong,
   .defense-in-depth-layers-page strong,
   .zero-trust-architecture-page strong {
+    font-size: 8.5pt !important;
+  }
+
+  /* ====================================================================
+   * Unit 02 - Lesson 2-3: Incident Response & Risk Management Print Rules
+   * Pages: IncidentResponseFlowPage, OrderMattersCaseStudyPage, RiskAssessmentMatrixPage
+   * ==================================================================== */
+
+  .incident-response-flow-page,
+  .order-matters-case-study-page,
+  .risk-assessment-matrix-page {
+    gap: 1.2mm !important;
+  }
+
+  .incident-response-flow-page p,
+  .incident-response-flow-page span,
+  .order-matters-case-study-page p,
+  .order-matters-case-study-page span,
+  .risk-assessment-matrix-page p,
+  .risk-assessment-matrix-page span {
+    font-size: 8pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .incident-response-flow-page strong,
+  .order-matters-case-study-page strong,
+  .risk-assessment-matrix-page strong {
     font-size: 8.5pt !important;
   }
 

@@ -76,18 +76,18 @@ export default function AlgorithmicBiasPage({
       {/* Grand Question Banner */}
       {grandQuestion && (
         <div style={{
-          backgroundColor: '#0f172a',
-          color: '#ffffff',
+          backgroundColor: '#f0f9ff',
+          border: '1px solid #bae6fd',
           borderRadius: '8px',
           padding: '8px 12px',
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          borderLeft: isRTL ? 'none' : '4px solid #38bdf8',
-          borderRight: isRTL ? '4px solid #38bdf8' : 'none',
+          borderLeft: isRTL ? 'none' : '4px solid #0284c7',
+          borderRight: isRTL ? '4px solid #0284c7' : 'none',
         }}>
-          <Icon name="help" size={20} style={{ color: '#38bdf8', flexShrink: 0 }} />
-          <span style={{ fontSize: '12px', fontWeight: 600, lineHeight: 1.4 }}>
+          <Icon name="help" size={20} style={{ color: '#0284c7', flexShrink: 0 }} />
+          <span style={{ fontSize: '12px', fontWeight: 700, lineHeight: 1.4, color: '#0369a1' }}>
             {grandQuestion}
           </span>
         </div>

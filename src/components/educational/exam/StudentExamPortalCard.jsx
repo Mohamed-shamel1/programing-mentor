@@ -18,7 +18,7 @@ export default function StudentExamPortalCard({
   const isEn = language === 'en';
 
   const enableDual =
-    isDual !== null ? isDual : lessonCode === '1-2' || lessonCode === '1-3' || lessonCode === '1-4' || lessonCode === '2-1';
+    isDual !== null ? isDual : lessonCode === '1-2' || lessonCode === '1-3' || lessonCode === '1-4' || lessonCode === '2-1' || lessonCode === '2-2' || lessonCode === '2-3';
 
   const [copiedAr, setCopiedAr] = useState(false);
   const [copiedEn, setCopiedEn] = useState(false);
@@ -257,13 +257,7 @@ export default function StudentExamPortalCard({
               {/* URL snippet */}
               <div
                 style={{
-                  background: '#0f172a',
-                  borderRadius: '6px',
-                  padding: '6px 10px',
-                  marginBottom: '10px',
-                  fontFamily: 'monospace',
-                  fontSize: '11px',
-                  color: '#38bdf8',
+                  background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '6px', padding: '6px 10px', marginBottom: '10px', fontFamily: 'monospace', fontSize: '11px', color: '#0369a1',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
@@ -306,9 +300,7 @@ export default function StudentExamPortalCard({
                 style={{
                   flex: '1',
                   minHeight: '38px',
-                  background: '#0f172a',
-                  color: '#38bdf8',
-                  border: '1px solid #334155',
+                  background: 'var(--color-cobalt-600, #2563eb)', color: '#ffffff', border: 'none',
                   borderRadius: '6px',
                   fontSize: '11.5px',
                   fontWeight: 'bold',
@@ -409,13 +401,7 @@ export default function StudentExamPortalCard({
               {/* URL snippet */}
               <div
                 style={{
-                  background: '#0f172a',
-                  borderRadius: '6px',
-                  padding: '6px 10px',
-                  marginBottom: '10px',
-                  fontFamily: 'monospace',
-                  fontSize: '11px',
-                  color: '#38bdf8',
+                  background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '6px', padding: '6px 10px', marginBottom: '10px', fontFamily: 'monospace', fontSize: '11px', color: '#0369a1',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
@@ -458,9 +444,7 @@ export default function StudentExamPortalCard({
                 style={{
                   flex: '1',
                   minHeight: '38px',
-                  background: '#0f172a',
-                  color: '#38bdf8',
-                  border: '1px solid #334155',
+                  background: 'var(--color-cobalt-600, #2563eb)', color: '#ffffff', border: 'none',
                   borderRadius: '6px',
                   fontSize: '11.5px',
                   fontWeight: 'bold',
